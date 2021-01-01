@@ -21,4 +21,17 @@ Hello "gradle_kotlin"!
 ---
 
 
+- [Keywords](#keywords)
+- [Kotlin and Java Language](#kotlin-and-java-language)
+
+
+
+## Keywords
+- install Kotlin REPL Ubuntu Gradle jabba JDK Java JVM
+- `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE`
+- tutorial example
+
+
+
+## Kotlin and Java Language
 ![kotlin-java-decompile](doc/image/kotlin-java-decompile.png)
