@@ -36,7 +36,7 @@ basic_101 Hello Kotlin!
 
 
 ## Keywords
-- install Kotlin REPL Ubuntu Gradle jabba JDK Java 
+- install Kotlin REPL Ubuntu Gradle jabba JDK Java JVM
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE`
 - tutorial example
 
