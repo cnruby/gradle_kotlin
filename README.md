@@ -19,7 +19,7 @@
 basic_101 Hello Kotlin!
 <h1>Unit 101: Hello Kotlin!</h1>
 
-- install softwares and tools for developing kotlin on Ubuntu 20.04
+- install softwares and tools for developing Kotlin language on Ubuntu 20.04
 
 
 ---
@@ -31,11 +31,12 @@ basic_101 Hello Kotlin!
 - [install jabba and Java JDK](#install-jabba-and-java-jdk)
 - [install Command Line Kotlin Compiler (REPL)](#install-command-line-kotlin-compiler-repl)
 - [install IntelliJ CE / IntelliJ IDEA Community Edition](#install-intellij-ce--intellij-idea-community-edition)
+- [References](#references)
 
 
 
 ## Keywords
-- install kotlin REPL Ubuntu Gradle jabba JDK Java 
+- install Kotlin REPL Ubuntu Gradle jabba JDK Java 
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE`
 - tutorial example
 
@@ -44,7 +45,6 @@ basic_101 Hello Kotlin!
 ## Prerequisites
 - [install JDK on Ubuntu 20.04](https://github.com/cnruby/gradle_java/blob/basic_101/README.md)
 - [install Gradle on Ubuntu 20.04](https://github.com/cnruby/gradle_java/blob/basic_102/README.md)
-[![IntelliJ IEAD Community Version](https://img.shields.io/badge/IntelliJ%20IEAD%20Community%20Version-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
 
 
 
@@ -61,14 +61,22 @@ curl --version
 
 
 ## install jabba and Java JDK
+- https://github.com/shyiko/jabba
 - [Hello jabba!](https://github.com/cnruby/gradle_java/tree/basic_101)
 
 
 
 ## install Command Line Kotlin Compiler (REPL)
+- https://kotlinlang.org/docs/tutorials/command-line.html
 - Search the keyword `Kotlin` on `Ubuntu Software` to install REPL
 
 
+
 ## install IntelliJ CE / IntelliJ IDEA Community Edition
+- https://www.jetbrains.com/idea/download/#section=linux
 - Search the keyword `IntelliJ` on `Ubuntu Software` to install `IDEA Community`
 
+
+
+## References
+- https://kotlinlang.org/
