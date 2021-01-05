@@ -25,9 +25,10 @@ jobs:
           name: "install tools and kotlin"
           command: |
               apt-get update -y
-              apt-get install -y unzip zip curl
-              curl -s https://get.sdkman.io | bash
-              source "/root/.sdkman/bin/sdkman-init.sh" && sdk install kotlin
+              apt-get install -y unzip zip curl snapd && snap install --classic kotlin
+              # curl -s https://get.sdkman.io | bash
+              # source "/root/.sdkman/bin/sdkman-init.sh" && sdk install kotlin
+              # type kotlin
 
       # about Kotlin
       - run: kotlin -version
