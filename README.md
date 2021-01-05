@@ -23,8 +23,12 @@ Hello "gradle_kotlin"!
 
 - [Keywords](#keywords)
 - [Kotlin and Java Language](#kotlin-and-java-language)
+- [iOS and Android OS](#ios-and-android-os)
 - [Kotlin Language](#kotlin-language)
 - [References](#references)
+- [References for comment](#references-for-comment)
+- [References for tutorials](#references-for-tutorials)
+- [Others References](#others-references)
 
 
 
@@ -75,6 +79,7 @@ Hello "gradle_kotlin"!
 - https://developer.android.com/courses/kotlin-android-advanced/overview
 - https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012
 
-
+## Others References
 - https://developer.android.com/courses/kotlin-bootcamp/overview
 - https://play.kotlinlang.org/koans/overview
+- https://kotlinlang.org/docs/tutorials/command-line.html

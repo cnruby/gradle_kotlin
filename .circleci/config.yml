@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   build:
     docker:
@@ -32,9 +32,10 @@ jobs:
           command: |
               curl -s https://get.sdkman.io | bash
               source "/root/.sdkman/bin/sdkman-init.sh" && sdk install kotlin && type kotlin
+              echo 'export KOTLIN_ROOT=/root/.sdkman/candidates/kotlin/current' >> $BASH_ENV
+              echo 'export PATH=$PATH:$KOTLIN_ROOT/bin' >> $BASH_ENV
+              source $BASH_ENV
               echo $KOTLIN_ROOT
-              echo $KOTLIN_HOME
-              PATH=$PATH:/root/.sdkman/candidates/kotlin/current/bin
 
       # about Kotlin
       - run: kotlin -version
