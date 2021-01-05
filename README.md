@@ -34,7 +34,7 @@ Hello "gradle_kotlin"!
 
 ## Keywords
 - install Kotlin REPL Ubuntu Gradle jabba JDK Java JVM
-- `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE`
+- `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE` CircleCI CI
 - tutorial example
 
 
@@ -83,3 +83,4 @@ Hello "gradle_kotlin"!
 - https://developer.android.com/courses/kotlin-bootcamp/overview
 - https://play.kotlinlang.org/koans/overview
 - https://kotlinlang.org/docs/tutorials/command-line.html
+- https://circleci.com/docs/2.0/env-vars/
