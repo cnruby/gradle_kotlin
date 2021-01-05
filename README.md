@@ -206,3 +206,4 @@ kotlin -classpath ./build HalloKt
 
 ## References
 - https://kotlinlang.org/
+- https://github.com/saschpe/docker-kotlin/blob/master/Dockerfile
