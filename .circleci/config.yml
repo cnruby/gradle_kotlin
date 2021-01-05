@@ -1,7 +1,3 @@
-# Java Gradle CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-#
 version: 2
 jobs:
   build:
@@ -25,29 +21,13 @@ jobs:
     steps:      
       - checkout
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "build.gradle" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
-      # install tools
-      - run: apt-get update -y
-      - run: apt-get install -y unzip zip curl
-      - run: curl -s https://get.sdkman.io | bash
-      - run: source "/root/.sdkman/bin/sdkman-init.sh" && sdk install kotlin
-
-      # about Gradle
-      - run: ./gradlew --version
-
-      # project libraries
-      - run: ./gradlew dependencies
-
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: v1-dependencies-{{ checksum "build.gradle" }}
+      - run:
+          name: "install tools and kotlin"
+          command: |
+              apt-get update -y
+              apt-get install -y unzip zip curl
+              curl -s https://get.sdkman.io | bash
+              source "/root/.sdkman/bin/sdkman-init.sh" && sdk install kotlin
 
       # about Kotlin
       - run: kotlin -version
