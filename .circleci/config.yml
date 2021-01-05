@@ -36,6 +36,7 @@ jobs:
       - run: apt-get update -y
       - run: apt-get install -y unzip zip curl
       - run: curl -s https://get.sdkman.io | bash
+      - run: source "/root/.sdkman/bin/sdkman-init.sh"
       - run: sleep 5 && sdk install kotlin
 
       # about Gradle
