@@ -23,6 +23,8 @@ Hello "gradle_kotlin"!
 
 - [Keywords](#keywords)
 - [Kotlin and Java Language](#kotlin-and-java-language)
+- [Kotlin Language](#kotlin-language)
+- [References](#references)
 
 
 
@@ -35,3 +37,44 @@ Hello "gradle_kotlin"!
 
 ## Kotlin and Java Language
 ![kotlin-java-decompile](doc/image/kotlin-java-decompile.png)
+
+
+
+## iOS and Android OS
+![kotlin-ios-android](doc/image/kotlin-ios-android.png)
+
+
+
+## Kotlin Language
+- Kotlin is an object-oriented language, but it also includes support for function-oriented programming, which has become popular in recent years.
+- Every Kotlin type is an object, including Kotlin’s primitive types. 
+- (almost) everything has a value
+
+
+## References
+- https://kotlinlang.org/docs/reference
+- https://play.kotlinlang.org/
+  
+## References for comment
+- https://www.golem.de/news/kotlin-das-bessere-java-2011-151892.html
+- https://cloud.tencent.com/developer/article/1684095
+- http://www.1024sky.cn/blog/article/3632
+- https://juejin.cn/post/6864946688067371022
+- https://mp.weixin.qq.com/s/mWPJiefaNpK8EuoJYvhbhg
+- https://blog.jetbrains.com/zh-hans/2020/01/14/kotlin-1-4/
+- https://tech.sina.com.cn/roll/2020-04-26/doc-iirczymi8419844.shtml
+- https://www.cnbeta.com/articles/tech/1006715.htm
+  
+## References for tutorials
+- https://developer.android.com/kotlin/learn?hl=zh-cn
+- https://developer.ibm.com/series/learn-kotlin/
+- https://code.tutsplus.com/series/kotlin-from-scratch--cms-1209
+- https://www.cnblogs.com/Jetictors/p/9227498.html
+- https://www.kotlincn.net/docs/tutorials/
+- https://developer.android.com/courses/kotlin-android-fundamentals/overview
+- https://developer.android.com/courses/kotlin-android-advanced/overview
+- https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012
+
+
+- https://developer.android.com/courses/kotlin-bootcamp/overview
+- https://play.kotlinlang.org/koans/overview
