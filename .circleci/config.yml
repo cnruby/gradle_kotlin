@@ -34,7 +34,7 @@ jobs:
 
       # install tools
       - run: apt-get update -y
-      - run: apt-get install -y unzip snap
+      - run: apt-get install -y unzip snapd
       - run: sleep 5 && snap install --classic kotlin
 
       # about Gradle
