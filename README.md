@@ -83,19 +83,18 @@ unzip basic_${NEW_APP_ID}.zip
 nano ./src/main/resources/application.properties
 ```
 ```bash
-    # FILE (application.properties)
-    spring.main.banner-mode=off
-    spring.main.log-startup-info=off
-    spring.main.web-environment=off
+# FILE (application.properties)
+spring.main.banner-mode=off
+spring.main.log-startup-info=off
+spring.main.web-environment=off
 ```
 
 ### DO (check the project)
 ```bash
 ./gradlew -q check
 ```
-```bash
+
     # >> Result: nothing
-```
 
 
 
@@ -184,12 +183,12 @@ touch ./Dockerfile
 nano ./Dockerfile
 ```
 ```bash
-    # FILE (./Dockerfile)
-    FROM azul/zulu-openjdk-alpine:11.0.6-jre
-    RUN apk update && apk add bash
-    WORKDIR /app
-    COPY /build/libs/ /app/
-    CMD ["java", "-jar", "_gradle_kotlin-0.0.1-SNAPSHOT.jar", "apple banana grape"]
+# FILE (./Dockerfile)
+FROM azul/zulu-openjdk-alpine:11.0.6-jre
+RUN apk update && apk add bash
+WORKDIR /app
+COPY /build/libs/ /app/
+CMD ["java", "-jar", "_gradle_kotlin-0.0.1-SNAPSHOT.jar", "apple banana grape"]
 ```
 
 ### DO (Assembles an executable jar archive)
@@ -221,3 +220,6 @@ docker run 301_gradle_kotlin
 - http://zetcode.com/springboot/commandlinerunner/
 - https://qiita.com/tag1216/items/898348a7fc3465148bc8#comments
 - https://qiita.com/salkun/items/721125f0deec0a082504
+- https://stackoverflow.com/questions/27604283/gradle-task-pass-arguments-to-java-application
+- https://www.baeldung.com/gradle-command-line-arguments
+- 
