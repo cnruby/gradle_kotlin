@@ -74,7 +74,7 @@ curl https://start.spring.io/starter.zip -d language=kotlin \
   -d packageName=de.iotoi \
   -d groupId=de.iotoi \
   -d artifactId=_gradle_kotlin \
-  -d name=kotlin -d type=gradle-project -o basic_${NEW_APP_ID}.zip \
+  -d name=kotlin -d type=gradle-project -o basic_${NEW_APP_ID}.zip && \
 unzip basic_${NEW_APP_ID}.zip
 ```
 
