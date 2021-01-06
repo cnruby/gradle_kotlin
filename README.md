@@ -10,6 +10,7 @@
 [![Java zulu-openjdk:11](https://img.shields.io/badge/Java-zulu%20openjdk:11-brightgreen?style=flat&logo=java)](https://www.azul.com/downloads/zulu-community/?package=jdk)
 [![kotlin lang)](https://img.shields.io/github/v/release/JetBrains/kotlin?label=kotlin&logo=kotlin)](https://github.com/JetBrains/kotlin)
 [![IntelliJ IDEA Community Edition](https://img.shields.io/badge/IntelliJ%20IDEA%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
+[![Docker-(2019.03.13)](https://img.shields.io/badge/Docker-%2019.03.13-brightgreen)](https://www.docker.com/)
 [![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_000.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_000)
 
 
@@ -24,6 +25,7 @@ Unit 000: Hello Dummy!
 
 
 - [Keywords](#keywords)
+- [Prerequisites](#prerequisites)
 - [References](#references)
 
 
@@ -32,6 +34,15 @@ Unit 000: Hello Dummy!
 - install Kotlin REPL Ubuntu Gradle jabba JDK Java JVM
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE` CircleCI CI
 - tutorial example
+
+
+
+## Prerequisites
+- [install JDK on Ubuntu 20.04](https://github.com/cnruby/gradle_java/blob/basic_101/README.md)
+- [install Gradle on Ubuntu 20.04](https://github.com/cnruby/gradle_java/blob/basic_102/README.md)
+- [IntelliJ IDEA Community](https://www.jetbrains.com/de-de/idea/download/#section=linux)
+- [install Docker on Ubuntu](https://docs.docker.com/engine/install/ubuntu/) OR [Using Docker](https://github.com/cnruby/gradle_java/tree/basic_002)
+- [CircleCI Account](https://circleci.com/vcs-authorize/)
 
 
 
