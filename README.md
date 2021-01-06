@@ -24,6 +24,8 @@ Unit 000: Hello Dummy!
 ---
 
 
+<h1>Table of Contents</h1>
+
 - [Keywords](#keywords)
 - [Prerequisites](#prerequisites)
 - [References for tools](#references-for-tools)
