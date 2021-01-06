@@ -39,3 +39,16 @@ jobs:
 
       # about Kotlin
       - run: kotlin -version
+
+      - run:
+          name: "Run Kotlin Application as Jar file"
+          command: |
+              ./gradlew bootJar
+              kotlin ./build/libs/_gradle_kotlin-0.0.1-SNAPSHOT.jar apple banana grape
+              java -jar ./build/libs/_gradle_kotlin-0.0.1-SNAPSHOT.jar apple banana grape
+      
+      - run:
+          name: "Run Kotlin Application with Gradle"
+          command: |
+              ./gradlew -q bootRun --args='apple banana grape'
+              
