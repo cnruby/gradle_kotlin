@@ -165,7 +165,7 @@ class KotlinApplication {
 
 ### DO (browse the web application)
 ```bash
-curl http://localhost:8080 | jsop_pp
+curl http://localhost:8080 | json_pp
 ```
 ```bash
 	# >> Result
