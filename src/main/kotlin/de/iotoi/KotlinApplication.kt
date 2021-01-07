@@ -9,16 +9,7 @@ import org.springframework.boot.CommandLineRunner
 class KotlinApplication {
 	@Bean
 	fun init() = CommandLineRunner {
-		println("Hello World!")
-	}
-
-	@Bean
-	fun hallo() {
-		println("Hallo Welt!")
-	}
-
-	fun niHao() = CommandLineRunner {
-		println("世界，你好!")
+		println("Hello @RestController from @Bean!")
 	}
 }
 
