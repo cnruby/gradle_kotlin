@@ -36,11 +36,11 @@ Unit 203: Hello devtools!
   - [DO (create and edit the kotlin file)](#do-create-and-edit-the-kotlin-file)
   - [DO (check the project)](#do-check-the-project-1)
   - [DO (run The Application with Gradle)](#do-run-the-application-with-gradle)
-  - [DO (open a new terminal)](#do-open-a-new-terminal)
+  - [DO (open a new terminal to browse the website)](#do-open-a-new-terminal-to-browse-the-website)
 - [HotCode without IDE](#hotcode-without-ide)
   - [DO (open a new terminal to assemble an executable jar archive)](#do-open-a-new-terminal-to-assemble-an-executable-jar-archive)
   - [DO (open a new terminal to run this project)](#do-open-a-new-terminal-to-run-this-project)
-  - [DO (open a new terminal to browse the website)](#do-open-a-new-terminal-to-browse-the-website)
+  - [DO (open a new terminal to browse the website)](#do-open-a-new-terminal-to-browse-the-website-1)
   - [DO (change the kotlin file)](#do-change-the-kotlin-file)
   - [DO (browse the website again)](#do-browse-the-website-again)
 - [HotCode in IntelliJ](#hotcode-in-intellij)
@@ -146,7 +146,7 @@ class HelloRestController {
     > :bootRun
 ```
 
-### DO (open a new terminal)
+### DO (open a new terminal to browse the website)
 ```bash
 curl http://localhost:8080/api
 ```
@@ -173,6 +173,7 @@ curl http://localhost:8080/api
 ### DO (open a new terminal to run this project)
 ```bash
 ./gradlew -q bootRun
+```
 ```bash
     # >> Result
     2021-01-07 10:09:27.194  INFO 17482 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
