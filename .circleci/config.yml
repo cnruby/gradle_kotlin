@@ -1,31 +1,40 @@
 version: 2.1
 jobs:
-  # project_build:
-  #   docker:
-  #     # specify the version you desire here
-  #     #- image: circleci/openjdk:11-jdk
-  #     - image: azul/zulu-openjdk:11
+  project_build:
+    docker:
+      # specify the version you desire here
+      #- image: circleci/openjdk:11-jdk
+      - image: azul/zulu-openjdk:11
 
-  #     # Specify service dependencies here if necessary
-  #     # CircleCI maintains a library of pre-built images
-  #     # documented at https://circleci.com/docs/2.0/circleci-images/
-  #     # - image: circleci/postgres:9.4
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
 
-  #   working_directory: ~/repo
+    working_directory: ~/repo
 
-  #   environment:
-  #     # Customize the JVM maximum heap limit
-  #     JVM_OPTS: -Xmx3200m
-  #     TERM: dumb
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
 
-  #   steps:      
-  #     - checkout
+    steps:      
+      - checkout
 
-  #     - run:
-  #         name: "Run The Application with Gradle"
-  #         command: |
-  #             ./gradlew -q check
-  #             ./gradlew -q bootRun
+      - run: 
+          name: install tools
+          command: |
+            whoami
+            cat /etc/*-release
+            apt update -y
+            apt install screen netcat -y
+            screen –version
+
+      - run:
+          name: "Run The Application with Gradle"
+          command: |
+              ./gradlew -q check
+              screen -d -m -s "webapp_on_project" ./gradlew -q bootRun
 
   docker_build:
     machine: true
@@ -42,7 +51,7 @@ jobs:
             sudo apt install curl wget netcat -y
 
       - run:
-          name: "start webserver with web app"
+          name: "start web server with web app"
           command: |
             ./gradlew bootBuildImage --imageName=gradle_kotlin/basic_201
             docker images
@@ -55,8 +64,8 @@ jobs:
             curl http://127.0.0.1:80/
             docker stop 120_gradle_java_container
 
-# workflows:
-#   build:
-#     jobs:
-#       - project_build
-#       - docker_build
+workflows:
+  build:
+    jobs:
+      - project_build
+      - docker_build
