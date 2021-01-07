@@ -60,7 +60,7 @@ jobs:
           name: "browse the website"
           command: |
               sleep 5 && nc -vz localhost 80
-              curl http://localhost:80/api | json_pp
+              curl http://localhost:80/api
 
       - run:
           name: "stop web server on docker"
