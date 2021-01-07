@@ -21,6 +21,19 @@ jobs:
     steps:      
       - checkout
 
+      # Download and cache dependencies
+      # https://circleci.com/docs/2.0/caching/
+      - restore_cache:
+          keys:
+          - gradle-repo-v1-{{ .Branch }}-{{ checksum "build.gradle" }}
+          - gradle-repo-v1-{{ .Branch }}-
+          - gradle-repo-v1-
+
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: gradle-repo-v1-{{ .Branch }}-{{ checksum "build.gradle" }}
+
       - run: 
           name: install tools
           command: |
@@ -43,6 +56,19 @@ jobs:
     steps:      
       - checkout
 
+      # Download and cache dependencies
+      # https://circleci.com/docs/2.0/caching/
+      - restore_cache:
+          keys:
+          - gradle-repo-v1-{{ .Branch }}-{{ checksum "build.gradle" }}
+          - gradle-repo-v1-{{ .Branch }}-
+          - gradle-repo-v1-
+
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: gradle-repo-v1-{{ .Branch }}-{{ checksum "build.gradle" }}
+          
       - run: 
           name: "install tools"
           command: |
@@ -55,14 +81,14 @@ jobs:
           command: |
             ./gradlew bootBuildImage --imageName=gradle_kotlin/basic_201
             docker images
-            docker run -p 80:8080 gradle_kotlin/basic_201
+            docker run -d --name=201_gradle_kotlin_container -p 80:8080 gradle_kotlin/basic_201
 
       - run:
           name: "browse the website"
           command: |
             sleep 5 && nc -vz localhost 80
             curl http://127.0.0.1:80/
-            docker stop 120_gradle_java_container
+            docker stop 201_gradle_kotlin_container
 
 workflows:
   build:
