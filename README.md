@@ -42,6 +42,7 @@ Unit 203: Hello devtools!
   - [DO (open a new terminal to run this project)](#do-open-a-new-terminal-to-run-this-project)
   - [DO (open a new terminal to browse the website)](#do-open-a-new-terminal-to-browse-the-website-1)
   - [DO (change the kotlin file)](#do-change-the-kotlin-file)
+  - [DO (waiting until the command `./gradlew -q bootJar --continuous` comes)](#do-waiting-until-the-command-gradlew--q-bootjar---continuous-comes)
   - [DO (browse the website again)](#do-browse-the-website-again)
 - [HotCode in IntelliJ](#hotcode-in-intellij)
   - [DO (change the code)](#do-change-the-code)
@@ -202,13 +203,14 @@ nano src/main/kotlin/de/iotoi/HelloRestController.kt
     ...
 ```
 
-### DO (browse the website again)
+### DO (waiting until the command `./gradlew -q bootJar --continuous` comes)
 ```bash
-# DO (waiting until the command `./gradlew -q bootJar --continuous` comes)
     Waiting for changes to input files of tasks... (ctrl-d to exit)
     <-------------> 0% WAITING
     > IDLE
 ```
+
+### DO (browse the website again)
 ```bash
 curl http://localhost:8080/api
 ```
