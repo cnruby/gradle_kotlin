@@ -11,16 +11,19 @@
 [![kotlin lang)](https://img.shields.io/github/v/release/JetBrains/kotlin?label=kotlin&logo=kotlin)](https://github.com/JetBrains/kotlin)
 [![IntelliJ IDEA Community Edition](https://img.shields.io/badge/IntelliJ%20IDEA%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
 [![Docker-(2019.03.13)](https://img.shields.io/badge/Docker-%2019.03.13-brightgreen)](https://www.docker.com/)
-[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_203.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_203)
+[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_204.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_204)
 
 
 ---
 
-Unit 203: Hello devtools!
-<h1>Unit 203: Hello devtools!</h1>
 
-- Hot to HotSwap code without IDE in a Spring-Boot project
-- Hot to HotSwap code in Intellij in a Spring-Boot project
+Unit 204: Hello @Value!
+<h1>Unit 204: Hello @Value!</h1>
+
+- Hot to Understand An Annotation @Value for function
+- Hot to Understand An Annotation @Value for class
+- Hot to Understand An Annotation @Value for project
+
 
 ---
 
@@ -31,30 +34,28 @@ Unit 203: Hello devtools!
 - [Prerequisites](#prerequisites)
 - [Create A New Kotlin Web App](#create-a-new-kotlin-web-app)
   - [DO (create a new project)](#do-create-a-new-project)
+  - [DO (edit the spring property file)](#do-edit-the-spring-property-file)
   - [DO (check the project)](#do-check-the-project)
-- [Develop The Project](#develop-the-project)
-  - [DO (create and edit the kotlin file)](#do-create-and-edit-the-kotlin-file)
+- [`@Value` for function](#value-for-function)
+  - [DO (edit the kotlin file)](#do-edit-the-kotlin-file)
   - [DO (check the project)](#do-check-the-project-1)
   - [DO (run The Application with Gradle)](#do-run-the-application-with-gradle)
-  - [DO (open a new terminal to browse the website)](#do-open-a-new-terminal-to-browse-the-website)
-- [HotCode without IDE](#hotcode-without-ide)
-  - [DO (open a new terminal to assemble an executable jar archive)](#do-open-a-new-terminal-to-assemble-an-executable-jar-archive)
-  - [DO (open a new terminal to run this project)](#do-open-a-new-terminal-to-run-this-project)
-  - [DO (open a new terminal to browse the website)](#do-open-a-new-terminal-to-browse-the-website-1)
-  - [DO (change the kotlin file)](#do-change-the-kotlin-file)
-  - [DO (waiting until the command `./gradlew -q bootJar --continuous` comes)](#do-waiting-until-the-command-gradlew--q-bootjar---continuous-comes)
-  - [DO (browse the website again)](#do-browse-the-website-again)
-- [HotCode in IntelliJ](#hotcode-in-intellij)
-  - [DO (change the code)](#do-change-the-code)
+- [`@Value` for class](#value-for-class)
+  - [DO (edit the kotlin file)](#do-edit-the-kotlin-file-1)
+  - [DO (run The Application with Gradle)](#do-run-the-application-with-gradle-1)
+- [`@Value` for project](#value-for-project)
+  - [DO (create the spring property file)](#do-create-the-spring-property-file)
+  - [DO (edit the spring property file)](#do-edit-the-spring-property-file-1)
+  - [DO (edit the spring rest controller file)](#do-edit-the-spring-rest-controller-file)
 - [References](#references)
 - [References for tools](#references-for-tools)
 
 
 
 ## Keywords
-- install Kotlin REPL Ubuntu Gradle jabba JDK Java JVM
+- Annotation `@Value`
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE` CircleCI CI
-- tutorial example
+- tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM
 
 
 
@@ -71,15 +72,25 @@ Unit 203: Hello devtools!
 
 ### DO (create a new project)
 ```bash
-NEW_APP_ID=203 && \
-mkdir ${NEW_APP_ID}_gradle_kotlin && cd ${NEW_APP_ID}_gradle_kotlin 
-curl https://start.spring.io/starter.zip -d language=kotlin \
-  -d dependencies=web,devtools \
-  -d packageName=de.iotoi \
-  -d artifactId=_gradle_kotlin \
-  -d groupId=de.iotoi \
-  -d name=kotlin -d type=gradle-project -o basic_${NEW_APP_ID}.zip && \
-unzip basic_${NEW_APP_ID}.zip
+EXISTING_APP_ID=203 && NEW_APP_ID=204 \
+&& git clone -b basic_${EXISTING_APP_ID} https://github.com/cnruby/gradle_kotlin.git ${NEW_APP_ID}_gradle_kotlin \
+&& cd ${NEW_APP_ID}_gradle_kotlin \
+&& git checkout -b basic_${NEW_APP_ID}
+```
+
+### DO (edit the spring property file)
+```bash
+touch ./src/main/resources/application.properties
+```
+```bash
+nano ./src/main/resources/application.properties
+```
+```bash
+# FILE (application.properties)
+spring.main.banner-mode=off
+spring.main.log-startup-info=off
+web.app.name=Hello @Value
+logging.level.root=WARN
 ```
 
 ### DO (check the project)
@@ -87,35 +98,32 @@ unzip basic_${NEW_APP_ID}.zip
 ./gradlew -q check
 ```
 ```bash
-    # >> Result
-	2021-01-07 08:35:37.013  INFO 7778 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+    # >> Result: nothing
 ```
 
 
 
-## Develop The Project
+## `@Value` for function
 
-### DO (create and edit the kotlin file)
+### DO (edit the kotlin file)
 ```bash
-touch ./src/main/kotlin/de/iotoi/HelloRestController.kt
+nano ./src/main/kotlin/de/iotoi/KotlinApplication.kt
 ```
 ```bash
-nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
-```
-```bash
-# FILE (HelloRestController.kt)
-package de.iotoi
+# FILE (KotlinApplication.kt)
+...
+import org.springframework.boot.CommandLineRunner
+import org.springframework.context.annotation.Bean
+import org.springframework.beans.factory.annotation.Value
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RestController
-
-@RestController
-class HelloRestController {
-    @GetMapping("/api")
-    fun helloKotlin(): String {
-        return "Hello devtools!\n"
-    }
+@SpringBootApplication
+class KotlinApplication {
+	@Bean
+	fun init(@Value("\${web.app.name}") appName: String) = CommandLineRunner {
+		println("$appName from init()!")
+	}
 }
+...
 ```
 
 ### DO (check the project)
@@ -123,8 +131,7 @@ class HelloRestController {
 ./gradlew -q check
 ```
 ```bash
-    # >> Result
-    2021-01-07 20:31:05.568  INFO 10606 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+    # >> Result: nothing
 ```
 
 ### DO (run The Application with Gradle)
@@ -133,127 +140,100 @@ class HelloRestController {
 ```
 ```bash
     # >> Result
-    2021-01-07 20:32:34.894  INFO 11790 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-    2021-01-07 20:32:34.899  INFO 11790 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-    2021-01-07 20:32:36.449  INFO 11790 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-    2021-01-07 20:32:36.470  INFO 11790 --- [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-    2021-01-07 20:32:36.471  INFO 11790 --- [  restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
-    2021-01-07 20:32:36.615  INFO 11790 --- [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-    2021-01-07 20:32:36.615  INFO 11790 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1715 ms
-    2021-01-07 20:32:36.966  INFO 11790 --- [  restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-    2021-01-07 20:32:37.326  INFO 11790 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-    2021-01-07 20:32:37.379  INFO 11790 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-    <==========---> 83% EXECUTING [36s]
+    Hello @Value from init()!
+    <==========---> 83% EXECUTING [13s]
     > :bootRun
 ```
 
-### DO (open a new terminal to browse the website)
+
+
+## `@Value` for class
+
+### DO (edit the kotlin file)
 ```bash
-curl http://localhost:8080/api
+nano ./src/main/kotlin/de/iotoi/KotlinApplication.kt
 ```
 ```bash
-    # >> Result
-    Hello devtools!
+# FILE (KotlinApplication.kt)
+...
+import org.springframework.boot.CommandLineRunner
+import org.springframework.context.annotation.Bean
+import org.springframework.beans.factory.annotation.Value
+
+@SpringBootApplication
+class KotlinApplication {
+	@Value("\${web.app.name}") val webAppName: String? = null
+
+	@Bean
+	fun init(@Value("\${web.app.name}") appName: String) = CommandLineRunner {
+		println("$appName from init()!")
+		println("$webAppName from init()!!")
+	}
+}
+...
 ```
 
-
-
-## HotCode without IDE
-
-### DO (open a new terminal to assemble an executable jar archive)
-```bash
-./gradlew -q bootJar --continuous
-```
-```bash
-    # >> Result
-    Waiting for changes to input files of tasks... (ctrl-d to exit)
-    <-------------> 0% WAITING
-    > IDLE
-```
-
-### DO (open a new terminal to run this project)
+### DO (run The Application with Gradle)
 ```bash
 ./gradlew -q bootRun
-```
-```bash
     # >> Result
-    2021-01-07 10:09:27.194  INFO 17482 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-    2021-01-07 10:09:27.470  INFO 17482 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-    <==========---> 83% EXECUTING [32s]
+    Hello @Value from init()!
+    Hello @Value from init()!!
+    <==========---> 83% EXECUTING [8s]
     > :bootRun
 ```
 
-### DO (open a new terminal to browse the website)
-```bash
-curl http://localhost:8080/api
-```
-```bash
-    # >> Result
-    Hello devtools!
-```
-
-### DO (change the kotlin file)
-```bash
-nano src/main/kotlin/de/iotoi/HelloRestController.kt
-```
-```bash
-    # FILE (HelloRestController.kt)
-    ...
-    return "Hello devtools!!!\n"
-    ...
-```
-
-### DO (waiting until the command `./gradlew -q bootJar --continuous` comes)
-```bash
-    Waiting for changes to input files of tasks... (ctrl-d to exit)
-    <-------------> 0% WAITING
-    > IDLE
-```
-
-### DO (browse the website again)
-```bash
-curl http://localhost:8080/api
-```
-```bash
-    # DO (waiting)
-    # >> Result
-    Hello devtools!!!
-```
 
 
+## `@Value` for project
 
-## HotCode in IntelliJ
+### DO (create the spring property file)
 ```bash
-# DO (Change the IntelliJ)
-# !!! In Menu File >> Setting >> Build, Execution, Deployment >> Compiler >> [x] Build project automatically
-# !!! Ctrl+Shift+A >> Enter "Registry" >> Click "Registry..." >> [x] complier.automake.allow.when.app.running
+touch ./src/main/kotlin/de/iotoi/PropertyValues.kt
 ```
 
+### DO (edit the spring property file)
 ```bash
-./gradlew -q bootRun
+nano ./src/main/kotlin/de/iotoi/PropertyValues.kt
+```
+```bash
+# FILE (PropertyValues.kt)
+package de.iotoi
+
+object PropertyValues {
+    const val WEB_APP_NAME = "\${web.app.name}"
+}
 ```
 
-```bash
-curl http://localhost:8080/api
-```
-```bash
-    # >> Result
-    Hello devtools!!!
-```
-
-### DO (change the code)
+### DO (edit the spring rest controller file)
 ```bash
 nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
 ```
 ```bash
-    # FILE (HelloRestController.kt)
-    ...
-    return "Hello devtools!\n"
-    ...
+# FILE (HelloRestController.kt)
+...
+import org.springframework.beans.factory.annotation.Value
+
+@RestController
+class HelloRestController {
+    @Value(PropertyValues.WEB_APP_NAME)
+    private val webAppName: String? = null
+
+    @GetMapping("/api")
+    fun helloKotlin(): String {
+        return "$webAppName!!!\n"
+...
+```
+
+```bash
+./gradlew -q bootRun
 ```
 ```bash
-### DO (Click the Menu Item)
-# !!! In Menu >> Build >> Build Project (CTRL + F9)
+    # >> Result
+    Hello @Value from init()!
+    Hello @Value from init()!!
+    <==========---> 83% EXECUTING [39s]
+    > :bootRun
 ```
 
 ```bash
@@ -261,7 +241,7 @@ curl http://localhost:8080/api
 ```
 ```bash
     # >> Result
-    Hello devtools!
+    Hello @Value!!!
 ```
 
 
@@ -274,7 +254,7 @@ curl http://localhost:8080/api
 - https://stackoverflow.com/questions/33349456/how-to-make-auto-reload-with-spring-boot-on-idea-intellij
 - https://stackoverflow.com/questions/54556072/hot-to-hotswap-code-in-intellij-in-a-spring-boot-project
 - https://www.nexsoftsys.com/articles/hot-swapping-in-spring-boot-applications.html
-- 
+- https://stackoverflow.com/questions/57408522/spring-boot-maven-not-printing-logs-on-console
 
 
 

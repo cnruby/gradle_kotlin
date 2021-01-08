@@ -53,8 +53,8 @@ jobs:
       - run:
           name: "start web server with web app"
           command: |
-              ./gradlew bootBuildImage --imageName=gradle_kotlin/basic_203
-              docker run -d --name=203_gradle_kotlin_container -p 80:8080 gradle_kotlin/basic_203
+              ./gradlew bootBuildImage --imageName=gradle_kotlin/basic_204
+              docker run -d --name=204_gradle_kotlin_container -p 80:8080 gradle_kotlin/basic_204
 
       - run:
           name: "browse the website"
@@ -65,7 +65,7 @@ jobs:
       - run:
           name: "stop web server on docker"
           command: |
-              docker stop 203_gradle_kotlin_container
+              docker stop 204_gradle_kotlin_container
 
 workflows:
   build:
