@@ -93,8 +93,9 @@ spring.main.web-environment=off
 ```bash
 ./gradlew -q check
 ```
-
+```bash
     # >> Result: nothing
+```
 
 
 
@@ -205,7 +206,7 @@ docker build --tag=301_gradle_kotlin .
 docker run 301_gradle_kotlin
 ```
 ```bash
-    # >> Result
+    # >> Result                                                                                                                                                                                                                                                                             
     apple banana grape
 ```
 
