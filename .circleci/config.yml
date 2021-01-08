@@ -39,3 +39,21 @@ jobs:
 
       # about Kotlin
       - run: kotlin -version
+
+      - run:
+          name: "Run Kotlin Application"
+          command: |
+              ./gradlew -q run --args="Hallo Welt!"
+
+      - run:
+          name: "Run Kotlin Application as a distribution"
+          command: |
+              ./gradlew -q clean build
+              unzip ./build/distributions/_gradle_kotlin.zip
+              _gradle_kotlin/bin/_gradle_kotlin Hallo Welt!
+
+      - run:
+          name: "Run Kotlin Application as a distribution as-is"
+          command: |
+              ./gradlew clean installDist
+              ./build/install/_gradle_kotlin/bin/_gradle_kotlin Hallo Welt!
