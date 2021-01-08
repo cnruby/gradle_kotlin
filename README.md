@@ -9,7 +9,7 @@
 [![Gradle-v6.7.1](https://img.shields.io/badge/Gradle-v6.7.1-black?style=flat&logo=gradle)](https://gradle.org/)
 [![Java zulu-openjdk:11](https://img.shields.io/badge/Java-zulu%20openjdk:11-brightgreen?style=flat&logo=java)](https://www.azul.com/downloads/zulu-community/?package=jdk)
 [![kotlin lang)](https://img.shields.io/github/v/release/JetBrains/kotlin?label=kotlin&logo=kotlin)](https://github.com/JetBrains/kotlin)
-[![IntelliJ IEAD Community Edition](https://img.shields.io/badge/IntelliJ%20IEAD%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
+[![IntelliJ IDEA Community Edition](https://img.shields.io/badge/IntelliJ%20IDEA%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
 [![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin)
 
 
@@ -28,7 +28,7 @@ Hello "gradle_kotlin"!
 - [References](#references)
 - [References for comment](#references-for-comment)
 - [References for tutorials](#references-for-tutorials)
-- [Others References](#others-references)
+- [Other References](#other-references)
 
 
 
@@ -58,6 +58,13 @@ Hello "gradle_kotlin"!
 ## References
 - https://kotlinlang.org/docs/reference
 - https://play.kotlinlang.org/
+- https://github.com/gradle/kotlin-dsl-samples
+- https://gradle-initializr.cleverapps.io/
+- https://start.spring.io/
+- https://github.com/bmuschko/gradle-initializr
+- https://try.kotlinlang.org/
+
+
   
 ## References for comment
 - https://www.golem.de/news/kotlin-das-bessere-java-2011-151892.html
@@ -78,9 +85,14 @@ Hello "gradle_kotlin"!
 - https://developer.android.com/courses/kotlin-android-fundamentals/overview
 - https://developer.android.com/courses/kotlin-android-advanced/overview
 - https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012
+- https://mkyong.com/spring-boot/
 
-## Others References
+## Other References
 - https://developer.android.com/courses/kotlin-bootcamp/overview
 - https://play.kotlinlang.org/koans/overview
 - https://kotlinlang.org/docs/tutorials/command-line.html
 - https://circleci.com/docs/2.0/env-vars/
+- https://linuxconfig.org/install-and-set-up-kvm-on-ubuntu-20-04-focal-fossa-linux
+- https://radiochemical.hatenablog.com/archive/category/Spring%20Boot
+- https://juejin.cn/post/6844903879834861582
+- 
