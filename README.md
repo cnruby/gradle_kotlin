@@ -22,6 +22,7 @@ Hello "gradle_kotlin"!
 
 
 - [Keywords](#keywords)
+- [Prerequisites](#prerequisites)
 - [Kotlin and Java Language](#kotlin-and-java-language)
 - [iOS and Android OS](#ios-and-android-os)
 - [Kotlin Language](#kotlin-language)
@@ -36,6 +37,16 @@ Hello "gradle_kotlin"!
 - install Kotlin REPL Ubuntu Gradle jabba JDK Java JVM
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE` CircleCI CI
 - tutorial example
+
+
+
+## Prerequisites
+- [install JDK on Ubuntu 20.04](https://github.com/cnruby/gradle_java/blob/basic_101/README.md)
+- [install Gradle on Ubuntu 20.04](https://github.com/cnruby/gradle_java/blob/basic_102/README.md)
+- install `git`, `wget` and `curl` on Ubuntu 20.04
+- install [jabba](https://github.com/shyiko/jabba) and Java JDK [Hello jabba!](https://github.com/cnruby/gradle_java/tree/basic_101)
+- [install Command Line Kotlin Compiler (REPL)](https://kotlinlang.org/docs/tutorials/command-line.html) 
+- [install IntelliJ CE / IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/download/#section=linux)
 
 
 
