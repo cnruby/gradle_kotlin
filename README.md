@@ -10,13 +10,14 @@
 [![Java zulu-openjdk:11](https://img.shields.io/badge/Java-zulu%20openjdk:11-brightgreen?style=flat&logo=java)](https://www.azul.com/downloads/zulu-community/?package=jdk)
 [![kotlin lang)](https://img.shields.io/github/v/release/JetBrains/kotlin?label=kotlin&logo=kotlin)](https://github.com/JetBrains/kotlin)
 [![IntelliJ IDEA Community Edition](https://img.shields.io/badge/IntelliJ%20IDEA%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
-[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin)
+[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_105.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_105)
+
 
 
 ---
 
-basic_104 Hello One Application!
-<h1>Unit 104: Hello One Application!</h1>
+basic_105 Hello Own Library!
+<h1>Unit 105: Hello Own Library!</h1>
 
 ---
 
@@ -26,20 +27,34 @@ basic_104 Hello One Application!
 - [Create A Kotlin Application with Gradle](#create-a-kotlin-application-with-gradle)
   - [DO (create a kotlin project)](#do-create-a-kotlin-project)
   - [DO (check the project)](#do-check-the-project)
-- [Run the Project with Gradle](#run-the-project-with-gradle)
-- [Develop the Testing Code](#develop-the-testing-code)
-  - [DO (Test the project)](#do-test-the-project)
-  - [DO (edit the test file)](#do-edit-the-test-file)
-  - [DO (Test the project again)](#do-test-the-project-again)
-- [Understand the Kotlin Code in the Project](#understand-the-kotlin-code-in-the-project)
-  - [keyword `class` and `.`](#keyword-class-and-)
-  - [keyword `val`](#keyword-val)
-  - [function `get()` and pure function `f(x) = y`](#function-get-and-pure-function-fx--y)
-  - [keyword `import`](#keyword-import)
-  - [keyword `@Test`](#keyword-test)
-  - [keyword `val` and `=`](#keyword-val-and-)
-- [Question: How to get name of any class?](#question-how-to-get-name-of-any-class)
-- [References](#references)
+- [Add A Kotlin Library Sub-Project](#add-a-kotlin-library-sub-project)
+  - [DO (edit the gradle settings file)](#do-edit-the-gradle-settings-file)
+  - [DO (create a library build file of gradle)](#do-create-a-library-build-file-of-gradle)
+  - [DO (show all projects)](#do-show-all-projects)
+  - [DO (create a kotlin file folder)](#do-create-a-kotlin-file-folder)
+- [Version 1: Kotlin Library Sub-Project](#version-1-kotlin-library-sub-project)
+  - [DO (create and edit the kotlin library file)](#do-create-and-edit-the-kotlin-library-file)
+- [Use The Sub-Project `lib` in the Sub-Project `app`](#use-the-sub-project-lib-in-the-sub-project-app)
+  - [DO (edit the build file of gradle)](#do-edit-the-build-file-of-gradle)
+- [Version 1: The Sub-Project `app`](#version-1-the-sub-project-app)
+  - [DO (edit the kotlin file)](#do-edit-the-kotlin-file)
+  - [Run the Project with Gradle](#run-the-project-with-gradle)
+- [Version 2: Kotlin Library Sub-Project `lib`](#version-2-kotlin-library-sub-project-lib)
+  - [DO (edit the kotlin file)](#do-edit-the-kotlin-file-1)
+- [Version 2: The Sub-Project `app`](#version-2-the-sub-project-app)
+  - [DO (edit the kotlin file)](#do-edit-the-kotlin-file-2)
+  - [DO (run the Project with Gradle)](#do-run-the-project-with-gradle)
+- [Version 3: Kotlin Library Sub-Project `lib`](#version-3-kotlin-library-sub-project-lib)
+  - [DO (create and edit the kotlin file)](#do-create-and-edit-the-kotlin-file)
+- [Version 3: The Sub-Project `app`](#version-3-the-sub-project-app)
+  - [DO (edit the kotlin file)](#do-edit-the-kotlin-file-3)
+  - [DO (run the Project with Gradle)](#do-run-the-project-with-gradle-1)
+- [Version 4: Kotlin Library Sub-Project `lib`](#version-4-kotlin-library-sub-project-lib)
+  - [DO (edit the kotlin file)](#do-edit-the-kotlin-file-4)
+- [Version 4: The Sub-Project `app`](#version-4-the-sub-project-app)
+  - [DO (edit the kotlin file)](#do-edit-the-kotlin-file-5)
+  - [DO (run the Project with Gradle)](#do-run-the-project-with-gradle-2)
+- [References for tools](#references-for-tools)
 
 
 
@@ -64,43 +79,9 @@ basic_104 Hello One Application!
 
 ### DO (create a kotlin project)
 ```bash
-gradle init
-```
-```bash
-Select type of project to generate:
-  1: basic
-  2: application
-  3: library
-  4: Gradle plugin
-Enter selection (default: basic) [1..4] 2
-
-Select implementation language:
-  1: C++
-  2: Groovy
-  3: Java
-  4: Kotlin
-  5: Scala
-  6: Swift
-Enter selection (default: Java) [1..6] 4
-
-Split functionality across multiple subprojects?:
-  1: no - only one application project
-  2: yes - application and library projects
-Enter selection (default: no - only one application project) [1..2] 1
-
-Select build script DSL:
-  1: Groovy
-  2: Kotlin
-Enter selection (default: Kotlin) [1..2] 2
-
-Project name (default: 104_gradle_kotlin): 
-Source package (default: _gradle_kotlin): de.iotoi
-
-> Task :init
-Get more help with your project: https://docs.gradle.org/6.7.1/samples/sample_building_kotlin_applications_multi_project.html
-
-BUILD SUCCESSFUL in 33s
-2 actionable tasks: 2 executed
+EXISTING_APP_ID=104 && NEW_APP_ID=105 && \
+git clone -b basic_${EXISTING_APP_ID} https://github.com/cnruby/gradle_kotlin.git ${NEW_APP_ID}_gradle_kotlin && \
+cd ${NEW_APP_ID}_gradle_kotlin
 ```
 
 ### DO (check the project)
@@ -113,9 +94,114 @@ BUILD SUCCESSFUL in 33s
 
 
 
-## Run the Project with Gradle
+## Add A Kotlin Library Sub-Project
+
+### DO (edit the gradle settings file)
 ```bash
-./gradlew -q run
+nano ./settings.gradle.kts
+```
+```bash
+# FILE (settings.gradle.kts)
+rootProject.name = "_gradle_kotlin"
+include("app", "lib")
+```
+
+### DO (create a library build file of gradle)
+```bash
+mkdir ./lib
+```
+```bash
+touch ./lib/build.gradle.kts
+```
+```bash
+nano ./lib/build.gradle.kts
+```
+```bash
+# FILE (lib/build.gradle.kts)
+plugins { id("org.jetbrains.kotlin.jvm") version "1.3.72" }
+repositories { jcenter() }
+dependencies { implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8") }
+```
+
+### DO (show all projects)
+```bash
+./gradlew -q projects
+    # >> Result
+    ------------------------------------------------------------
+    Root project
+    ------------------------------------------------------------
+
+    Root project '_gradle_kotlin'
+    +--- Project ':app'
+    \--- Project ':lib'
+
+    To see a list of the tasks of a project, run gradlew <project-path>:tasks
+    For example, try running gradlew :app:tasks
+```
+
+### DO (create a kotlin file folder)
+```bash
+mkdir -p ./lib/src/main/kotlin/de/iotoi
+```
+
+
+
+## Version 1: Kotlin Library Sub-Project
+- Use Only Readable Property of Class
+
+### DO (create and edit the kotlin library file)
+```bash
+touch ./lib/src/main/kotlin/de/iotoi/HelloLib.kt
+```
+```bash
+nano ./lib/src/main/kotlin/de/iotoi/HelloLib.kt
+```
+```kotlin
+// FILE (HelloLib.kt)
+class HelloLib {
+    val greeting: String
+        get() {
+            return "Hello World!"
+        }
+}
+```
+
+
+
+## Use The Sub-Project `lib` in the Sub-Project `app`
+
+### DO (edit the build file of gradle)
+```bash
+nano ./app/build.gradle.kts
+```
+```bash
+# FILE (./app/build.gradle.kts)
+...
+dependencies {
+    implementation(project(":lib"))
+...
+```
+
+
+
+## Version 1: The Sub-Project `app`
+
+### DO (edit the kotlin file)
+```bash
+nano ./app/src/main/kotlin/de/iotoi/App.kt
+```
+```kotlin
+// FILE (App.kt)
+package de.iotoi
+
+fun main() {
+    println(HelloLib().greeting)
+}
+```
+
+### Run the Project with Gradle
+```bash
+./gradlew -q app:run
 ```
 ```bash
     # >> Result
@@ -123,104 +209,170 @@ BUILD SUCCESSFUL in 33s
 ```
 
 
-## Develop the Testing Code
 
-### DO (Test the project)
-```bash
-./gradlew -q test
-```
-```bash
-    # >> Result: nothing
-```
+## Version 2: Kotlin Library Sub-Project `lib`
+- Use Readable and Writable Property of normal `class`
 
-### DO (edit the test file)
+### DO (edit the kotlin file)
 ```bash
-nano app/src/test/kotlin/de/iotoi/AppTest.kt
+nano ./lib/src/main/kotlin/de/iotoi/HelloLib.kt
 ```
 ```kotlin
-# FILE (AppTest.kt)
-//...
-import kotlin.test.assertNotNull
-import kotlin.test.assertEquals
+// FILE (HelloLib.kt)
+// !!! Attention: The follow word `field` of Kotlin
+package de.iotoi
 
-class AppTest {
-//...
-//...
-    @Test fun testType(){
-        val greeting = App().greeting
-        assertEquals(greeting.javaClass.name, "java.lang.String");
-        assertEquals(greeting.javaClass.kotlin.qualifiedName, "kotlin.String");
-
-        assertEquals(greeting::class.simpleName, "String");
-        assertEquals(greeting::class.qualifiedName, "kotlin.String");
-    }
-//...
-```
-
-### DO (Test the project again)
-```bash
-./gradlew -q test
-```
-```bash
-    # >> Result: nothing
-```
-
-
-
-## Understand the Kotlin Code in the Project
-
-### keyword `class` and `.`
-- declare a class and use a class
-- use function of a class
-
-### keyword `val`
-- Declare immutable variables: val
-
-### function `get()` and pure function `f(x) = y`
-```kotlin
-    // !!! VERSION 1: variable-styled
-    val greeting: String = "Hello World!"
-```
-
-```kotlin
-    // !!! VERSION 2: method-styled
-    val greeting: String
+class App {
+    var greeting: String = "Hello World!"
         get() {
-            return "Hello World!"
+            return field
         }
+        set(value) {
+            field = value
+        }
+}
 ```
 
+
+## Version 2: The Sub-Project `app`
+
+### DO (edit the kotlin file)
+```bash
+nano ./app/src/main/kotlin/de/iotoi/App.kt
+```
 ```kotlin
-    // !!! VERSION 3: function-styled
-    val greeting: String
-        get() = "Hello World!"
+// FILE (App.kt)
+package de.iotoi
+
+fun main() {
+    // Use the normal `class App`
+    println(HelloLib().greeting)
+
+    var helloLib = HelloLib()
+    helloLib.greeting = "Hallo Welt!"
+    println(helloLib.greeting)
+}
 ```
 
-### keyword `import`
+### DO (run the Project with Gradle)
+```bash
+./gradlew -q app:run
+```
+```bash
+    # >> Result
+    Hello World!
+    Hallo Welt!
+```
 
-### keyword `@Test`
-
-### keyword `val` and `=`
-- declare an immutable variable
 
 
+## Version 3: Kotlin Library Sub-Project `lib`
+- Use Readable and Writable Property of `data class`
 
-## Question: How to get name of any class?
-- https://stackoverflow.com/questions/53359407/how-to-get-name-of-any-class
-- https://stackoverflow.com/questions/32684739/kotlin-get-type-as-string
-
+### DO (create and edit the kotlin file)
+```bash
+touch ./lib/src/main/kotlin/de/iotoi/DataHelloLib.kt
+```
+```bash
+nano ./lib/src/main/kotlin/de/iotoi/DataHelloLib.kt
+```
 ```kotlin
-val obj: Double = 5.0
+// FILE (DataHelloLib.kt)
+package de.iotoi
 
-System.out.println(obj.javaClass.name)                 // double
-System.out.println(obj.javaClass.kotlin)               // class kotlin.Double
-System.out.println(obj.javaClass.kotlin.qualifiedName) // kotlin.Double
+data class DataHelloLib (var greeting: String = "Hello!")
 ```
 
 
 
-## References
-- https://developer.ibm.com/tutorials/learn-kotlin-3/
-- https://developer.ibm.com/tutorials/learn-kotlin-4/
-- https://kotlinlang.org/docs/reference/properties.html
-- https://www.programiz.com/kotlin-programming/getters-setters
+## Version 3: The Sub-Project `app`
+
+### DO (edit the kotlin file)
+```bash
+nano ./app/src/main/kotlin/de/iotoi/App.kt
+```
+```kotlin
+// FILE (App.kt)
+...
+    // Use the special `data class DataHelloLib`
+    println(DataHelloLib().greeting)
+
+    var dataHelloLib = DataHelloLib()
+    dataHelloLib.greeting = "Hallo"
+    println(dataHelloLib.greeting)
+}
+```
+
+### DO (run the Project with Gradle)
+```bash
+./gradlew -q app:run
+```
+```bash
+    # >> Result
+    Hello World!
+    Hallo Welt!
+    Hello!
+    Hallo
+```
+
+
+
+## Version 4: Kotlin Library Sub-Project `lib`
+- Use Different Readable Styles of Property in normal `class`
+
+### DO (edit the kotlin file)
+```bash
+nano ./lib/src/main/kotlin/de/iotoi/HelloLib.kt
+```
+```kotlin
+// FILE (HelloLib.kt)
+...
+    var greeting2: String = "Hallo Welt!"
+        get() = field
+        set(value) {
+            field = value
+        }
+
+    var greeting3: String = "世界，你好!"
+        get(): String = field
+        set(value) {
+            field = value
+        }
+}
+```
+
+
+
+## Version 4: The Sub-Project `app`
+
+### DO (edit the kotlin file)
+```bash
+nano ./app/src/main/kotlin/de/iotoi/App.kt
+```
+```kotlin
+// FILE (App.kt)
+...
+    // Use different styles
+    println(helloLib.greeting2)
+    println(helloLib.greeting3)
+}
+```
+
+### DO (run the Project with Gradle)
+```bash
+./gradlew -q app:run
+```
+```bash
+    # >> Result
+    Hello World!
+    Hallo Welt!
+    Hello!
+    Hallo
+    Hallo Welt!
+    世界，你好!
+```
+
+
+
+## References for tools
+- [Add a copy to clipboard button in a GitHub](https://github.com/zenorocha/codecopy#install)

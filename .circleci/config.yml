@@ -44,5 +44,5 @@ jobs:
           name: "Run Kotlin Application"
           command: |
               ./gradlew -q check
-              ./gradlew -q run
+              ./gradlew -q app:run
               ./gradlew -q test

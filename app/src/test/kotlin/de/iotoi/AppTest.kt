@@ -10,12 +10,12 @@ import kotlin.test.assertEquals
 
 class AppTest {
     @Test fun testAppHasAGreeting() {
-        val classUnderTest = App()
+        val classUnderTest = HelloLib()
         assertNotNull(classUnderTest.greeting, "app should have a greeting")
     }
 
     @Test fun testType(){
-        val greeting = App().greeting
+        val greeting = HelloLib().greeting
         assertEquals(greeting.javaClass.name, "java.lang.String");
         assertEquals(greeting.javaClass.kotlin.qualifiedName, "kotlin.String");
 
