@@ -245,7 +245,7 @@ nano ./app/src/main/kotlin/de/iotoi/App.kt
 package de.iotoi
 
 fun main() {
-    // Use the normal `class App`
+    // Use the normal `class HelloLib`
     println(HelloLib().greeting)
 
     var helloLib = HelloLib()
