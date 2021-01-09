@@ -16,10 +16,10 @@
 
 ---
 
-Unit 000: Hello Dummy!
-<h1>Unit 000: Hello Dummy!</h1>
+Unit 205: Hello @Service
+<h1>Unit 205: Hello `@Service`!</h1>
 
-- How to
+- How to Understand the Annotation @Service
 
 ---
 
@@ -28,6 +28,22 @@ Unit 000: Hello Dummy!
 
 - [Keywords](#keywords)
 - [Prerequisites](#prerequisites)
+- [Create A New Kotlin Web App](#create-a-new-kotlin-web-app)
+  - [DO (create a new project)](#do-create-a-new-project)
+  - [DO (edit the spring property file)](#do-edit-the-spring-property-file)
+  - [DO (check the project)](#do-check-the-project)
+- [Develop the Project](#develop-the-project)
+  - [DO (create and edit the spring rest controller file)](#do-create-and-edit-the-spring-rest-controller-file)
+  - [DO (create and edit the spring service file)](#do-create-and-edit-the-spring-service-file)
+  - [DO (check the project)](#do-check-the-project-1)
+- [Run The Web Application on the Project](#run-the-web-application-on-the-project)
+  - [DO (run The Web Application with Gradle)](#do-run-the-web-application-with-gradle)
+  - [DO (open a new terminal to browse the website)](#do-open-a-new-terminal-to-browse-the-website)
+- [Run The Web Application on Docker](#run-the-web-application-on-docker)
+  - [DO (build an OCI image of the application)](#do-build-an-oci-image-of-the-application)
+  - [DO (run the application on Docker)](#do-run-the-application-on-docker)
+  - [DO (browse the web application on Docker)](#do-browse-the-web-application-on-docker)
+- [References](#references)
 - [References for tools](#references-for-tools)
 
 
@@ -48,5 +64,180 @@ Unit 000: Hello Dummy!
 
 
 
+## Create A New Kotlin Web App
+
+### DO (create a new project)
+```bash
+ID=205 && mkdir ${ID}_gradle_kotlin && cd ${ID}_gradle_kotlin
+curl https://start.spring.io/starter.zip -d language=kotlin \
+-d dependencies=web,devtools \
+-d packageName=de.iotoi \
+-d groupId=de.iotoi \
+-d artifactId=_gradle_kotlin \
+-d name=kotlin -d type=gradle-project -o basic_${ID}.zip && \
+unzip basic_${ID}.zip
+```
+
+### DO (edit the spring property file)
+```bash
+touch ./src/main/resources/application.properties
+```
+```bash
+nano ./src/main/resources/application.properties
+```
+```bash
+# FILE (application.properties)
+spring.main.banner-mode=off
+spring.main.log-startup-info=off
+web.app.name=Hello @Service
+logging.level.root=WARN
+```
+
+### DO (check the project)
+```bash
+./gradlew -q check
+```
+```bash
+    # >> Result: nothing
+```
+
+
+
+## Develop the Project
+
+### DO (create and edit the spring rest controller file)
+```bash
+touch ./src/main/kotlin/de/iotoi/HelloRestController.kt
+```
+```bash
+nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
+```
+```bash
+# FILE (HelloRestController.kt)
+package de.iotoi
+
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RestController
+
+@RestController
+class HelloRestController(val helloService: HelloService) {
+    @GetMapping("/api")
+    fun helloKotlin(): String {
+        return helloService.getHello()
+    }
+}
+```
+
+### DO (create and edit the spring service file)
+```bash
+touch ./src/main/kotlin/de/iotoi/HelloService.kt
+```
+```bash
+nano ./src/main/kotlin/de/iotoi/HelloService.kt
+```
+```bash
+# FILE (HelloService.kt)
+package de.iotoi
+
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Service
+
+@Service()
+class HelloService {
+    @Value("\${web.app.name}") val webAppName: String? = null
+
+    fun getHello(): String {
+        return "$webAppName!\n"
+    }
+}
+```
+
+### DO (check the project)
+```bash
+./gradlew -q check
+```
+```bash
+    # >> Result: nothing
+```
+
+
+## Run The Web Application on the Project
+
+### DO (run The Web Application with Gradle)
+```bash
+./gradlew -q bootRun
+```
+```bash
+    # Result
+    <==========---> 83% EXECUTING [21s]
+    > :bootRun
+```
+
+### DO (open a new terminal to browse the website)
+```bash
+curl http://localhost:8080/api
+```
+```bash
+    # >> Result
+    Hello @Service!
+```
+
+
+
+## Run The Web Application on Docker
+
+### DO (build an OCI image of the application)
+```bash
+./gradlew -q bootBuildImage --imageName=gradle_kotlin/basic_205
+```
+```bash
+	# >> Result
+	> Task :bootBuildImage
+	Building image 'docker.io/gradle_kotlin/basic_205:latest'
+
+	 > Pulling builder image 'docker.io/paketobuildpacks/builder:base' ..................................................
+	 ...
+	 ...
+		[creator]           docker.io/gradle_kotlin/basic_205:latest
+
+	Successfully built image 'docker.io/gradle_kotlin/basic_205:latest'
+
+	BUILD SUCCESSFUL in 3m 3s
+	5 actionable tasks: 3 executed, 2 up-to-date	 
+```
+
+### DO (run the application on Docker)
+```bash
+docker run -p 80:8080 gradle_kotlin/basic_205
+```
+```bash
+	# >> Result
+    Setting Active Processor Count to 4
+    Calculating JVM memory based on 1017684K available memory
+    Calculated JVM Memory Configuration: -XX:MaxDirectMemorySize=10M -Xmx418084K -XX:MaxMetaspaceSize=87599K -XX:ReservedCodeCacheSize=240M -Xss1M (Total Memory: 1017684K, Thread Count: 250, Loaded Class Count: 13052, Headroom: 0%)
+    Adding 138 container CA certificates to JVM truststore
+    Spring Cloud Bindings Enabled
+    Picked up JAVA_TOOL_OPTIONS: -Djava.security.properties=/layers/paketo-buildpacks_bellsoft-liberica/java-security-properties/java-security.properties -agentpath:/layers/paketo-buildpacks_bellsoft-liberica/jvmkill/jvmkill-1.16.0-RELEASE.so=printHeapHistogram=1 -XX:ActiveProcessorCount=4 -XX:MaxDirectMemorySize=10M -Xmx418084K -XX:MaxMetaspaceSize=87599K -XX:ReservedCodeCacheSize=240M -Xss1M -Dorg.springframework.cloud.bindings.boot.enable=true
+```
+
+### DO (browse the web application on Docker)
+```bash
+curl http://localhost:80/api
+```
+```bash
+	# >> Result
+	Hello @Service!
+```
+
+
+
+## References
+- https://github.com/Baeldung/kotlin-tutorials/tree/master/spring-boot-kotlin/src/main/kotlin/com/baeldung/springbootkotlin
+- https://www.baeldung.com/spring-boot-kotlin
+- https://www.journaldev.com/21435/spring-service-annotation#spring-service-example
+
+
+
 ## References for tools
 - [Add a copy to clipboard button in a GitHub](https://github.com/zenorocha/codecopy#install)
+
