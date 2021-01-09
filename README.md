@@ -10,8 +10,7 @@
 [![Java zulu-openjdk:11](https://img.shields.io/badge/Java-zulu%20openjdk:11-brightgreen?style=flat&logo=java)](https://www.azul.com/downloads/zulu-community/?package=jdk)
 [![kotlin lang)](https://img.shields.io/github/v/release/JetBrains/kotlin?label=kotlin&logo=kotlin)](https://github.com/JetBrains/kotlin)
 [![IntelliJ IDEA Community Edition](https://img.shields.io/badge/IntelliJ%20IDEA%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
-[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin)
-
+[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_104.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_104)
 
 ---
 
