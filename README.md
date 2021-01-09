@@ -31,7 +31,7 @@ basic_104 Hello One Application!
   - [DO (Test the project)](#do-test-the-project)
   - [DO (edit the test file)](#do-edit-the-test-file)
   - [DO (Test the project again)](#do-test-the-project-again)
-- [Understand the Code in the Project](#understand-the-code-in-the-project)
+- [Understand the Kotlin Code in the Project](#understand-the-kotlin-code-in-the-project)
   - [keyword `class` and `.`](#keyword-class-and-)
   - [keyword `val`](#keyword-val)
   - [function `get()` and pure function `f(x) = y`](#function-get-and-pure-function-fx--y)
@@ -167,7 +167,7 @@ class AppTest {
 
 
 
-## Understand the Code in the Project
+## Understand the Kotlin Code in the Project
 
 ### keyword `class` and `.`
 - declare a class and use a class
