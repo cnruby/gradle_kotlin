@@ -20,6 +20,7 @@ Hello "gradle_kotlin"!
 
 ---
 
+<h1>Table of Contents</h1>
 
 - [Keywords](#keywords)
 - [Prerequisites](#prerequisites)
