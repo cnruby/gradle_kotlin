@@ -15,28 +15,38 @@
 
 ---
 
-Hello "gradle_kotlin"!
-<h1>Learn Kotlin with Gradle From null to ONE</h1>
+basic_104 Hello One Application!
+<h1>Unit 104: Hello One Application!</h1>
 
 ---
 
 
 - [Keywords](#keywords)
 - [Prerequisites](#prerequisites)
-- [Kotlin and Java Language](#kotlin-and-java-language)
-- [iOS and Android OS](#ios-and-android-os)
-- [Kotlin Language](#kotlin-language)
+- [Create A Kotlin Application with Gradle](#create-a-kotlin-application-with-gradle)
+  - [DO (create a kotlin project)](#do-create-a-kotlin-project)
+  - [DO (check the project)](#do-check-the-project)
+- [Run the Project with Gradle](#run-the-project-with-gradle)
+- [Develop the Testing Code](#develop-the-testing-code)
+  - [DO (Test the project)](#do-test-the-project)
+  - [DO (edit the test file)](#do-edit-the-test-file)
+  - [DO (Test the project again)](#do-test-the-project-again)
+- [Understand the Code in the Project](#understand-the-code-in-the-project)
+  - [keyword `class` and `.`](#keyword-class-and-)
+  - [keyword `val`](#keyword-val)
+  - [function `get()` and pure function `f(x) = y`](#function-get-and-pure-function-fx--y)
+  - [keyword `import`](#keyword-import)
+  - [keyword `@Test`](#keyword-test)
+  - [keyword `val` and `=`](#keyword-val-and-)
+- [Question: How to get name of any class?](#question-how-to-get-name-of-any-class)
 - [References](#references)
-- [References for comment](#references-for-comment)
-- [References for tutorials](#references-for-tutorials)
-- [Other References](#other-references)
 
 
 
 ## Keywords
-- install Kotlin REPL Ubuntu Gradle jabba JDK Java JVM
+- Kotlin Project `One Application`
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE` CircleCI CI
-- tutorial example
+- tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM
 
 
 
@@ -50,60 +60,167 @@ Hello "gradle_kotlin"!
 
 
 
-## Kotlin and Java Language
-![kotlin-java-decompile](doc/image/kotlin-java-decompile.png)
+## Create A Kotlin Application with Gradle
+
+### DO (create a kotlin project)
+```bash
+gradle init
+```
+```bash
+Select type of project to generate:
+  1: basic
+  2: application
+  3: library
+  4: Gradle plugin
+Enter selection (default: basic) [1..4] 2
+
+Select implementation language:
+  1: C++
+  2: Groovy
+  3: Java
+  4: Kotlin
+  5: Scala
+  6: Swift
+Enter selection (default: Java) [1..6] 4
+
+Split functionality across multiple subprojects?:
+  1: no - only one application project
+  2: yes - application and library projects
+Enter selection (default: no - only one application project) [1..2] 1
+
+Select build script DSL:
+  1: Groovy
+  2: Kotlin
+Enter selection (default: Kotlin) [1..2] 2
+
+Project name (default: 104_gradle_kotlin): 
+Source package (default: _gradle_kotlin): de.iotoi
+
+> Task :init
+Get more help with your project: https://docs.gradle.org/6.7.1/samples/sample_building_kotlin_applications_multi_project.html
+
+BUILD SUCCESSFUL in 33s
+2 actionable tasks: 2 executed
+```
+
+### DO (check the project)
+```bash
+./gradlew -q check
+```
+```bash
+    # >> Result: nothing
+```
 
 
 
-## iOS and Android OS
-![kotlin-ios-android](doc/image/kotlin-ios-android.png)
+## Run the Project with Gradle
+```bash
+./gradlew -q run
+```
+```bash
+    # >> Result
+    Hello World!
+```
+
+
+## Develop the Testing Code
+
+### DO (Test the project)
+```bash
+./gradlew -q test
+```
+```bash
+    # >> Result: nothing
+```
+
+### DO (edit the test file)
+```bash
+nano app/src/test/kotlin/de/iotoi/AppTest.kt
+```
+```kotlin
+# FILE (AppTest.kt)
+//...
+import kotlin.test.assertNotNull
+import kotlin.test.assertEquals
+
+class AppTest {
+//...
+//...
+    @Test fun testType(){
+        val greeting = App().greeting
+        assertEquals(greeting.javaClass.name, "java.lang.String");
+        assertEquals(greeting.javaClass.kotlin.qualifiedName, "kotlin.String");
+
+        assertEquals(greeting::class.simpleName, "String");
+        assertEquals(greeting::class.qualifiedName, "kotlin.String");
+    }
+//...
+```
+
+### DO (Test the project again)
+```bash
+./gradlew -q test
+```
+```bash
+    # >> Result: nothing
+```
 
 
 
-## Kotlin Language
-- Kotlin is an object-oriented language, but it also includes support for function-oriented programming, which has become popular in recent years.
-- Every Kotlin type is an object, including Kotlin’s primitive types. 
-- (almost) everything has a value
+## Understand the Code in the Project
+
+### keyword `class` and `.`
+- declare a class and use a class
+- use function of a class
+
+### keyword `val`
+- Declare immutable variables: val
+
+### function `get()` and pure function `f(x) = y`
+```kotlin
+    // !!! VERSION 1: variable-styled
+    val greeting: String = "Hello World!"
+```
+
+```kotlin
+    // !!! VERSION 2: method-styled
+    val greeting: String
+        get() {
+            return "Hello World!"
+        }
+```
+
+```kotlin
+    // !!! VERSION 3: function-styled
+    val greeting: String
+        get() = "Hello World!"
+```
+
+### keyword `import`
+
+### keyword `@Test`
+
+### keyword `val` and `=`
+- declare an immutable variable
+
+
+
+## Question: How to get name of any class?
+- https://stackoverflow.com/questions/53359407/how-to-get-name-of-any-class
+- https://stackoverflow.com/questions/32684739/kotlin-get-type-as-string
+
+```kotlin
+val obj: Double = 5.0
+
+System.out.println(obj.javaClass.name)                 // double
+System.out.println(obj.javaClass.kotlin)               // class kotlin.Double
+System.out.println(obj.javaClass.kotlin.qualifiedName) // kotlin.Double
+```
+
 
 
 ## References
-- https://kotlinlang.org/docs/reference
-- https://play.kotlinlang.org/
-- https://github.com/gradle/kotlin-dsl-samples
-- https://gradle-initializr.cleverapps.io/
-- https://start.spring.io/
-- https://github.com/bmuschko/gradle-initializr
-- https://try.kotlinlang.org/
-
-
-  
-## References for comment
-- https://www.golem.de/news/kotlin-das-bessere-java-2011-151892.html
-- https://cloud.tencent.com/developer/article/1684095
-- http://www.1024sky.cn/blog/article/3632
-- https://juejin.cn/post/6864946688067371022
-- https://mp.weixin.qq.com/s/mWPJiefaNpK8EuoJYvhbhg
-- https://blog.jetbrains.com/zh-hans/2020/01/14/kotlin-1-4/
-- https://tech.sina.com.cn/roll/2020-04-26/doc-iirczymi8419844.shtml
-- https://www.cnbeta.com/articles/tech/1006715.htm
-  
-## References for tutorials
-- https://developer.android.com/kotlin/learn?hl=zh-cn
-- https://developer.ibm.com/series/learn-kotlin/
-- https://code.tutsplus.com/series/kotlin-from-scratch--cms-1209
-- https://www.cnblogs.com/Jetictors/p/9227498.html
-- https://www.kotlincn.net/docs/tutorials/
-- https://developer.android.com/courses/kotlin-android-fundamentals/overview
-- https://developer.android.com/courses/kotlin-android-advanced/overview
-- https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012
-- https://mkyong.com/spring-boot/
-
-## Other References
-- https://developer.android.com/courses/kotlin-bootcamp/overview
-- https://play.kotlinlang.org/koans/overview
-- https://kotlinlang.org/docs/tutorials/command-line.html
-- https://circleci.com/docs/2.0/env-vars/
-- https://linuxconfig.org/install-and-set-up-kvm-on-ubuntu-20-04-focal-fossa-linux
-- https://radiochemical.hatenablog.com/archive/category/Spring%20Boot
-- https://juejin.cn/post/6844903879834861582
-- 
+- https://developer.ibm.com/tutorials/learn-kotlin-3/
+- https://developer.ibm.com/tutorials/learn-kotlin-4/
+- https://kotlinlang.org/docs/reference/properties.html
+- https://www.programiz.com/kotlin-programming/getters-setters
