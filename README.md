@@ -37,13 +37,14 @@ Unit 206: Hello @Controller!
   - [DO (create and edit a new spring controller file)](#do-create-and-edit-a-new-spring-controller-file)
   - [DO (create and edit the web page file)](#do-create-and-edit-the-web-page-file)
   - [DO (check the project)](#do-check-the-project-1)
-- [Run the Web Application on Project](#run-the-web-application-on-project)
+- [Run The Web Application on Project](#run-the-web-application-on-project)
   - [DO (run The Web Application with Gradle)](#do-run-the-web-application-with-gradle)
   - [DO (open a new terminal to browse the website)](#do-open-a-new-terminal-to-browse-the-website)
 - [Run The Web Application on Docker](#run-the-web-application-on-docker)
   - [DO (build an OCI image of the application)](#do-build-an-oci-image-of-the-application)
   - [DO (run the application on Docker)](#do-run-the-application-on-docker)
   - [DO (browse the web application on Docker)](#do-browse-the-web-application-on-docker)
+- [References](#references)
 - [References for tools](#references-for-tools)
 
 
@@ -169,7 +170,7 @@ nano ./src/main/resources/templates/home.html
 
 
 
-## Run the Web Application on Project
+## Run The Web Application on Project
 
 ### DO (run The Web Application with Gradle)
 ```bash
@@ -244,6 +245,11 @@ google-chrome http://localhost:80/
 ![home_page](doc/image/home_page.png)
 
 
+
+## References
+- https://www.thymeleaf.org/
+- https://www.jetbrains.com/help/idea/thymeleaf.html#Thymeleaf-7-chapter
+- https://www.codeflow.site/de/article/thymeleaf-in-spring-mvc
 
 
 
