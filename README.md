@@ -20,6 +20,7 @@ Unit 208: Hello @Autowired
 <h1>Unit 208: Hello @Autowired!</h1>
 
 - How to Understand the Annotation @Autowired
+- How to Compare the Service with and without the Annotation @Autowired
 
 ---
 
@@ -32,14 +33,20 @@ Unit 208: Hello @Autowired
   - [DO (create a new project)](#do-create-a-new-project)
   - [DO (edit the spring property file)](#do-edit-the-spring-property-file)
   - [DO (check the project)](#do-check-the-project)
-- [Develop the Project](#develop-the-project)
+- [Develop the Project with @Autowired](#develop-the-project-with-autowired)
   - [DO (create and edit the spring rest controller file)](#do-create-and-edit-the-spring-rest-controller-file)
   - [DO (edit the spring service file)](#do-edit-the-spring-service-file)
   - [DO (edit the spring rest controller file)](#do-edit-the-spring-rest-controller-file)
   - [DO (check the project)](#do-check-the-project-1)
-- [Run The Web Application on the Project](#run-the-web-application-on-the-project)
+- [Run The Web Application with @Autowired on the Project](#run-the-web-application-with-autowired-on-the-project)
   - [DO (run The Web Application with Gradle)](#do-run-the-web-application-with-gradle)
   - [DO (open a new terminal to browse the website)](#do-open-a-new-terminal-to-browse-the-website)
+- [Develop the Project without @Autowired](#develop-the-project-without-autowired)
+  - [DO (edit the spring service file without @Autowired)](#do-edit-the-spring-service-file-without-autowired)
+  - [DO (edit the spring rest controller file)](#do-edit-the-spring-rest-controller-file-1)
+- [Run The Web Application on the Project Again](#run-the-web-application-on-the-project-again)
+  - [DO (run The Web Application with Gradle)](#do-run-the-web-application-with-gradle-1)
+  - [DO (open a new terminal to browse the website for service "HelloNativeService")](#do-open-a-new-terminal-to-browse-the-website-for-service-hellonativeservice)
 - [Run The Web Application on Docker](#run-the-web-application-on-docker)
   - [DO (build an OCI image of the application)](#do-build-an-oci-image-of-the-application)
   - [DO (run the application on Docker)](#do-run-the-application-on-docker)
@@ -96,7 +103,7 @@ logging.level.root=WARN
 
 
 
-## Develop the Project
+## Develop the Project with @Autowired
 
 ### DO (create and edit the spring rest controller file)
 ```bash
@@ -142,12 +149,8 @@ class HelloService {
         return "$webAppName!\n"
     }
 
-    fun getHallo(): String {
-        if (halloService != null) {
-            return halloService.getHallo()
-        }
-        return "Hallo Error from HalloService!"
-    }
+    fun getHallo(): String? {
+        return halloService?.getHallo()
 }
 ```
 
@@ -164,7 +167,7 @@ nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
     }
 
     @GetMapping("/api/hallo")
-    fun halloService(): String {
+    fun halloService(): String? {
         return helloService.getHallo()
     }
 }
@@ -179,7 +182,8 @@ nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
 ```
 
 
-## Run The Web Application on the Project
+
+## Run The Web Application with @Autowired on the Project
 
 ### DO (run The Web Application with Gradle)
 ```bash
@@ -201,6 +205,95 @@ curl http://localhost:8080/api/hello
 ```
 ```bash
 curl http://localhost:8080/api/hallo
+```
+```bash
+    # >> Result
+    Hallo Welt!
+```
+
+
+
+
+## Develop the Project without @Autowired
+
+### DO (edit the spring service file without @Autowired)
+```bash
+nano ./src/main/kotlin/de/iotoi/HelloNativeService.kt
+```
+```bash
+# FILE (HelloNativeService.kt)
+package de.iotoi
+
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Service
+import org.springframework.beans.factory.annotation.Autowired
+
+//@Service("ms")
+@Service
+class HelloNativeService(val nativeService: HalloService) {
+    @Value("\${web.app.name}")
+    val webAppName: String? = null
+
+    private final var halloService: HalloService? = null
+    init{
+        if (nativeService != null) {
+            this.halloService = nativeService
+        }
+    }
+
+    fun getHello(): String {
+        return "$webAppName!\n"
+    }
+
+    fun getHallo(): String? {
+        return halloService?.getHallo()
+    }
+}
+```
+
+### DO (edit the spring rest controller file)
+```bash
+nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
+```
+```bash
+# FILE (HelloRestController.kt)
+...
+    @GetMapping("/api/hello_native")
+    fun helloNativeService(): String {
+        return helloNativeService.getHello()
+    }
+
+    @GetMapping("/api/hallo_native")
+    fun halloNativeService(): String? {
+        return helloNativeService.getHallo()
+    }
+}
+```
+
+
+
+## Run The Web Application on the Project Again
+
+### DO (run The Web Application with Gradle)
+```bash
+./gradlew -q bootRun
+```
+```bash
+    # Result
+    <==========---> 83% EXECUTING [21s]
+    > :bootRun
+```
+
+### DO (open a new terminal to browse the website for service "HelloNativeService")
+```bash
+curl http://localhost:8080/api/hello_native
+```
+```bash
+    # >> Result
+    Hello @Autowired!
+```
+```bash
+curl http://localhost:8080/api/hallo_native
 ```
 ```bash
     # >> Result
@@ -250,11 +343,17 @@ docker run -p 80:8080 gradle_kotlin/basic_208
 curl http://localhost:80/api/hello
 ```
 ```bash
+curl http://localhost:80/api/hello_native
+```
+```bash
     # >> Result
     Hello @Autowired!
 ```
 ```bash
 curl http://localhost:80/api/hallo
+```
+```bash
+curl http://localhost:80/api/hallo_native
 ```
 ```bash
     # >> Result
