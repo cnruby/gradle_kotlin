@@ -61,15 +61,19 @@ jobs:
             sudo apt install curl wget netcat -y
 
       - run:
-          name: "start web server with web app"
+          name: "create a docker image"
           command: |
               ./gradlew -q bootBuildImage --imageName=gradle_kotlin/basic_xxx
+
+      - run:
+          name: "start web server with web app"
+          command: |
               docker run -d --name=xxx_gradle_kotlin_container -p 80:8080 gradle_kotlin/basic_xxx
 
       - run:
           name: "browse the website"
           command: |
-              sleep 5 && nc -vz localhost 80
+              sleep 10 && nc -vz localhost 80
               curl localhost:80/api/books
               curl \
                   -H "Content-Type: application/json" \
