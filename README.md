@@ -11,15 +11,22 @@
 [![kotlin lang)](https://img.shields.io/github/v/release/JetBrains/kotlin?label=kotlin&logo=kotlin)](https://github.com/JetBrains/kotlin)
 [![IntelliJ IDEA Community Edition](https://img.shields.io/badge/IntelliJ%20IDEA%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
 [![Docker-(2019.03.13)](https://img.shields.io/badge/Docker-%2019.03.13-brightgreen)](https://www.docker.com/)
-[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_205.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_205)
+[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_207.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_207)
 
 
 ---
 
-Unit 205: Hello @Service
-<h1>Unit 205: Hello @Service!</h1>
+Unit 207: Hello @Component
+<h1>Unit 207: Hello @Component!</h1>
 
-- How to Understand the Annotation @Service
+- How to Understand the Annotation @Component
+- How to Compare the Annotation @Component and @Service
+- @Component is a generic stereotype for any Spring-managed component
+- @Repository annotates classes at the persistence layer, which will act as a database repository
+- @Service annotates classes at the service layer
+- @Service and @Repository are special cases of @Component
+- @Repository, @Service, @Configuration and @Controller are all meta-annotations of @Component,
+
 
 ---
 
@@ -33,8 +40,10 @@ Unit 205: Hello @Service
   - [DO (edit the spring property file)](#do-edit-the-spring-property-file)
   - [DO (check the project)](#do-check-the-project)
 - [Develop the Project](#develop-the-project)
-  - [DO (create and edit the spring rest controller file)](#do-create-and-edit-the-spring-rest-controller-file)
-  - [DO (create and edit the spring service file)](#do-create-and-edit-the-spring-service-file)
+  - [DO (create and edit the spring file with annotation @Component)](#do-create-and-edit-the-spring-file-with-annotation-component)
+  - [DO (edit the spring service file)](#do-edit-the-spring-service-file)
+  - [DO (edit the spring rest controller file)](#do-edit-the-spring-rest-controller-file)
+  - [DO (edit the spring application file)](#do-edit-the-spring-application-file)
   - [DO (check the project)](#do-check-the-project-1)
 - [Run The Web Application on the Project](#run-the-web-application-on-the-project)
   - [DO (run The Web Application with Gradle)](#do-run-the-web-application-with-gradle)
@@ -49,7 +58,7 @@ Unit 205: Hello @Service
 
 
 ## Keywords
-- `Spring Boot` Annotation `@Service`
+- `Spring Boot` Annotation `@Component`
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE` CircleCI CI
 - tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM
 
@@ -68,29 +77,22 @@ Unit 205: Hello @Service
 
 ### DO (create a new project)
 ```bash
-ID=205 && mkdir ${ID}_gradle_kotlin && cd ${ID}_gradle_kotlin
-curl https://start.spring.io/starter.zip -d language=kotlin \
-    -d dependencies=web,devtools \
-    -d packageName=de.iotoi \
-    -d groupId=de.iotoi \
-    -d artifactId=_gradle_kotlin \
-    -d name=kotlin -d type=gradle-project -o basic_${ID}.zip && \
-unzip basic_${ID}.zip
+EXISTING_APP_ID=205 && NEW_APP_ID=207 && \
+git clone -b basic_${EXISTING_APP_ID} https://github.com/cnruby/gradle_kotlin.git ${NEW_APP_ID}_gradle_kotlin && \
+cd ${NEW_APP_ID}_gradle_kotlin && \
+git checkout -b basic_${NEW_APP_ID}
 ```
 
 ### DO (edit the spring property file)
-```bash
-touch ./src/main/resources/application.properties
 ```
 ```bash
 nano ./src/main/resources/application.properties
 ```
 ```bash
 # FILE (application.properties)
-spring.main.banner-mode=off
-spring.main.log-startup-info=off
-web.app.name=Hello @Service
-logging.level.root=WARN
+...
+web.app.name=Hello @Component
+...
 ```
 
 ### DO (check the project)
@@ -105,50 +107,80 @@ logging.level.root=WARN
 
 ## Develop the Project
 
-### DO (create and edit the spring rest controller file)
+### DO (create and edit the spring file with annotation @Component)
 ```bash
-touch ./src/main/kotlin/de/iotoi/HelloRestController.kt
+touch ./src/main/kotlin/de/iotoi/HelloComponent.kt
 ```
 ```bash
-nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
+nano ./src/main/kotlin/de/iotoi/HelloComponent.kt
 ```
 ```bash
-# FILE (HelloRestController.kt)
-package de.iotoi
-
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RestController
-
-@RestController
-class HelloRestController(val helloService: HelloService) {
-    @GetMapping("/api")
-    fun helloKotlin(): String {
-        return helloService.getHello()
-    }
-}
-```
-
-### DO (create and edit the spring service file)
-```bash
-touch ./src/main/kotlin/de/iotoi/HelloService.kt
-```
-```bash
-nano ./src/main/kotlin/de/iotoi/HelloService.kt
-```
-```bash
-# FILE (HelloService.kt)
+# FILE (HelloComponent.kt)
 package de.iotoi
 
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 
-@Service()
-class HelloService {
+@Component()
+class HelloComponent {
     @Value("\${web.app.name}") val webAppName: String? = null
 
     fun getHello(): String {
         return "$webAppName!\n"
     }
+}
+```
+
+### DO (edit the spring service file)
+```bash
+nano ./src/main/kotlin/de/iotoi/HelloService.kt
+```
+```bash
+# FILE (HelloService.kt)
+...
+@Service()
+class HelloService {
+    fun getHello(): String {
+        return "Hello @Service!\n"
+    }
+}
+```
+
+### DO (edit the spring rest controller file)
+```bash
+nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
+```
+```bash
+# FILE (HelloRestController.kt)
+...
+class HelloRestController(val helloService: HelloService, val helloComponent: HelloComponent) {
+    @GetMapping("/api/service")
+    fun helloService(): String {
+        return helloService.getHello()
+    }
+
+    @GetMapping("/api/component")
+    fun helloComponent(): String {
+        return helloComponent.getHello()
+    }
+}
+```
+
+### DO (edit the spring application file)
+```bash
+nano ./src/main/kotlin/de/iotoi/KotlinApplication.kt
+```
+```bash
+# FILE (KotlinApplication.kt)
+...
+fun main(args: Array<String>) {
+	var applicationContext = runApplication<KotlinApplication>(*args)
+
+	var helloComponent = applicationContext.getBean("helloComponent") as HelloComponent
+	println(helloComponent.getHello())
+
+	var helloService = applicationContext.getBean("helloService") as HelloService
+	println(helloService.getHello())
 }
 ```
 
@@ -169,17 +201,28 @@ class HelloService {
 ```
 ```bash
     # Result
+    Hello @Component!
+
+    Hello @Service!
+
     <==========---> 83% EXECUTING [21s]
     > :bootRun
 ```
 
 ### DO (open a new terminal to browse the website)
 ```bash
-curl http://localhost:8080/api
+curl http://localhost:8080/api/service
 ```
 ```bash
     # >> Result
     Hello @Service!
+```
+```bash
+curl http://localhost:8080/api/component
+```
+```bash
+    # >> Result
+    Hello @Component!
 ```
 
 
@@ -188,19 +231,19 @@ curl http://localhost:8080/api
 
 ### DO (build an OCI image of the application)
 ```bash
-./gradlew -q bootBuildImage --imageName=gradle_kotlin/basic_205
+./gradlew -q bootBuildImage --imageName=gradle_kotlin/basic_207
 ```
 ```bash
     # >> Result
     > Task :bootBuildImage
-    Building image 'docker.io/gradle_kotlin/basic_205:latest'
+    Building image 'docker.io/gradle_kotlin/basic_207:latest'
 
      > Pulling builder image 'docker.io/paketobuildpacks/builder:base' ..................................................
      ...
      ...
-        [creator]           docker.io/gradle_kotlin/basic_205:latest
+        [creator]           docker.io/gradle_kotlin/basic_207:latest
 
-    Successfully built image 'docker.io/gradle_kotlin/basic_205:latest'
+    Successfully built image 'docker.io/gradle_kotlin/basic_207:latest'
 
     BUILD SUCCESSFUL in 3m 3s
     5 actionable tasks: 3 executed, 2 up-to-date     
@@ -208,7 +251,7 @@ curl http://localhost:8080/api
 
 ### DO (run the application on Docker)
 ```bash
-docker run -p 80:8080 gradle_kotlin/basic_205
+docker run -p 80:8080 gradle_kotlin/basic_207
 ```
 ```bash
     # >> Result
@@ -222,22 +265,30 @@ docker run -p 80:8080 gradle_kotlin/basic_205
 
 ### DO (browse the web application on Docker)
 ```bash
-curl http://localhost:80/api
+curl http://localhost:80/api/service
 ```
 ```bash
     # >> Result
     Hello @Service!
 ```
+```bash
+curl http://localhost:80/api/component
+```
+```bash
+    # >> Result
+    Hello @Component!
+```
 
 
 
 ## References
-- https://github.com/Baeldung/kotlin-tutorials/tree/master/spring-boot-kotlin/src/main/kotlin/com/baeldung/springbootkotlin
-- https://www.baeldung.com/spring-boot-kotlin
-- https://www.journaldev.com/21435/spring-service-annotation#spring-service-example
+- https://kotlinlang.org/docs/reference/interfaces.html
+- https://www.baeldung.com/kotlin/kotlin-interfaces
+- https://www.baeldung.com/spring-component-repository-service
+- https://www.javaguides.net/2018/11/spring-component-annotation-example.html
+- https://www.baeldung.com/spring-bean-annotations
 
 
 
 ## References for tools
 - [Add a copy to clipboard button in a GitHub](https://github.com/zenorocha/codecopy#install)
-
