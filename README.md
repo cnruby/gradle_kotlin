@@ -30,7 +30,7 @@ Unit 205: Hello @Service
 - [Prerequisites](#prerequisites)
 - [Create A New Kotlin Web App](#create-a-new-kotlin-web-app)
   - [DO (create a new project)](#do-create-a-new-project)
-  - [DO (edit the spring property file)](#do-edit-the-spring-property-file)
+  - [DO (create and edit the spring property file)](#do-create-and-edit-the-spring-property-file)
   - [DO (check the project)](#do-check-the-project)
 - [Develop the Project](#develop-the-project)
   - [DO (create and edit the spring rest controller file)](#do-create-and-edit-the-spring-rest-controller-file)
@@ -68,17 +68,18 @@ Unit 205: Hello @Service
 
 ### DO (create a new project)
 ```bash
-ID=205 && mkdir ${ID}_gradle_kotlin && cd ${ID}_gradle_kotlin
+NEW_APP_ID=205 && \
+mkdir ${NEW_APP_ID}_gradle_kotlin && cd ${NEW_APP_ID}_gradle_kotlin && \
 curl https://start.spring.io/starter.zip -d language=kotlin \
     -d dependencies=web,devtools \
     -d packageName=de.iotoi \
     -d groupId=de.iotoi \
     -d artifactId=_gradle_kotlin \
-    -d name=kotlin -d type=gradle-project -o basic_${ID}.zip && \
-unzip basic_${ID}.zip
+    -d name=kotlin -d type=gradle-project -o basic_${NEW_APP_ID}.zip && \
+unzip basic_${NEW_APP_ID}.zip
 ```
 
-### DO (edit the spring property file)
+### DO (create and edit the spring property file)
 ```bash
 touch ./src/main/resources/application.properties
 ```
