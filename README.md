@@ -11,15 +11,15 @@
 [![kotlin lang)](https://img.shields.io/github/v/release/JetBrains/kotlin?label=kotlin&logo=kotlin)](https://github.com/JetBrains/kotlin)
 [![IntelliJ IDEA Community Edition](https://img.shields.io/badge/IntelliJ%20IDEA%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
 [![Docker-(2019.03.13)](https://img.shields.io/badge/Docker-%2019.03.13-brightgreen)](https://www.docker.com/)
-[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_205.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_205)
+[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_208.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_208)
 
 
 ---
 
-Unit 205: Hello @Service
-<h1>Unit 205: Hello @Service!</h1>
+Unit 208: Hello @Autowired
+<h1>Unit 208: Hello @Autowired!</h1>
 
-- How to Understand the Annotation @Service
+- How to Understand the Annotation @Autowired
 
 ---
 
@@ -34,7 +34,8 @@ Unit 205: Hello @Service
   - [DO (check the project)](#do-check-the-project)
 - [Develop the Project](#develop-the-project)
   - [DO (create and edit the spring rest controller file)](#do-create-and-edit-the-spring-rest-controller-file)
-  - [DO (create and edit the spring service file)](#do-create-and-edit-the-spring-service-file)
+  - [DO (edit the spring service file)](#do-edit-the-spring-service-file)
+  - [DO (edit the spring rest controller file)](#do-edit-the-spring-rest-controller-file)
   - [DO (check the project)](#do-check-the-project-1)
 - [Run The Web Application on the Project](#run-the-web-application-on-the-project)
   - [DO (run The Web Application with Gradle)](#do-run-the-web-application-with-gradle)
@@ -49,7 +50,7 @@ Unit 205: Hello @Service
 
 
 ## Keywords
-- `Spring Boot` Annotation `@Service`
+- `Spring Boot` Annotation `@Autowired`
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE` CircleCI CI
 - tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM
 
@@ -68,20 +69,12 @@ Unit 205: Hello @Service
 
 ### DO (create a new project)
 ```bash
-ID=205 && mkdir ${ID}_gradle_kotlin && cd ${ID}_gradle_kotlin
-curl https://start.spring.io/starter.zip -d language=kotlin \
-    -d dependencies=web,devtools \
-    -d packageName=de.iotoi \
-    -d groupId=de.iotoi \
-    -d artifactId=_gradle_kotlin \
-    -d name=kotlin -d type=gradle-project -o basic_${ID}.zip && \
-unzip basic_${ID}.zip
+EXISTING_APP_ID=205 && NEW_APP_ID=208 && \
+git clone -b basic_${EXISTING_APP_ID} https://github.com/cnruby/gradle_kotlin.git ${NEW_APP_ID}_gradle_kotlin && \
+cd ${NEW_APP_ID}_gradle_kotlin
 ```
 
 ### DO (edit the spring property file)
-```bash
-touch ./src/main/resources/application.properties
-```
 ```bash
 nano ./src/main/resources/application.properties
 ```
@@ -89,7 +82,7 @@ nano ./src/main/resources/application.properties
 # FILE (application.properties)
 spring.main.banner-mode=off
 spring.main.log-startup-info=off
-web.app.name=Hello @Service
+web.app.name=Hello @Autowired
 logging.level.root=WARN
 ```
 
@@ -107,47 +100,72 @@ logging.level.root=WARN
 
 ### DO (create and edit the spring rest controller file)
 ```bash
-touch ./src/main/kotlin/de/iotoi/HelloRestController.kt
+touch ./src/main/kotlin/de/iotoi/HalloService.kt
 ```
 ```bash
-nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
+nano ./src/main/kotlin/de/iotoi/HalloService.kt
 ```
 ```bash
-# FILE (HelloRestController.kt)
-package de.iotoi
-
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RestController
-
-@RestController
-class HelloRestController(val helloService: HelloService) {
-    @GetMapping("/api")
-    fun helloKotlin(): String {
-        return helloService.getHello()
-    }
-}
-```
-
-### DO (create and edit the spring service file)
-```bash
-touch ./src/main/kotlin/de/iotoi/HelloService.kt
-```
-```bash
-nano ./src/main/kotlin/de/iotoi/HelloService.kt
-```
-```bash
-# FILE (HelloService.kt)
+# FILE (HalloService.kt)
 package de.iotoi
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service()
+class HalloService {
+    fun getHallo(): String {
+        return "Hallo Welt!\n"
+    }
+}
+```
+
+### DO (edit the spring service file)
+```
+```bash
+nano ./src/main/kotlin/de/iotoi/HelloService.kt
+```
+```bash
+# FILE (HelloService.kt)
+...
+import org.springframework.beans.factory.annotation.Autowired
+
+@Service()
 class HelloService {
-    @Value("\${web.app.name}") val webAppName: String? = null
+    @Value("\${web.app.name}")
+    val webAppName: String? = null
+
+    @Autowired
+    private val halloService: HalloService? = null
 
     fun getHello(): String {
         return "$webAppName!\n"
+    }
+
+    fun getHallo(): String {
+        if (halloService != null) {
+            return halloService.getHallo()
+        }
+        return "Hallo Error from HalloService!"
+    }
+}
+```
+
+### DO (edit the spring rest controller file)
+```bash
+nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
+```
+```bash
+# FILE (HelloRestController.kt)
+...
+    @GetMapping("/api/hello")
+    fun helloService(): String {
+        return helloService.getHello()
+    }
+
+    @GetMapping("/api/hallo")
+    fun halloService(): String {
+        return helloService.getHallo()
     }
 }
 ```
@@ -175,11 +193,18 @@ class HelloService {
 
 ### DO (open a new terminal to browse the website)
 ```bash
-curl http://localhost:8080/api
+curl http://localhost:8080/api/hello
 ```
 ```bash
     # >> Result
-    Hello @Service!
+    Hello @Autowired!
+```
+```bash
+curl http://localhost:8080/api/hallo
+```
+```bash
+    # >> Result
+    Hallo Welt!
 ```
 
 
@@ -188,19 +213,19 @@ curl http://localhost:8080/api
 
 ### DO (build an OCI image of the application)
 ```bash
-./gradlew -q bootBuildImage --imageName=gradle_kotlin/basic_205
+./gradlew -q bootBuildImage --imageName=gradle_kotlin/basic_208
 ```
 ```bash
     # >> Result
     > Task :bootBuildImage
-    Building image 'docker.io/gradle_kotlin/basic_205:latest'
+    Building image 'docker.io/gradle_kotlin/basic_208:latest'
 
      > Pulling builder image 'docker.io/paketobuildpacks/builder:base' ..................................................
      ...
      ...
-        [creator]           docker.io/gradle_kotlin/basic_205:latest
+        [creator]           docker.io/gradle_kotlin/basic_208:latest
 
-    Successfully built image 'docker.io/gradle_kotlin/basic_205:latest'
+    Successfully built image 'docker.io/gradle_kotlin/basic_208:latest'
 
     BUILD SUCCESSFUL in 3m 3s
     5 actionable tasks: 3 executed, 2 up-to-date     
@@ -208,7 +233,7 @@ curl http://localhost:8080/api
 
 ### DO (run the application on Docker)
 ```bash
-docker run -p 80:8080 gradle_kotlin/basic_205
+docker run -p 80:8080 gradle_kotlin/basic_208
 ```
 ```bash
     # >> Result
@@ -222,11 +247,18 @@ docker run -p 80:8080 gradle_kotlin/basic_205
 
 ### DO (browse the web application on Docker)
 ```bash
-curl http://localhost:80/api
+curl http://localhost:80/api/hello
 ```
 ```bash
     # >> Result
-    Hello @Service!
+    Hello @Autowired!
+```
+```bash
+curl http://localhost:80/api/hallo
+```
+```bash
+    # >> Result
+    Hallo Welt!
 ```
 
 

@@ -5,8 +5,13 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class HelloRestController(val helloService: HelloService) {
-    @GetMapping("/api")
-    fun helloKotlin(): String {
+    @GetMapping("/api/hello")
+    fun helloService(): String {
         return helloService.getHello()
+    }
+
+    @GetMapping("/api/hallo")
+    fun halloService(): String {
+        return helloService.getHallo()
     }
 }
