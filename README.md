@@ -83,7 +83,6 @@ cd ${NEW_APP_ID}_gradle_kotlin
 ```
 
 ### DO (edit the spring property file)
-```
 ```bash
 nano ./src/main/resources/application.properties
 ```
