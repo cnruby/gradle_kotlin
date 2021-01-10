@@ -28,6 +28,8 @@ Hello "gradle_kotlin"!
 - [Kotlin and Java Language](#kotlin-and-java-language)
 - [iOS and Android OS](#ios-and-android-os)
 - [Kotlin Language](#kotlin-language)
+- [Kotlin Language Project](#kotlin-language-project)
+- [Kotlin Spring Project](#kotlin-spring-project)
 - [References](#references)
 - [References for comment](#references-for-comment)
 - [References for tutorials](#references-for-tutorials)
@@ -67,6 +69,35 @@ Hello "gradle_kotlin"!
 - Every Kotlin type is an object, including Kotlin’s primitive types. 
 - (almost) everything has a value
 
+---
+
+## Kotlin Language Project
+| Lesson |	Project App	|	Project Common	| Multi-Project | Project Library |
+|---------|-------------|-------------|-------------|-------------|
+| 101 |  | [Hello Kotlin!](https://github.com/cnruby/gradle_kotlin/tree/basic_101) |  |  |
+| 102 | x | [ Hello Kotlin Compiler!](https://github.com/cnruby/gradle_kotlin/tree/basic_102) |  |  |
+| 103 | x | [Hello Kotlin with Gradle!](https://github.com/cnruby/gradle_kotlin/tree/basic_103) |  |  |
+| 104 | [Hello One Application!](https://github.com/cnruby/gradle_kotlin/tree/basic_104) |  |  |  |
+| 105 | x |  | x | [Hello Own Library!](https://github.com/cnruby/gradle_kotlin/tree/basic_105) |
+| 106 |  |  |  |  |
+| 107 |  |  |  |  |
+
+---
+
+## Kotlin Spring Project
+| Lesson |	Project App	| Project Common | Project Web App | Multi-Project |
+|---------|-------------|-------------|-------------|-------------|
+| 201 |  |  | [Hello @Bean!](https://github.com/cnruby/gradle_kotlin/tree/basic_201) |  |
+| 202 |  |  | [Hello @RestController!](https://github.com/cnruby/gradle_kotlin/tree/basic_202) |  |
+| 203 |  | [Hello devtools!](https://github.com/cnruby/gradle_kotlin/tree/basic_203) | x |  |
+| 204 |  |  | [Hello @Value!](https://github.com/cnruby/gradle_kotlin/tree/basic_204) |  |
+| 205 |  |  | [Hello @Service!](https://github.com/cnruby/gradle_kotlin/tree/basic_205) |  |
+| 206 |  |  | [Hello @Controller!](https://github.com/cnruby/gradle_kotlin/tree/basic_206) |  |
+|  |  |  |  |  |
+| 301 | [Hello Console App!](https://github.com/cnruby/gradle_kotlin/tree/basic_301) |  |  |  |
+| 302 |  |  |  |  |
+
+---
 
 ## References
 - https://kotlinlang.org/docs/reference
