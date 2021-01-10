@@ -119,7 +119,9 @@ Hello "gradle_kotlin"!
 - https://blog.jetbrains.com/zh-hans/2020/01/14/kotlin-1-4/
 - https://tech.sina.com.cn/roll/2020-04-26/doc-iirczymi8419844.shtml
 - https://www.cnbeta.com/articles/tech/1006715.htm
-  
+
+
+
 ## References for tutorials
 - https://developer.android.com/kotlin/learn?hl=zh-cn
 - https://developer.ibm.com/series/learn-kotlin/
@@ -130,6 +132,9 @@ Hello "gradle_kotlin"!
 - https://developer.android.com/courses/kotlin-android-advanced/overview
 - https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012
 - https://mkyong.com/spring-boot/
+- https://beginnersbook.com/2017/12/kotlin-tutorial/
+
+
 
 ## Other References
 - https://developer.android.com/courses/kotlin-bootcamp/overview
