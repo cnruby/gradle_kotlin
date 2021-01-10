@@ -78,14 +78,14 @@ jobs:
               curl \
                   -H "Content-Type: application/json" \
                   -X POST -d '{"title":"Java","author":"Joe"}' \
-                  localhost:8080/api/books
+                  localhost:80/api/books
               curl \
                   -H "Content-Type: application/json" \
                   -X PUT -d '{"title":"Rust","author":"Leo"}' \
                   localhost:80/api/books/1
               curl localhost:80/api/books/1
               curl localhost:80/api/books/title/Rust
-              curl -X DELETE localhost:8080/api/books/1
+              curl -X DELETE localhost:80/api/books/1
               curl localhost:80/api/books
 
       - run:
