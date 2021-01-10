@@ -73,7 +73,7 @@ jobs:
       - run:
           name: "browse the website"
           command: |
-              sleep 10 && nc -vz localhost 80
+              sleep 5 && nc -vz localhost 80
               curl localhost:80/api/books
               curl \
                   -H "Content-Type: application/json" \
@@ -82,11 +82,11 @@ jobs:
               curl \
                   -H "Content-Type: application/json" \
                   -X PUT -d '{"title":"Rust","author":"Leo"}' \
-                  localhost:8080/api/books/1
-              curl localhost:8080/api/books/1
-              curl localhost:8080/api/books/title/Rust
+                  localhost:80/api/books/1
+              curl localhost:80/api/books/1
+              curl localhost:80/api/books/title/Rust
               curl -X DELETE localhost:8080/api/books/1
-              curl localhost:8080/api/books
+              curl localhost:80/api/books
 
       - run:
           name: "stop web server on docker"
