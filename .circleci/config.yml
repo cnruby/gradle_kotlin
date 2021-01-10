@@ -70,19 +70,19 @@ jobs:
           name: "browse the website"
           command: |
               sleep 5 && nc -vz localhost 80
-              curl --no-progress-meter localhost:80/api/books
-              curl --no-progress-meter \
+              curl localhost:80/api/books
+              curl \
                   -H "Content-Type: application/json" \
                   -X POST -d '{"title":"Java","author":"Joe"}' \
                   localhost:8080/api/books
-              curl --no-progress-meter \
+              curl \
                   -H "Content-Type: application/json" \
                   -X PUT -d '{"title":"Rust","author":"Leo"}' \
                   localhost:8080/api/books/1
-              curl --no-progress-meter localhost:8080/api/books/1
-              curl --no-progress-meter localhost:8080/api/books/title/Rust
-              curl --no-progress-meter -X DELETE localhost:8080/api/books/1
-              curl --no-progress-meter localhost:8080/api/books
+              curl localhost:8080/api/books/1
+              curl localhost:8080/api/books/title/Rust
+              curl -X DELETE localhost:8080/api/books/1
+              curl localhost:8080/api/books
 
       - run:
           name: "stop web server on docker"
