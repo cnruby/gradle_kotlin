@@ -366,6 +366,7 @@ curl http://localhost:80/api/hallo_native
 - https://github.com/Baeldung/kotlin-tutorials/tree/master/spring-boot-kotlin/src/main/kotlin/com/baeldung/springbootkotlin
 - https://www.baeldung.com/spring-boot-kotlin
 - https://www.journaldev.com/21435/spring-service-annotation#spring-service-example
+- https://www.programiz.com/kotlin-programming/constructors
 
 
 
