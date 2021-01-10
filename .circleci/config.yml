@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build:
+  project_build:
     docker:
       # specify the version you desire here
       #- image: circleci/openjdk:11-jdk
@@ -39,3 +39,58 @@ jobs:
 
       # about Kotlin
       - run: kotlin -version
+
+      - run:
+          name: "Run The Application with Gradle"
+          command: |
+              ./gradlew -q check
+              screen -d -m -s "webapp_on_project" ./gradlew -q bootRun
+
+  docker_build:
+    machine: true
+      # image: ubuntu-2004:202010-01
+
+    steps:      
+      - checkout
+
+      - run: 
+          name: "install tools"
+          command: |
+            cat /etc/*-release
+            sudo apt update -y
+            sudo apt install curl wget netcat -y
+
+      - run:
+          name: "start web server with web app"
+          command: |
+              ./gradlew -q bootBuildImage --imageName=gradle_kotlin/basic_xxx
+              docker run -d --name=xxx_gradle_kotlin_container -p 80:8080 gradle_kotlin/basic_xxx
+
+      - run:
+          name: "browse the website"
+          command: |
+              sleep 5 && nc -vz localhost 80
+              curl --no-progress-meter localhost:80/api/books
+              curl --no-progress-meter \
+                  -H "Content-Type: application/json" \
+                  -X POST -d '{"title":"Java","author":"Joe"}' \
+                  localhost:8080/api/books
+              curl --no-progress-meter \
+                  -H "Content-Type: application/json" \
+                  -X PUT -d '{"title":"Rust","author":"Leo"}' \
+                  localhost:8080/api/books/1
+              curl --no-progress-meter localhost:8080/api/books/1
+              curl --no-progress-meter localhost:8080/api/books/title/Rust
+              curl --no-progress-meter -X DELETE localhost:8080/api/books/1
+              curl --no-progress-meter localhost:8080/api/books
+
+      - run:
+          name: "stop web server on docker"
+          command: |
+              docker stop xxx_gradle_kotlin_container
+
+workflows:
+  build:
+    jobs:
+      - project_build
+      - docker_build
