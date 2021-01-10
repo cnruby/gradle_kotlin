@@ -79,8 +79,7 @@ Unit 207: Hello @Component
 ```bash
 EXISTING_APP_ID=205 && NEW_APP_ID=207 && \
 git clone -b basic_${EXISTING_APP_ID} https://github.com/cnruby/gradle_kotlin.git ${NEW_APP_ID}_gradle_kotlin && \
-cd ${NEW_APP_ID}_gradle_kotlin && \
-git checkout -b basic_${NEW_APP_ID}
+cd ${NEW_APP_ID}_gradle_kotlin
 ```
 
 ### DO (edit the spring property file)
