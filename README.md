@@ -16,42 +16,48 @@
 
 ---
 
-Unit 209: Hello @Entity!
-<h1>Unit 209: Hello @Entity!</h1>
+Unit 210: Hello h2 Console!
+<h1>Unit 210: Hello h2 Console!</h1>
 
-- How to Understand the Annotation @Entity!
+- How to Understand Database h2 Console
+- How to Understand JPA and Database h2
 
 ---
 
 
 <h1>Table of Contents</h1>
 
+
 - [Keywords](#keywords)
 - [Prerequisites](#prerequisites)
 - [Create A New Kotlin Web App](#create-a-new-kotlin-web-app)
   - [DO (create a new project)](#do-create-a-new-project)
-  - [DO (edit the spring property file)](#do-edit-the-spring-property-file)
   - [DO (check the project)](#do-check-the-project)
-- [Develop the Kotlin Project](#develop-the-kotlin-project)
-  - [DO (create and edit the spring model file)](#do-create-and-edit-the-spring-model-file)
-  - [DO (create and edit the spring model repository file)](#do-create-and-edit-the-spring-model-repository-file)
-  - [DO (create and edit the spring model repository file)](#do-create-and-edit-the-spring-model-repository-file-1)
-- [Run The Web Application on the Project](#run-the-web-application-on-the-project)
-  - [DO (run The Web Application with Gradle)](#do-run-the-web-application-with-gradle)
-  - [DO (show all records)](#do-show-all-records)
-  - [DO (insert a new record)](#do-insert-a-new-record)
-  - [DO (update the record by id)](#do-update-the-record-by-id)
-  - [DO (show a record by id)](#do-show-a-record-by-id)
-  - [DO (show a record by title)](#do-show-a-record-by-title)
-  - [DO (delete a record by id)](#do-delete-a-record-by-id)
-  - [DO (show all records)](#do-show-all-records-1)
+- [View h2 file database and its console](#view-h2-file-database-and-its-console)
+  - [DO (edit the spring property file)](#do-edit-the-spring-property-file)
+  - [DO (check the project)](#do-check-the-project-1)
+  - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle)
+  - [DO (browse the h2 console)](#do-browse-the-h2-console)
+  - [DO (connect the h2 console)](#do-connect-the-h2-console)
+  - [DO (show the h2 database)](#do-show-the-h2-database)
+- [View Table `BOOK` on h2 file database](#view-table-book-on-h2-file-database)
+  - [DO (edit the spring property file)](#do-edit-the-spring-property-file-1)
+  - [DO (check the project)](#do-check-the-project-2)
+  - [DO (run the web application with gradle again)](#do-run-the-web-application-with-gradle-again)
+  - [DO (show the record with terminal)](#do-show-the-record-with-terminal)
+  - [DO (view the table `BOOK` on h2 console)](#do-view-the-table-book-on-h2-console)
+- [View Records on Table `BOOK`](#view-records-on-table-book)
+  - [DO (insert a record)](#do-insert-a-record)
+  - [DO (show the record with browser)](#do-show-the-record-with-browser)
+  - [DO (show the record with h2-console-browser)](#do-show-the-record-with-h2-console-browser)
+  - [DO (show the record with terminal)](#do-show-the-record-with-terminal-1)
 - [References](#references)
 - [References for tools](#references-for-tools)
 
 
 
 ## Keywords
-- Annotation @Entity `Spring Boot` `Web Application` h2 REST API
+- `Spring Boot` `Web Application` database h2 Console REST API
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE` CircleCI CI
 - tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM
 
@@ -70,16 +76,22 @@ Unit 209: Hello @Entity!
 
 ### DO (create a new project)
 ```bash
-NEW_APP_ID=209 && \
-mkdir ${NEW_APP_ID}_gradle_kotlin && cd ${NEW_APP_ID}_gradle_kotlin && \
-curl https://start.spring.io/starter.zip -d language=kotlin \
-  -d dependencies=web,devtools,jpa,h2 \
-  -d packageName=de.iotoi \
-  -d groupId=de.iotoi \
-  -d artifactId=_gradle_kotlin \
-  -d name=kotlin -d type=gradle-project -o basic_${NEW_APP_ID}.zip && \
-unzip basic_${NEW_APP_ID}.zip
+EXISTING_APP_ID=209 && NEW_APP_ID=210 && \
+git clone -b basic_${EXISTING_APP_ID} https://github.com/cnruby/gradle_kotlin.git ${NEW_APP_ID}_gradle_kotlin && \
+cd ${NEW_APP_ID}_gradle_kotlin
 ```
+
+### DO (check the project)
+```bash
+./gradlew -q check
+```
+```bash
+    # >> Result: nothing
+```
+
+
+
+## View h2 file database and its console
 
 ### DO (edit the spring property file)
 ```bash
@@ -89,8 +101,24 @@ nano ./src/main/resources/application.properties
 # FILE (application.properties)
 spring.main.banner-mode=off
 spring.main.log-startup-info=off
-web.app.name=Hello @Entity
+web.app.name=Hello h2 console
 logging.level.root=WARN
+
+# H2 Web Console (H2ConsoleProperties)
+# Defualt Configuration
+# spring.h2.console.enabled=true
+# spring.h2.console.settings.web-allow-others=true
+# spring.h2.console.path=/h2-console
+
+# DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.datasource.url = jdbc:h2:file:./database/development;AUTO_SERVER=TRUE
+
+# JPA (JpaBaseConfiguration)
+spring.jpa.database-platform = org.hibernate.dialect.H2Dialect
+spring.jpa.open-in-view = true
 ```
 
 ### DO (check the project)
@@ -99,194 +127,121 @@ logging.level.root=WARN
 ```
 ```bash
     # >> Result: nothing
-    2021-01-10 19:01:10.303  INFO 13534 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-    2021-01-10 19:01:10.304  INFO 13534 --- [extShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-    2021-01-10 19:01:10.305  INFO 13534 --- [extShutdownHook] .SchemaDropperImpl$DelayedDropActionImpl : HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
-    2021-01-10 19:01:10.346  INFO 13534 --- [extShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-    2021-01-10 19:01:10.363  INFO 13534 --- [extShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
 ```
 
-
-
-## Develop the Kotlin Project
-
-
-### DO (create and edit the spring model file)
-```bash
-mkdir -p src/main/kotlin/de/iotoi/model
-```
-```bash
-touch ./src/main/kotlin/de/iotoi/model/Book.kt
-```
-```bash
-nano ./src/main/kotlin/de/iotoi/model/Book.kt
-```
-```bash
-# FILE (Book.kt)
-package de.iotoi.model
-
-import javax.persistence.*
-
-@Entity
-class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long = 0
-
-    @Column(nullable = false, unique = true)
-    var title: String? = null
-
-    @Column(nullable = false)
-    var author: String? = null
-
-    constructor() : super()
-    constructor(title: String?, author: String?) : super() {
-        this.title = title
-        this.author = author
-    }
-
-    override fun hashCode(): Int {
-        val prime = 31
-        var result = 1
-        result = prime * result + if (author == null) 0 else author.hashCode()
-        result = prime * result + (id xor (id ushr 32)).toInt()
-        result = prime * result + if (title == null) 0 else title.hashCode()
-        return result
-    }
-
-    override fun equals(obj: Any?): Boolean {
-        if (this === obj) return true
-        if (obj == null) return false
-        if (javaClass != obj.javaClass) return false
-        val other = obj as Book
-        if (author == null) {
-            if (other.author != null) return false
-        } else if (author != other.author) return false
-        if (id != other.id) return false
-        if (title == null) {
-            if (other.title != null) return false
-        } else if (title != other.title) return false
-        return true
-    }
-
-    override fun toString(): String {
-        return "Book [id=$id, title=$title, author=$author]"
-    }
-}
-```
-
-### DO (create and edit the spring model repository file)
-```bash
-touch ./src/main/kotlin/de/iotoi/model/BookRepository.kt
-```
-```bash
-nano ./src/main/kotlin/de/iotoi/model/BookRepository.kt
-```
-```bash
-# FILE (BookRepository.kt)
-package de.iotoi.model
-
-import org.springframework.data.repository.CrudRepository
-
-interface BookRepository : CrudRepository<Book?, Long?> {
-    fun findByTitle(title: String?): List<Book?>?
-}
-```
-
-### DO (create and edit the spring model repository file)
-```bash
-touch ./src/main/kotlin/de/iotoi/BookRestController.kt
-```
-```bash
-nano ./src/main/kotlin/de/iotoi/BookRestController.kt
-```
-```bash
-# FILE (BookRestController.kt)
-package de.iotoi
-
-import de.iotoi.model.Book
-import de.iotoi.model.BookRepository
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.*
-import java.util.function.Supplier
-
-@RestController
-@RequestMapping("/api/books")
-class BookRestController {
-    @Autowired
-    private val bookRepository: BookRepository? = null
-
-    @GetMapping
-    fun findAll(): Iterable<*>? {
-        return bookRepository!!.findAll()
-    }
-
-    @GetMapping("/title/{bookTitle}")
-    fun findByTitle(@PathVariable bookTitle: String?): List<Book?>? {
-        return bookRepository!!.findByTitle(bookTitle)
-    }
-
-    @GetMapping("/{id}")
-    fun findOne(@PathVariable id: Long?): Book? {
-        return bookRepository!!.findById(id!!)
-            .orElseThrow(Supplier<RuntimeException> { BookNotFoundException() })
-    }
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody book: Book?): Book? {
-        return bookRepository!!.save(book!!)
-    }
-
-    @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Long?) {
-        bookRepository!!.findById(id!!)
-            .orElseThrow(Supplier<RuntimeException> { BookNotFoundException() })
-        bookRepository.deleteById(id)
-    }
-
-    @PutMapping("/{id}")
-    fun updateBook(@RequestBody requestBook: Book, @PathVariable id: Long?): Book? {
-        val book: Book = bookRepository!!.findById(id!!)
-            .orElseThrow(Supplier<RuntimeException> { BookNotFoundException() }) as Book
-        book.title = requestBook.title
-        book.author = requestBook.author
-        return bookRepository.save(book)
-    }
-}
-```
-
-
-
-## Run The Web Application on the Project
-
-### DO (run The Web Application with Gradle)
+### DO (run the web application with gradle)
 ```bash
 ./gradlew -q bootRun
 ```
 ```bash
     # Result
-    2021-01-10 21:10:43.674  WARN 5296 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-    <==========---> 83% EXECUTING [2m 35s]
+    <==========---> 83% EXECUTING [35s]
     > :bootRun   
 ```
 
-### DO (show all records)
+### DO (browse the h2 console)
 ```bash
-curl --no-progress-meter localhost:8080/api/books | json_pp
+google-chrome http://localhost:8080/h2-console
+```
+![h2_console.png](doc/image/h2_console.png)
+
+### DO (connect the h2 console)
+```bash
+# DO (enter "jdbc:h2:file:./database/development;AUTO_SERVER=TRUE")
+# DO (click the button 'Test Connection')
+# DO (click the button 'Connect')
+```
+![h2_test_connect](doc/image/h2_test_connect.png)
+
+
+### DO (show the h2 database)
+- !!! NO Table `BOOK` exists.
+![view_h2_database](doc/image/view_h2_database.png)
+
+
+
+## View Table `BOOK` on h2 file database
+
+### DO (edit the spring property file)
+```bash
+nano ./src/main/resources/application.properties
+```
+```bash
+# FILE (application.properties)
+...
+# !!!h2 file database and its tables and records exist still after Spring Boot restart.
+spring.jpa.generate-ddl = true
+```
+
+### DO (check the project)
+```bash
+./gradlew -q check
+```
+```bash
+    # >> Result: nothing
+```
+
+### DO (run the web application with gradle again)
+```bash
+./gradlew -q bootRun
+```
+```bash
+    # Result
+    <==========---> 83% EXECUTING [35s]
+    > :bootRun   
+```
+
+### DO (show the record with terminal)
+```bash
+curl --no-progress-meter http://localhost:8080/api/books | json_pp
 ```
 ```bash
     # Result
     []
 ```
 
-### DO (insert a new record)
+### DO (view the table `BOOK` on h2 console)
+- !!! NO Records exists on table `BOOK`
+```bash
+google-chrome http://localhost:8080/h2-console
+```
+
+```bash
+# DO (browse the h2 console)
+# DO (connect the h2 console)
+# DO (click 'BOOK')
+# DO (click 'Run')
+```
+
+![view_h2_table](doc/image/view_h2_table.png)
+
+
+
+## View Records on Table `BOOK`
+
+### DO (insert a record)
 ```bash
 curl --no-progress-meter \
     -H "Content-Type: application/json" \
     -X POST -d '{"title":"Java","author":"Joe"}' \
     localhost:8080/api/books | json_pp
+```
+
+### DO (show the record with browser)
+```bash
+google-chrome http://localhost:8080/h2-console
+```
+
+### DO (show the record with h2-console-browser)
+```bash
+# DO (click 'Run')
+```
+![view_h2_record](doc/image/view_h2_record.png)
+
+
+### DO (show the record with terminal)
+```bash
+curl --no-progress-meter http://localhost:8080/api/books | json_pp
 ```
 ```bash
     # Result
@@ -297,69 +252,24 @@ curl --no-progress-meter \
     }
 ```
 
-### DO (update the record by id)
-```bash
-curl --no-progress-meter \
-    -H "Content-Type: application/json" \
-    -X PUT -d '{"title":"Rust","author":"Leo"}' \
-    localhost:8080/api/books/1 | json_pp
-```
-```bash
-    # Result
-    {
-        "author" : "Leo",
-        "id" : 1,
-        "title" : "Rust"
-    }
-```
-
-### DO (show a record by id)
-```bash
-curl --no-progress-meter localhost:8080/api/books/1 | json_pp
-```
-```bash
-    # Result
-    {
-        "author" : "Leo",
-        "id" : 1,
-        "title" : "Rust"
-    }
-```
-
-### DO (show a record by title)
-```bash
-curl --no-progress-meter localhost:8080/api/books/title/Rust | json_pp
-```
-```bash
-    # Result
-    {
-        "author" : "Leo",
-        "id" : 1,
-        "title" : "Rust"
-    }
-```
-
-### DO (delete a record by id)
-```bash
-curl --no-progress-meter -X DELETE localhost:8080/api/books/1
-```
-```bash
-    # Result: nothing
-```
-
-### DO (show all records)
-```bash
-curl --no-progress-meter localhost:8080/api/books | json_pp
-```
-```bash
-    # Result
-    []
-```
-
 
 
 ## References
 - https://www.baeldung.com/kotlin/kotlin-jpa
+- https://gist.github.com/memory-lovers/4132241df38456642ad888634caee5c6
+- https://github.com/DeadLion/spring-boot-samples/blob/master/application.properties.md
+- https://dzone.com/articles/run-the-rest-version-of-spring-petclinic-with-angu
+- https://dimitr.im/loading-initial-data-with-spring
+- https://docs.spring.io/spring-boot/docs/1.2.0.M1/reference/html/howto-database-initialization.html
+- https://www.baeldung.com/spring-boot-data-sql-and-schema-sql
+- https://stackoverflow.com/questions/38040572/spring-boot-loading-initial-data
+- https://docs.microsoft.com/de-de/azure/developer/java/spring-framework/configure-spring-data-jpa-with-azure-mysql
+- https://www.xspdf.com/resolution/20463098.html
+- https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+- https://javabydeveloper.com/spring-boot-loading-initial-data/
+- https://stackoverflow.com/questions/53464632/application-properties-to-application-yml-spring-boot
+- https://github.com/cesarsicas/spring-blog
+- https://github.com/spring-projects/spring-boot/issues/20920
 
 
 
