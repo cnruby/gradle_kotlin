@@ -96,7 +96,7 @@ Hello "gradle_kotlin"!
 | 207 |  |  | [Hello @Component!](https://github.com/cnruby/gradle_kotlin/tree/basic_207) |  |
 | 208 |  |  | [Hello @Autowired!](https://github.com/cnruby/gradle_kotlin/tree/basic_208) |  |
 | 209 |  |  | [Hello @Entity!](https://github.com/cnruby/gradle_kotlin/tree/basic_209) |  |
-| 210 |  | [Hello h2 Console!](https://github.com/cnruby/gradle_kotlin/tree/basic_210) |  ||  
+| 210 |  | [Hello h2 Console!](https://github.com/cnruby/gradle_kotlin/tree/basic_210) | x |  |  
 |  |  |  |  |  |
 | 301 | [Hello Console App!](https://github.com/cnruby/gradle_kotlin/tree/basic_301) |  |  |  |
 | 302 |  |  |  |  |
