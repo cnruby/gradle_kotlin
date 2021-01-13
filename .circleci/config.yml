@@ -1,0 +1,41 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      #- image: circleci/openjdk:11-jdk
+      - image: azul/zulu-openjdk:11
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+
+    working_directory: ~/repo
+
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+
+    steps:      
+      - checkout
+
+      - run:
+          name: "install tools"
+          command: |
+              apt-get update -y
+              apt-get install -y unzip zip curl
+
+      - run:
+          name: "install kotlin"
+          command: |
+              curl -s https://get.sdkman.io | bash
+              source "/root/.sdkman/bin/sdkman-init.sh" && sdk install kotlin && type kotlin
+              echo 'export KOTLIN_ROOT=/root/.sdkman/candidates/kotlin/current' >> $BASH_ENV
+              echo 'export PATH=$PATH:$KOTLIN_ROOT/bin' >> $BASH_ENV
+              source $BASH_ENV
+              echo $KOTLIN_ROOT
+
+      # about Kotlin
+      - run: kotlin -version
