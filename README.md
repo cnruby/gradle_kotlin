@@ -11,15 +11,15 @@
 [![kotlin lang)](https://img.shields.io/github/v/release/JetBrains/kotlin?label=kotlin&logo=kotlin)](https://github.com/JetBrains/kotlin)
 [![IntelliJ IDEA Community Edition](https://img.shields.io/badge/IntelliJ%20IDEA%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
 [![Docker-(2019.03.13)](https://img.shields.io/badge/Docker-%2019.03.13-brightgreen)](https://www.docker.com/)
-[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_211.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_211)
+[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_212.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_212)
 
 
 ---
 
-Unit 211: Hello Seed Data!
-<h1>Unit 211: Hello Seed Data!</h1>
+Unit 212: Hello @GenericGenerator!
+<h1>Unit 212: Hello @GenericGenerator!</h1>
 
-- How to Understand Database h2 with JPA/Hibernate/DataSource
+- How to Understand The Annotation @GenericGenerator from Hibernate
 - How to Understand Seed Data Import as Developmet Phase
 
 ---
@@ -33,36 +33,24 @@ Unit 211: Hello Seed Data!
 - [Create A New Kotlin Web App](#create-a-new-kotlin-web-app)
   - [DO (create a new project)](#do-create-a-new-project)
   - [DO (check the project)](#do-check-the-project)
-- [Use Hibernate as Seed Data Import](#use-hibernate-as-seed-data-import)
-  - [DO (edit the spring property file)](#do-edit-the-spring-property-file)
-  - [DO (add a seed hibernate data file)](#do-add-a-seed-hibernate-data-file)
+- [Use The Annotation @GenericGenerator](#use-the-annotation-genericgenerator)
+  - [DO (edit the spring kotlin model file)](#do-edit-the-spring-kotlin-model-file)
+  - [DO (edit seed data file for hibernate)](#do-edit-seed-data-file-for-hibernate)
+  - [DO (edit seed data file for datasource)](#do-edit-seed-data-file-for-datasource)
   - [DO (check the project)](#do-check-the-project-1)
   - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle)
   - [DO (access the web application api)](#do-access-the-web-application-api)
   - [DO (delete h2 database)](#do-delete-h2-database)
-- [Use DataSource as Seed Data Import](#use-datasource-as-seed-data-import)
-  - [DO (edit the spring property file)](#do-edit-the-spring-property-file-1)
-  - [DO (add a seed datasource data file)](#do-add-a-seed-datasource-data-file)
-  - [DO (check the project)](#do-check-the-project-2)
-  - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle-1)
-  - [DO (access the web application api)](#do-access-the-web-application-api-1)
-  - [DO (delete h2 database)](#do-delete-h2-database-1)
-- [Use DataSource and Hibernate as Seed Data Import](#use-datasource-and-hibernate-as-seed-data-import)
-  - [DO (edit the spring property file)](#do-edit-the-spring-property-file-2)
-  - [DO (check the project)](#do-check-the-project-3)
-  - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle-2)
-  - [DO (access the web application api)](#do-access-the-web-application-api-2)
-  - [DO (delete h2 database)](#do-delete-h2-database-2)
 - [References](#references)
 - [References for tools](#references-for-tools)
 
 
 
 ## Keywords
-- `Spring Boot` `Web Application` REST API h2 JPA Hibernate DataSource
+- `@GenericGenerator` `Web Application` REST API h2 JPA Hibernate DataSource
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE` CircleCI CI
 - tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM
-- database h2 Console 
+- database h2 Console `Spring Boot`
 
 
 
@@ -79,7 +67,7 @@ Unit 211: Hello Seed Data!
 
 ### DO (create a new project)
 ```bash
-EXISTING_APP_ID=210 && NEW_APP_ID=211 && \
+EXISTING_APP_ID=211 && NEW_APP_ID=212 && \
 git clone -b basic_${EXISTING_APP_ID} https://github.com/cnruby/gradle_kotlin.git ${NEW_APP_ID}_gradle_kotlin && \
 cd ${NEW_APP_ID}_gradle_kotlin
 ```
@@ -94,119 +82,50 @@ cd ${NEW_APP_ID}_gradle_kotlin
 
 
 
-## Use Hibernate as Seed Data Import
+## Use The Annotation @GenericGenerator
 
-### DO (edit the spring property file)
+### DO (edit the spring kotlin model file)
 ```bash
-nano ./src/main/resources/application.properties
+nano ./src/main/kotlin/de/iotoi/model/Book.kt
 ```
 ```bash
-# FILE (application.properties)
+# FILE (Book.kt)
 ...
-# JPA (JpaBaseConfiguration)
-spring.jpa.database-platform = org.hibernate.dialect.H2Dialect
-spring.jpa.open-in-view = true
+import org.hibernate.annotations.GenericGenerator
 
-# JPA (HibernateJpaAutoConfiguration)
-spring.jpa.hibernate.ddl-auto = create-drop
-spring.jpa.properties.hibernate.hbm2ddl.import_files = ./seed/data_hibernate.sql
+@Entity
+class Book {
+    @Id
+    @GeneratedValue(
+        strategy= GenerationType.AUTO,
+        generator="native"
+    )
+    @GenericGenerator(
+        name = "native",
+        strategy = "native"
+    )
+    var id: Long = 0
+...
 ```
 
-### DO (add a seed hibernate data file)
-```bash
-mkdir ./src/main/resources/seed
-```
-```bash
-touch ./src/main/resources/seed/data_hibernate.sql
-```
+### DO (edit seed data file for hibernate)
 ```bash
 nano ./src/main/resources/seed/data_hibernate.sql
 ```
 ```bash
 # FILE (data_hibernate.sql)
-INSERT INTO book(id, title, author) VALUES (1, 'Kotlin 211A', 'Jeo');
-INSERT INTO book(id, title, author) VALUES (2, 'Rust 211A', 'Leo');
+INSERT INTO book(title, author) VALUES ('Kotlin 212A', 'Jeo');
+INSERT INTO book(title, author) VALUES ('Rust 212A', 'Leo');
 ```
 
-### DO (check the project)
-```bash
-./gradlew -q check
-```
-```bash
-    # >> Result: nothing
-```
-
-### DO (run the web application with gradle)
-- All records will be deleted after every spring boot start.
-
-```bash
-./gradlew -q bootRun
-```
-```bash
-    # Result
-    <==========---> 83% EXECUTING [35s]
-    > :bootRun   
-```
-
-### DO (access the web application api)
-```bash
-curl --no-progress-meter http://localhost:8080/api/books | json_pp
-```
-```bash
-    # Result
-    [
-       {
-          "author" : "Jeo",
-          "id" : 1,
-          "title" : "Kotlin 211A"
-       },
-       {
-          "author" : "Leo",
-          "id" : 2,
-          "title" : "Rust 211A"
-       }
-    ]
-```
-
-### DO (delete h2 database)
-```bash
-rm database/development.*
-```
-
-
-
-## Use DataSource as Seed Data Import
-
-### DO (edit the spring property file)
-```bash
-nano ./src/main/resources/application.properties
-```
-```bash
-# FILE (application.properties)
-...
-spring.datasource.initialization-mode=always
-spring.datasource.data=classpath*:seed/data_datasource.sql
-
-# JPA (JpaBaseConfiguration)
-spring.jpa.database-platform = org.hibernate.dialect.H2Dialect
-spring.jpa.open-in-view = true
-
-# JPA (HibernateJpaAutoConfiguration)
-spring.jpa.hibernate.ddl-auto = create-drop
-#spring.jpa.properties.hibernate.hbm2ddl.import_files = ./seed/data_hibernate.sql
-```
-
-### DO (add a seed datasource data file)
-```bash
-touch ./src/main/resources/seed/data_datasource.sql
-```
+### DO (edit seed data file for datasource)
 ```bash
 nano ./src/main/resources/seed/data_datasource.sql
 ```
 ```bash
 # FILE (data_datasource.sql)
-INSERT INTO book(id, title, author) VALUES (3, 'Java 211B', 'Jeo');
-INSERT INTO book(id, title, author) VALUES (4, 'Ruby 211B', 'Leo');
+INSERT INTO book(title, author) VALUES ('Java 212B', 'Jeo');
+INSERT INTO book(title, author) VALUES ('Ruby 212B', 'Leo');
 ```
 
 ### DO (check the project)
@@ -235,96 +154,28 @@ curl --no-progress-meter http://localhost:8080/api/books | json_pp
 ```
 ```bash
     # Result
-    [
-       {
-          "author" : "Jeo",
-          "id" : 3,
-          "title" : "Kotlin 211B"
-       },
-       {
-          "author" : "Leo",
-          "id" : 4,
-          "title" : "Rust 211B"
-       }
-    ]
-```
-
-### DO (delete h2 database)
-```bash
-rm database/development.*
-```
-
-
-
-## Use DataSource and Hibernate as Seed Data Import
-
-### DO (edit the spring property file)
-```bash
-nano ./src/main/resources/application.properties
-```
-```bash
-# FILE (application.properties)
-...
-spring.datasource.initialization-mode=always
-spring.datasource.data=classpath*:seed/data_datasource.sql
-
-# JPA (JpaBaseConfiguration)
-spring.jpa.database-platform = org.hibernate.dialect.H2Dialect
-spring.jpa.open-in-view = true
-
-# JPA (HibernateJpaAutoConfiguration)
-spring.jpa.hibernate.ddl-auto = create-drop
-spring.jpa.properties.hibernate.hbm2ddl.import_files = ./seed/data_hibernate.sql
-```
-
-### DO (check the project)
-```bash
-./gradlew -q check
-```
-```bash
-    # >> Result: nothing
-```
-
-### DO (run the web application with gradle)
-- All records will be deleted after every spring boot start.
-
-```bash
-./gradlew -q bootRun
-```
-```bash
-    # Result
-    <==========---> 83% EXECUTING [35s]
-    > :bootRun   
-```
-
-### DO (access the web application api)
-```bash
-curl --no-progress-meter http://localhost:8080/api/books | json_pp
-```
-```bash
-    # Result
-    [
-       {
-          "author" : "Jeo",
-          "id" : 1,
-          "title" : "Kotlin 211A"
-       },
-       {
-          "author" : "Leo",
-          "id" : 2,
-          "title" : "Rust 211A"
-       },
-       {
-          "author" : "Jeo",
-          "id" : 3,
-          "title" : "Java 211B"
-       },
-       {
-          "author" : "Leo",
-          "id" : 4,
-          "title" : "Ruby 211B"
-       }
-    ]
+   [
+      {
+         "author" : "Jeo",
+         "id" : 1,
+         "title" : "Kotlin 212A"
+      },
+      {
+         "author" : "Leo",
+         "id" : 2,
+         "title" : "Rust 212A"
+      },
+      {
+         "author" : "Jeo",
+         "id" : 3,
+         "title" : "Java 212B"
+      },
+      {
+         "author" : "Leo",
+         "id" : 4,
+         "title" : "Ruby 212B"
+      }
+   ]
 ```
 
 ### DO (delete h2 database)
