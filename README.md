@@ -201,6 +201,7 @@ rm database/development.*
 - https://stackoverflow.com/questions/53464632/application-properties-to-application-yml-spring-boot
 - https://github.com/cesarsicas/spring-blog
 - https://github.com/spring-projects/spring-boot/issues/20920
+- https://stackoverflow.com/questions/53922279/what-are-the-possible-values-of-spring-datasource-initialization-mode
 
 
 
