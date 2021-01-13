@@ -35,14 +35,14 @@ Unit 211: Hello Seed Data!
   - [DO (check the project)](#do-check-the-project)
 - [Use Hibernate as Seed Data Import](#use-hibernate-as-seed-data-import)
   - [DO (edit the spring property file)](#do-edit-the-spring-property-file)
-  - [DO (add a seed data file)](#do-add-a-seed-data-file)
+  - [DO (add a seed hibernate data file)](#do-add-a-seed-hibernate-data-file)
   - [DO (check the project)](#do-check-the-project-1)
   - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle)
   - [DO (access the web application api)](#do-access-the-web-application-api)
   - [DO (delete h2 database)](#do-delete-h2-database)
 - [Use DataSource as Seed Data Import](#use-datasource-as-seed-data-import)
   - [DO (edit the spring property file)](#do-edit-the-spring-property-file-1)
-  - [DO (add a seed data file)](#do-add-a-seed-data-file-1)
+  - [DO (add a seed datasource data file)](#do-add-a-seed-datasource-data-file)
   - [DO (check the project)](#do-check-the-project-2)
   - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle-1)
   - [DO (access the web application api)](#do-access-the-web-application-api-1)
@@ -109,21 +109,21 @@ spring.jpa.open-in-view = true
 
 # JPA (HibernateJpaAutoConfiguration)
 spring.jpa.hibernate.ddl-auto = create-drop
-spring.jpa.properties.hibernate.hbm2ddl.import_files = ./seed/data_211a.sql
+spring.jpa.properties.hibernate.hbm2ddl.import_files = ./seed/data_hibernate.sql
 ```
 
-### DO (add a seed data file)
+### DO (add a seed hibernate data file)
 ```bash
 mkdir ./src/main/resources/seed
 ```
 ```bash
-touch ./src/main/resources/seed/data_211a.sql
+touch ./src/main/resources/seed/data_hibernate.sql
 ```
 ```bash
-nano ./src/main/resources/seed/data_211a.sql
+nano ./src/main/resources/seed/data_hibernate.sql
 ```
 ```bash
-# FILE (data_211a.sql)
+# FILE (data_hibernate.sql)
 INSERT INTO book(id, title, author) VALUES (1, 'Kotlin 211A', 'Jeo');
 INSERT INTO book(id, title, author) VALUES (2, 'Rust 211A', 'Leo');
 ```
@@ -185,7 +185,7 @@ nano ./src/main/resources/application.properties
 # FILE (application.properties)
 ...
 spring.datasource.initialization-mode=always
-spring.datasource.data=classpath*:seed/data_211b.sql
+spring.datasource.data=classpath*:seed/data_datasource.sql
 
 # JPA (JpaBaseConfiguration)
 spring.jpa.database-platform = org.hibernate.dialect.H2Dialect
@@ -193,18 +193,18 @@ spring.jpa.open-in-view = true
 
 # JPA (HibernateJpaAutoConfiguration)
 spring.jpa.hibernate.ddl-auto = create-drop
-#spring.jpa.properties.hibernate.hbm2ddl.import_files = ./seed/data_211a.sql
+#spring.jpa.properties.hibernate.hbm2ddl.import_files = ./seed/data_hibernate.sql
 ```
 
-### DO (add a seed data file)
+### DO (add a seed datasource data file)
 ```bash
-touch ./src/main/resources/seed/data_211b.sql
+touch ./src/main/resources/seed/data_datasource.sql
 ```
 ```bash
-nano ./src/main/resources/seed/data_211b.sql
+nano ./src/main/resources/seed/data_datasource.sql
 ```
 ```bash
-# FILE (data_211b.sql)
+# FILE (data_datasource.sql)
 INSERT INTO book(id, title, author) VALUES (3, 'Java 211B', 'Jeo');
 INSERT INTO book(id, title, author) VALUES (4, 'Ruby 211B', 'Leo');
 ```
@@ -266,7 +266,7 @@ nano ./src/main/resources/application.properties
 # FILE (application.properties)
 ...
 spring.datasource.initialization-mode=always
-spring.datasource.data=classpath*:seed/data_211b.sql
+spring.datasource.data=classpath*:seed/data_datasource.sql
 
 # JPA (JpaBaseConfiguration)
 spring.jpa.database-platform = org.hibernate.dialect.H2Dialect
@@ -274,7 +274,7 @@ spring.jpa.open-in-view = true
 
 # JPA (HibernateJpaAutoConfiguration)
 spring.jpa.hibernate.ddl-auto = create-drop
-spring.jpa.properties.hibernate.hbm2ddl.import_files = ./seed/data_211a.sql
+spring.jpa.properties.hibernate.hbm2ddl.import_files = ./seed/data_hibernate.sql
 ```
 
 ### DO (check the project)
