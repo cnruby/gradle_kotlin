@@ -28,7 +28,6 @@ Hello "gradle_kotlin"!
 - [Kotlin and Java Language](#kotlin-and-java-language)
 - [iOS and Android OS](#ios-and-android-os)
 - [Kotlin Language](#kotlin-language)
-- [Prerequisites](#prerequisites-1)
 - [Kotlin Language Project](#kotlin-language-project)
 - [Kotlin Spring Project](#kotlin-spring-project)
 - [References](#references)
@@ -52,6 +51,7 @@ Hello "gradle_kotlin"!
 - install [jabba](https://github.com/shyiko/jabba) and Java JDK [Hello jabba!](https://github.com/cnruby/gradle_java/tree/basic_101)
 - [install Command Line Kotlin Compiler (REPL)](https://kotlinlang.org/docs/tutorials/command-line.html) 
 - [install IntelliJ CE / IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/download/#section=linux)
+- [install Database postgreSQL!](https://github.com/cnruby/gradle_kotlin/tree/basic_001)
 
 
 
@@ -72,9 +72,6 @@ Hello "gradle_kotlin"!
 
 ---
 
-
-## Prerequisites
-- [Unit 001: Hello Database postgreSQL!](https://github.com/cnruby/gradle_kotlin/tree/basic_001)
 
 
 ## Kotlin Language Project
