@@ -38,8 +38,8 @@ Unit 214: Hello PostgreSQL with DataSource!
   - [DO (edit the application properties file for spring)](#do-edit-the-application-properties-file-for-spring)
   - [DO (edit a schema file for datasource)](#do-edit-a-schema-file-for-datasource)
   - [DO (edit a data file for datasource)](#do-edit-a-data-file-for-datasource)
-  - [DO (check the project)](#do-check-the-project-1)
   - [DO (edit a kotlin file for spring boot)](#do-edit-a-kotlin-file-for-spring-boot)
+  - [DO (check the project)](#do-check-the-project-1)
 - [Run the Spring Web Application with PostgreSQL](#run-the-spring-web-application-with-postgresql)
   - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle)
   - [DO (access the web application api)](#do-access-the-web-application-api)
@@ -161,14 +161,6 @@ INSERT INTO books(title, author) VALUES ('Kotlin', 'Thomas 214B');
 INSERT INTO books(title, author) VALUES ('CSS', 'Thomas 214B');
 ```
 
-### DO (check the project)
-```bash
-./gradlew -q check
-```
-```bash
-    # >> Result: nothing
-```
-
 ### DO (edit a kotlin file for spring boot)
 ```bash
 nano ./src/main/kotlin/de/iotoi/model/Book.kt
@@ -187,6 +179,13 @@ class Book {
 ...
 ```
 
+### DO (check the project)
+```bash
+./gradlew -q check
+```
+```bash
+    # >> Result: nothing
+```
 
 
 ## Run the Spring Web Application with PostgreSQL
