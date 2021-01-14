@@ -28,6 +28,7 @@ Hello "gradle_kotlin"!
 - [Kotlin and Java Language](#kotlin-and-java-language)
 - [iOS and Android OS](#ios-and-android-os)
 - [Kotlin Language](#kotlin-language)
+- [Prerequisites](#prerequisites-1)
 - [Kotlin Language Project](#kotlin-language-project)
 - [Kotlin Spring Project](#kotlin-spring-project)
 - [References](#references)
@@ -71,8 +72,13 @@ Hello "gradle_kotlin"!
 
 ---
 
+
+## Prerequisites
+- [Unit 001: Hello Database postgreSQL!](https://github.com/cnruby/gradle_kotlin/tree/basic_001)
+
+
 ## Kotlin Language Project
-| Lesson |	Project App	|	Project Common	| Multi-Project | Project Library |
+| Unit |	Project App	|	Project Common	| Multi-Project | Project Library |
 |---------|-------------|-------------|-------------|-------------|
 | 101 |  | [Hello Kotlin!](https://github.com/cnruby/gradle_kotlin/tree/basic_101) |  |  |
 | 102 | x | [ Hello Kotlin Compiler!](https://github.com/cnruby/gradle_kotlin/tree/basic_102) |  |  |
@@ -85,7 +91,7 @@ Hello "gradle_kotlin"!
 ---
 
 ## Kotlin Spring Project
-| Lesson |	Project App	| Project Common | Project Web App | Multi-Project |
+| Unit |	Project App	| Project Common | Project Web App | Multi-Project |
 |---------|-------------|-------------|-------------|-------------|
 | 201 |  |  | [Hello @Bean!](https://github.com/cnruby/gradle_kotlin/tree/basic_201) |  |
 | 202 |  |  | [Hello @RestController!](https://github.com/cnruby/gradle_kotlin/tree/basic_202) |  |
@@ -97,6 +103,9 @@ Hello "gradle_kotlin"!
 | 208 |  |  | [Hello @Autowired!](https://github.com/cnruby/gradle_kotlin/tree/basic_208) |  |
 | 209 |  |  | [Hello @Entity!](https://github.com/cnruby/gradle_kotlin/tree/basic_209) |  |
 | 210 |  | [Hello h2 Console!](https://github.com/cnruby/gradle_kotlin/tree/basic_210) | x |  |  
+| 211 |  |  | [Hello Seed Data!](https://github.com/cnruby/gradle_kotlin/tree/basic_211) |  |
+| 212 |  |  | [Hello @GenericGenerator!](https://github.com/cnruby/gradle_kotlin/tree/basic_212) |  |
+| 213 |  |  | [Hello Spring DataSource!](https://github.com/cnruby/gradle_kotlin/tree/basic_213) |  |
 |  |  |  |  |  |
 | 301 | [Hello Console App!](https://github.com/cnruby/gradle_kotlin/tree/basic_301) |  |  |  |
 | 302 |  |  |  |  |
