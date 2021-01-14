@@ -20,7 +20,7 @@ Unit 213: Hello Spring DataSource!
 <h1>Unit 213: Hello Spring DataSource!</h1>
 
 - How to Understand The Database h2 with Spring DataSource
-- Use Spring DataSource to Tables and Records
+- Use Spring DataSource to Create Tables and Records
 - Table `BOOK` and all records will be deleted after every spring boot start 
 
 ---
@@ -45,12 +45,12 @@ Unit 213: Hello Spring DataSource!
   - [DO (access the web application api)](#do-access-the-web-application-api)
   - [DO (access the web application api)](#do-access-the-web-application-api-1)
   - [DO (access the web application api)](#do-access-the-web-application-api-2)
-  - [stop the web server](#stop-the-web-server)
+  - [DO (stop the web server)](#do-stop-the-web-server)
   - [DO (delete h2 database)](#do-delete-h2-database-2)
   - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle-1)
   - [DO (access the web application api)](#do-access-the-web-application-api-3)
   - [DO (View the h2 Console)](#do-view-the-h2-console)
-  - [DO (stop the web server)](#do-stop-the-web-server)
+  - [DO (stop the web server)](#do-stop-the-web-server-1)
   - [DO (delete h2 database)](#do-delete-h2-database-3)
 - [Load The Standard SQL Files From The Standard Root Classpath Locations](#load-the-standard-sql-files-from-the-standard-root-classpath-locations)
   - [DO (edit the application properties file for spring)](#do-edit-the-application-properties-file-for-spring-1)
@@ -60,7 +60,7 @@ Unit 213: Hello Spring DataSource!
   - [DO (delete h2 database)](#do-delete-h2-database-4)
   - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle-2)
   - [DO (access the web application api)](#do-access-the-web-application-api-4)
-  - [DO (stop the web server)](#do-stop-the-web-server-1)
+  - [DO (stop the web server)](#do-stop-the-web-server-2)
   - [DO (delete h2 database)](#do-delete-h2-database-5)
 - [References](#references)
 - [References for tools](#references-for-tools)
@@ -255,7 +255,7 @@ curl --no-progress-meter http://localhost:8080/api/books | json_pp
     ]
 ```
 
-### stop the web server
+### DO (stop the web server)
 ```bash
 # DO (Ctrl+C)
 ```
