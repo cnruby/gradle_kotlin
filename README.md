@@ -318,7 +318,9 @@ sudo -u postgres dropdb prodDB
 - https://github.com/cesarsicas/spring-blog
 - https://github.com/spring-projects/spring-boot/issues/20920
 - https://stackoverflow.com/questions/53922279/what-are-the-possible-values-of-spring-datasource-initialization-mode
-
+- https://medium.com/@matheus.mfgarcia/kotlin-api-spring-boot-postgresql-d402b4148681
+- https://medium.com/@omeryazir/create-a-spring-boot-application-postgresql-spring-security-499488c30beb
+- https://docs.spring.io/spring-boot/docs/2.1.0.M1/reference/html/howto-database-initialization.html
 
 
 ## References for tools
