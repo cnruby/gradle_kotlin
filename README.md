@@ -158,6 +158,7 @@ nano ./src/main/resources/data.sql
 ```sql
 -- FILE (data.sql)
 INSERT INTO books(title, author) VALUES ('Kotlin', 'Thomas 214B');
+INSERT INTO books(title, author) VALUES ('CSS', 'Thomas 214B');
 ```
 
 ### DO (check the project)
