@@ -52,7 +52,7 @@ Hello "gradle_kotlin"!
 - install [jabba](https://github.com/shyiko/jabba) and Java JDK [Hello jabba!](https://github.com/cnruby/gradle_java/tree/basic_101)
 - [install Command Line Kotlin Compiler (REPL)](https://kotlinlang.org/docs/tutorials/command-line.html) 
 - [install IntelliJ CE / IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/download/#section=linux)
-- [install Database postgreSQL!](https://github.com/cnruby/gradle_kotlin/tree/basic_001)
+- [install Database PostgreSQL!](https://github.com/cnruby/gradle_kotlin/tree/basic_001)
 
 
 
