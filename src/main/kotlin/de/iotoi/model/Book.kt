@@ -4,12 +4,12 @@ import javax.persistence.*
 import org.hibernate.annotations.GenericGenerator
 
 @Entity
-// @Table(name="BOOK")
+@Table(name="books")
 class Book {
     @Id
     // @GeneratedValue(strategy = GenerationType.AUTO)
     @GeneratedValue(
-        strategy= GenerationType.AUTO,
+        strategy= GenerationType.SEQUENCE,
         generator="native"
     )
     @GenericGenerator(
