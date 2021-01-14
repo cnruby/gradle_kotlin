@@ -12,7 +12,8 @@
 [![IntelliJ IDEA Community Edition](https://img.shields.io/badge/IntelliJ%20IDEA%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
 [![Docker-(2019.03.13)](https://img.shields.io/badge/Docker-%2019.03.13-brightgreen)](https://www.docker.com/)
 [![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin)
-
+[![Docker-(2019.03.13)](https://img.shields.io/badge/Docker-%2019.03.13-brightgreen)](https://www.docker.com/)
+[![POstgreSQL-v12.5](https://img.shields.io/badge/PostgreSQL-v12.5-black?style=flat&logo=postgresql)](https://www.postgresql.org/)
 
 ---
 
