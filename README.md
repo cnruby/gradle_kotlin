@@ -32,14 +32,14 @@ Unit 215: Hello Database Platform!
 - [Create A New Kotlin Web App](#create-a-new-kotlin-web-app)
   - [DO (create a new project)](#do-create-a-new-project)
   - [DO (check the project)](#do-check-the-project)
-- [Develop The Spring Web Application Property Files with H2 and PostgreSQL](#develop-the-spring-web-application-property-files-with-h2-and-postgresql)
+- [Develop The Spring Web App Property Files with H2 and PostgreSQL](#develop-the-spring-web-app-property-files-with-h2-and-postgresql)
   - [DO (add a new application properties file for H2)](#do-add-a-new-application-properties-file-for-h2)
   - [DO (rename and edit the application properties file for PostgreSQL)](#do-rename-and-edit-the-application-properties-file-for-postgresql)
   - [DO (add a new application properties file for all)](#do-add-a-new-application-properties-file-for-all)
-- [Develop The Spring Web Application DataSource Files for H2](#develop-the-spring-web-application-datasource-files-for-h2)
+- [Develop The Spring Web App DataSource Files for H2](#develop-the-spring-web-app-datasource-files-for-h2)
   - [DO (add a new schema file for h2 datasource)](#do-add-a-new-schema-file-for-h2-datasource)
   - [DO (add a new data file for h2 datasource)](#do-add-a-new-data-file-for-h2-datasource)
-- [Develop The Spring Web Application DataSource Files for PostgreSQL](#develop-the-spring-web-application-datasource-files-for-postgresql)
+- [Develop The Spring Web App DataSource Files for PostgreSQL](#develop-the-spring-web-app-datasource-files-for-postgresql)
   - [DO (rename and edit a schema file for PostgreSQL datasource)](#do-rename-and-edit-a-schema-file-for-postgresql-datasource)
   - [DO (rename and edit a data file for PostgreSQL datasource)](#do-rename-and-edit-a-data-file-for-postgresql-datasource)
 - [Run the Spring Web Application with H2](#run-the-spring-web-application-with-h2)
@@ -73,7 +73,7 @@ Unit 215: Hello Database Platform!
 - [IntelliJ IDEA Community](https://www.jetbrains.com/de-de/idea/download/#section=linux)
 - [install Docker on Ubuntu](https://docs.docker.com/engine/install/ubuntu/) OR [Using Docker](https://github.com/cnruby/gradle_java/tree/basic_002)
 - [CircleCI Account](https://circleci.com/vcs-authorize/)
-- [install Database postgreSQL](https://github.com/cnruby/gradle_kotlin/tree/basic_001)
+- [install Database PostgreSQL](https://github.com/cnruby/gradle_kotlin/tree/basic_001)
 
 
 ## Create A New Kotlin Web App
@@ -96,7 +96,7 @@ cd ${NEW_APP_ID}_gradle_kotlin
 
 
 
-## Develop The Spring Web Application Property Files with H2 and PostgreSQL
+## Develop The Spring Web App Property Files with H2 and PostgreSQL
 
 ### DO (add a new application properties file for H2)
 ```bash
@@ -172,7 +172,7 @@ spring.jpa.hibernate.ddl-auto = none
 
 
 
-## Develop The Spring Web Application DataSource Files for H2
+## Develop The Spring Web App DataSource Files for H2
 
 ### DO (add a new schema file for h2 datasource)
 ```bash
@@ -212,7 +212,7 @@ INSERT INTO books(title, author) VALUES ('CSS', 'Thomas 215A');
 
 
 
-## Develop The Spring Web Application DataSource Files for PostgreSQL
+## Develop The Spring Web App DataSource Files for PostgreSQL
 
 ### DO (rename and edit a schema file for PostgreSQL datasource)
 ```bash
