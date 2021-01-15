@@ -307,7 +307,7 @@ import de.iotoi.exception.BookNotFoundException
 
 
 ## References
-- - https://www.baeldung.com/spring-boot-start
+- https://www.baeldung.com/spring-boot-start
 - https://www.sourcecodeexamples.net/2019/10/putmapping-spring-boot-example.html
 - https://www.concretepage.com/spring-boot/spring-boot-rest-example
 - https://www.baeldung.com/curl-rest
