@@ -10,5 +10,5 @@ CREATE TABLE books (
 --  created TIMESTAMP(9) DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO books(title, author) VALUES ('Ruby', 'Leo 214B');
-INSERT INTO books(title, author) VALUES ('HTML', 'Jeo 214B');
+INSERT INTO books(title, author) VALUES ('Ruby', 'Leo 215B');
+INSERT INTO books(title, author) VALUES ('HTML', 'Jeo 215B');

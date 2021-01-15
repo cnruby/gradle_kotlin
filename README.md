@@ -11,15 +11,15 @@
 [![kotlin lang)](https://img.shields.io/github/v/release/JetBrains/kotlin?label=kotlin&logo=kotlin)](https://github.com/JetBrains/kotlin)
 [![IntelliJ IDEA Community Edition](https://img.shields.io/badge/IntelliJ%20IDEA%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
 [![Docker-(2019.03.13)](https://img.shields.io/badge/Docker-%2019.03.13-brightgreen)](https://www.docker.com/)
-[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_214.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_214)
+[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_215.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_215)
 
 
 ---
 
-Unit 214: Hello PostgreSQL with DataSource!
-<h1>Unit 214: Hello PostgreSQL with DataSource!</h1>
+Unit 215: Hello Database Platform!
+<h1>Unit 215: Hello Database Platform!</h1>
 
-- How to Understand The Database PostgreSQL with Spring DataSource
+- How to Understand The Database Platform By Database System H2 and PostgreSQL
 
 ---
 
@@ -32,21 +32,27 @@ Unit 214: Hello PostgreSQL with DataSource!
 - [Create A New Kotlin Web App](#create-a-new-kotlin-web-app)
   - [DO (create a new project)](#do-create-a-new-project)
   - [DO (check the project)](#do-check-the-project)
-- [Develop The Spring Web Application with PostgreSQL](#develop-the-spring-web-application-with-postgresql)
-  - [DO (edit the gradle build file for spring)](#do-edit-the-gradle-build-file-for-spring)
-  - [DO (create a new database with a name `prodDB` for a user `gudao`)](#do-create-a-new-database-with-a-name-proddb-for-a-user-gudao)
-  - [DO (edit the application properties file for spring)](#do-edit-the-application-properties-file-for-spring)
-  - [DO (edit a schema file for datasource)](#do-edit-a-schema-file-for-datasource)
-  - [DO (edit a data file for datasource)](#do-edit-a-data-file-for-datasource)
-  - [DO (edit a kotlin file for spring boot)](#do-edit-a-kotlin-file-for-spring-boot)
+- [Develop The Spring Web Application Property Files with H2 and PostgreSQL](#develop-the-spring-web-application-property-files-with-h2-and-postgresql)
+  - [DO (add a new application properties file for H2)](#do-add-a-new-application-properties-file-for-h2)
+  - [DO (rename and edit the application properties file for PostgreSQL)](#do-rename-and-edit-the-application-properties-file-for-postgresql)
+  - [DO (add a new application properties file for all)](#do-add-a-new-application-properties-file-for-all)
+- [Develop The Spring Web Application DataSource Files for H2](#develop-the-spring-web-application-datasource-files-for-h2)
+  - [DO (add a new schema file for h2 datasource)](#do-add-a-new-schema-file-for-h2-datasource)
+  - [DO (add a new data file for h2 datasource)](#do-add-a-new-data-file-for-h2-datasource)
+- [Develop The Spring Web Application DataSource Files for PostgreSQL](#develop-the-spring-web-application-datasource-files-for-postgresql)
+  - [DO (rename and edit a schema file for PostgreSQL datasource)](#do-rename-and-edit-a-schema-file-for-postgresql-datasource)
+  - [DO (rename and edit a data file for PostgreSQL datasource)](#do-rename-and-edit-a-data-file-for-postgresql-datasource)
+- [Run the Spring Web Application with H2](#run-the-spring-web-application-with-h2)
   - [DO (check the project)](#do-check-the-project-1)
-- [Run the Spring Web Application with PostgreSQL](#run-the-spring-web-application-with-postgresql)
-  - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle)
+  - [DO (run the web application for h2)](#do-run-the-web-application-for-h2)
   - [DO (access the web application api)](#do-access-the-web-application-api)
-  - [DO (add a new record for the web application api)](#do-add-a-new-record-for-the-web-application-api)
-  - [DO (access the web application api)](#do-access-the-web-application-api-1)
-  - [DO (browse the h2 Console)](#do-browse-the-h2-console)
   - [DO (stop the web server)](#do-stop-the-web-server)
+- [Run the Spring Web Application with PostgreSQL](#run-the-spring-web-application-with-postgresql)
+  - [DO (delete PostgreSQL database, if the database `prodDB` exists)](#do-delete-postgresql-database-if-the-database-proddb-exists)
+  - [DO (add a new PostgreSQL database `prodDB` for user `gudao`)](#do-add-a-new-postgresql-database-proddb-for-user-gudao)
+  - [DO (run the web application for PostgreSQL)](#do-run-the-web-application-for-postgresql)
+  - [DO (access the web application api)](#do-access-the-web-application-api-1)
+  - [DO (stop the web server)](#do-stop-the-web-server-1)
   - [DO (delete PostgreSQL database)](#do-delete-postgresql-database)
 - [References](#references)
 - [References for tools](#references-for-tools)
@@ -54,7 +60,7 @@ Unit 214: Hello PostgreSQL with DataSource!
 
 
 ## Keywords
-- PostgreSQL `Spring DataSource` `Web Application` database
+- `Database Platform` H2 PostgreSQL `Spring DataSource` `Web Application` database
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE` CircleCI CI
 - tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM
 - h2 Console `Spring Boot` REST API h2 JPA Hibernate Classpath
@@ -74,7 +80,7 @@ Unit 214: Hello PostgreSQL with DataSource!
 
 ### DO (create a new project)
 ```bash
-EXISTING_APP_ID=213 && NEW_APP_ID=214 && \
+EXISTING_APP_ID=214 && NEW_APP_ID=215 && \
 git clone -b basic_${EXISTING_APP_ID} https://github.com/cnruby/gradle_kotlin.git ${NEW_APP_ID}_gradle_kotlin && \
 cd ${NEW_APP_ID}_gradle_kotlin
 ```
@@ -89,53 +95,131 @@ cd ${NEW_APP_ID}_gradle_kotlin
 
 
 
-## Develop The Spring Web Application with PostgreSQL
 
-### DO (edit the gradle build file for spring)
+## Develop The Spring Web Application Property Files with H2 and PostgreSQL
+
+### DO (add a new application properties file for H2)
 ```bash
-nano ./build.gradle.kts
+touch ./src/main/resources/application-dev.properties
 ```
 ```bash
-    # FILE (build.gradle.kts)
-    ...
-	runtimeOnly("com.h2database:h2")
-	runtimeOnly("org.postgresql:postgresql")
-    ...
+nano ./src/main/resources/application-dev.properties
+```
+```bash
+# FILE (application-dev.properties)
+# DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.datasource.url = jdbc:h2:file:./database/development;AUTO_SERVER=TRUE
+spring.datasource.platform=h2
+
+spring.datasource.initialization-mode=always
+spring.datasource.schema=classpath*:schema-h2.sql
+spring.datasource.data=classpath*:data-h2.sql
+
+# JPA (JpaBaseConfiguration)
+spring.jpa.database-platform = org.hibernate.dialect.H2Dialect
 ```
 
-### DO (create a new database with a name `prodDB` for a user `gudao`)
+### DO (rename and edit the application properties file for PostgreSQL)
 ```bash
-sudo -u postgres createdb prodDB -O gudao
-```
-
-### DO (edit the application properties file for spring)
-```bash
-nano ./src/main/resources/application.properties
+mv ./src/main/resources/application.properties ./src/main/resources/application-prod.properties
 ```
 ```bash
-# FILE (application.properties)
-...
+nano ./src/main/resources/application-prod.properties
+```
+```bash
+# FILE (application-prod.properties)
 # DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
 spring.datasource.driver-class-name=org.postgresql.Driver
 spring.datasource.username=postgres
 spring.datasource.password=s$cret
 spring.datasource.url = jdbc:postgresql://localhost:5432/prodDB
+spring.datasource.platform = postgres
 
 spring.datasource.initialization-mode=always
+spring.datasource.schema=classpath*:schema-postgres.sql
+spring.datasource.data=classpath*:data-postgres.sql
+
+# JPA (JpaBaseConfiguration)
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+```
+
+### DO (add a new application properties file for all)
+```bash
+touch ./src/main/resources/application.properties
+```
+```bash
+nano ./src/main/resources/application.properties
+```
+```bash
+# FILE (application.properties)
+spring.main.banner-mode=off
+spring.main.log-startup-info=off
+web.app.name=Hello Database Platform
+logging.level.root=WARN
 
 # JPA (JpaBaseConfiguration)
 spring.jpa.show-sql = true
 spring.jpa.open-in-view = true
-spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
-...
+
+# Hibernate (HibernateJpaAutoConfiguration)
+spring.jpa.properties.hibernate.format_sql = true
+spring.jpa.hibernate.ddl-auto = none
 ```
 
-### DO (edit a schema file for datasource)
+
+
+
+## Develop The Spring Web Application DataSource Files for H2
+
+### DO (add a new schema file for h2 datasource)
 ```bash
-nano ./src/main/resources/schema.sql
+touch ./src/main/resources/schema-h2.sql
+```
+```bash
+nano ./src/main/resources/schema-h2.sql
 ```
 ```sql
--- FILE (schema.sql)
+-- FILE (schema-h2.sql)
+DROP TABLE IF EXISTS books;
+
+CREATE TABLE books (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(250) NOT NULL,
+  author VARCHAR(250),
+  created TIMESTAMP(9) DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO books(title, author) VALUES ('Ruby', 'Leo 215A');
+INSERT INTO books(title, author) VALUES ('HTML', 'Jeo 215A');
+```
+
+### DO (add a new data file for h2 datasource)
+```bash
+touch ./src/main/resources/data-h2.sql
+```
+```bash
+nano ./src/main/resources/data-h2.sql
+```
+```sql
+-- FILE (data-h2.sql)
+INSERT INTO books(title, author) VALUES ('Kotlin', 'Thomas 215A');
+INSERT INTO books(title, author) VALUES ('CSS', 'Thomas 215A');
+```
+
+
+
+
+## Develop The Spring Web Application DataSource Files for PostgreSQL
+
+### DO (rename and edit a schema file for PostgreSQL datasource)
+```bash
+mv ./src/main/resources/schema.sql ./src/main/resources/schema-postgres.sql
+```
+```sql
+-- FILE (schema-postgres.sql)
 DROP TABLE IF EXISTS books;
 
 DROP SEQUENCE IF EXISTS native;
@@ -147,37 +231,24 @@ CREATE TABLE books (
   author VARCHAR(250)
 );
 
-INSERT INTO books(title, author) VALUES ('Ruby', 'Leo 214B');
-INSERT INTO books(title, author) VALUES ('HTML', 'Jeo 214B');
+INSERT INTO books(title, author) VALUES ('Ruby', 'Leo 215B');
+INSERT INTO books(title, author) VALUES ('HTML', 'Jeo 215B');
 ```
 
-### DO (edit a data file for datasource)
+### DO (rename and edit a data file for PostgreSQL datasource)
 ```bash
-nano ./src/main/resources/data.sql
+mv ./src/main/resources/data.sql ./src/main/resources/data-postgres.sql
 ```
 ```sql
--- FILE (data.sql)
-INSERT INTO books(title, author) VALUES ('Kotlin', 'Thomas 214B');
-INSERT INTO books(title, author) VALUES ('CSS', 'Thomas 214B');
+-- FILE (data-postgres.sql)
+INSERT INTO books(title, author) VALUES ('Kotlin', 'Thomas 215B');
+INSERT INTO books(title, author) VALUES ('CSS', 'Thomas 215B');
 ```
 
-### DO (edit a kotlin file for spring boot)
-```bash
-nano ./src/main/kotlin/de/iotoi/model/Book.kt
-```
-```kotlin
-// FILE (Book.kt)
-...
-@Entity
-@Table(name="books")
-class Book {
-    @Id
-    @GeneratedValue(
-        strategy= GenerationType.SEQUENCE,
-        generator="native"
-    )
-...
-```
+
+
+
+## Run the Spring Web Application with H2
 
 ### DO (check the project)
 ```bash
@@ -187,12 +258,9 @@ class Book {
     # >> Result: nothing
 ```
 
-
-## Run the Spring Web Application with PostgreSQL
-
-### DO (run the web application with gradle)
+### DO (run the web application for h2)
 ```bash
-./gradlew -q bootRun
+./gradlew -q bootRun --args='--spring.profiles.active=dev'
 ```
 ```bash
     # >> Result
@@ -208,42 +276,56 @@ curl --no-progress-meter http://localhost:8080/api/books | json_pp
     # >> Result
     [
         {
-            "author" : "Leo 214B",
+            "author" : "Leo 215A",
             "id" : 1,
             "title" : "Ruby"
         },
         {
-            "author" : "Jeo 214B",
+            "author" : "Jeo 215A",
             "id" : 2,
             "title" : "HTML"
         },
         {
-            "author" : "Thomas 214B",
+            "author" : "Thomas 215A",
             "id" : 3,
             "title" : "Kotlin"
         },
         {
-            "author" : "Thomas 214B",
+            "author" : "Thomas 215A",
             "id" : 4,
             "title" : "CSS"
         }
     ]
 ```
 
-### DO (add a new record for the web application api)
+### DO (stop the web server)
 ```bash
-curl --no-progress-meter \
-    -H "Content-Type: application/json" \
-    -X POST -d '{"title":"Rust","author":"Joe 214B"}' \
-    localhost:8080/api/books | json_pp
+# DO (Ctrl+C)
+```
+
+
+
+
+## Run the Spring Web Application with PostgreSQL
+
+### DO (delete PostgreSQL database, if the database `prodDB` exists)
+```bash
+sudo -u postgres dropdb prodDB
+```
+
+### DO (add a new PostgreSQL database `prodDB` for user `gudao`)
+```bash
+sudo -u postgres createdb prodDB -O gudao
+```
+
+### DO (run the web application for PostgreSQL)
+```bash
+./gradlew -q bootRun --args='--spring.profiles.active=prod'
 ```
 ```bash
     # >> Result
-    {
-        "author" : "Joe 214B",
-        "id" : 5,
-        "title" : "Rust"
-    }
+    <==========---> 83% EXECUTING [35s]
+    > :bootRun   
 ```
 
 ### DO (access the web application api)
@@ -254,40 +336,27 @@ curl --no-progress-meter http://localhost:8080/api/books | json_pp
     # >> Result
     [
         {
-            "author" : "Leo 214B",
+            "author" : "Leo 215B",
             "id" : 1,
             "title" : "Ruby"
         },
         {
-            "author" : "Jeo 214B",
+            "author" : "Jeo 215B",
             "id" : 2,
             "title" : "HTML"
         },
         {
-            "author" : "Thomas 214B",
+            "author" : "Thomas 215B",
             "id" : 3,
             "title" : "Kotlin"
         },
         {
-            "author" : "Thomas 214B",
+            "author" : "Thomas 215B",
             "id" : 4,
             "title" : "CSS"
-        },
-        {
-            "author" : "Joe 214B",
-            "id" : 5,
-            "title" : "Rust"
         }
     ]
 ```
-
-### DO (browse the h2 Console)
-```bash
-google-chrome http://localhost:8080/h2-console/
-```
-![h2_console_login](doc/image/h2_console_login.png)
-![h2_console_view](doc/image/h2_console_view.png)
-
 
 ### DO (stop the web server)
 ```bash
@@ -298,6 +367,7 @@ google-chrome http://localhost:8080/h2-console/
 ```bash
 sudo -u postgres dropdb prodDB
 ```
+
 
 
 
