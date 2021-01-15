@@ -379,7 +379,8 @@ sudo -u postgres dropdb prodDB
 | 211 | [Hello Seed Data!](https://github.com/cnruby/gradle_kotlin/tree/basic_211#use-hibernate-as-seed-data-import) | with H2/path datasource/hibernate method |  | with H2/path datasource/hibernate method   |
 | 211 | [Hello Seed Data!](https://github.com/cnruby/gradle_kotlin/tree/basic_211#use-datasource-as-seed-data-import) | with H2/path datasource/spring method |  | with H2/path datasource/spring method   |
 | 211 | [Hello Seed Data!](https://github.com/cnruby/gradle_kotlin/tree/basic_211#use-datasource-and-hibernate-as-seed-data-import) | with H2/path datasource/hibernate+spring method |  | with H2/path datasource/hibernate+spring method   |
-| 213 | [Hello Spring DataSource!](https://github.com/cnruby/gradle_kotlin/tree/basic_213) |  | with H2/default datasource/spring method | with H2/default datasource/spring method |
+| 213 | [Spring Default DataSource!](https://github.com/cnruby/gradle_kotlin/tree/basic_213#load-the-standard-sql-files-from-the-standard-root-classpath-locations) |  | with H2/spring method | with H2/spring method |
+| 213 | [Spring Custom DataSource!](https://github.com/cnruby/gradle_kotlin/tree/basic_213#loads-sql-files-from-the-custom-classpath-locations) |  | with H2/spring method | with H2/spring method |
 | 214 | [Hello PostgreSQL with DataSource!](https://github.com/cnruby/gradle_kotlin/tree/basic_214) |  | with PostgreSQL/default datasource/spring method | with PostgreSQL/default datasource/spring method |
 | 215 | [Hello Database Platform!]() |  | with databas-platform | with databas-platform |
 
