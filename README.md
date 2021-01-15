@@ -104,7 +104,10 @@ Hello "gradle_kotlin"!
 | 211 |  |  | [Hello Seed Data!](https://github.com/cnruby/gradle_kotlin/tree/basic_211) |  |
 | 212 |  |  | [Hello @GenericGenerator!](https://github.com/cnruby/gradle_kotlin/tree/basic_212) |  |
 | 213 |  |  | [Hello Spring DataSource!](https://github.com/cnruby/gradle_kotlin/tree/basic_213) |  |
-|  |  |  |  |  |
+| 214 |  |  | [Hello PostgreSQL with DataSource!](https://github.com/cnruby/gradle_kotlin/tree/basic_214) |  |
+| 215 |  | [Hello Database Platform!](https://github.com/cnruby/gradle_kotlin/tree/basic_215) |  |  |
+| 216 |  |  | [Hello @ControllerAdvice!](https://github.com/cnruby/gradle_kotlin/tree/basic_216) |  |
+| 217 |  |  |  |  |
 | 301 | [Hello Console App!](https://github.com/cnruby/gradle_kotlin/tree/basic_301) |  |  |  |
 | 302 |  |  |  |  |
 
