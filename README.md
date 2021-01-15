@@ -54,6 +54,7 @@ Unit 215: Hello Database Platform!
   - [DO (access the web application api)](#do-access-the-web-application-api-1)
   - [DO (stop the web server)](#do-stop-the-web-server-1)
   - [DO (delete PostgreSQL database, if need)](#do-delete-postgresql-database-if-need)
+- [Map for JPA/Hibernate/Spring DataSource](#map-for-jpahibernatespring-datasource)
 - [References](#references)
 - [References for tools](#references-for-tools)
 
@@ -367,6 +368,20 @@ curl --no-progress-meter http://localhost:8080/api/books | json_pp
 ```bash
 sudo -u postgres dropdb prodDB
 ```
+
+
+
+
+## Map for JPA/Hibernate/Spring DataSource
+| Unit Nr |	Unit Title	|	Without schema file	| With schema file | With data file |
+|---------|-------------|-------------|-------------|-------------|
+| 210 | [Hello h2 Console!](https://github.com/cnruby/gradle_kotlin/tree/basic_210) | JPA method |  |  |
+| 211 | [Hello Seed Data!](https://github.com/cnruby/gradle_kotlin/tree/basic_211#use-hibernate-as-seed-data-import) | with H2/path datasource/hibernate method |  | with H2/path datasource/hibernate method   |
+| 211 | [Hello Seed Data!](https://github.com/cnruby/gradle_kotlin/tree/basic_211#use-datasource-as-seed-data-import) | with H2/path datasource/spring method |  | with H2/path datasource/spring method   |
+| 211 | [Hello Seed Data!](https://github.com/cnruby/gradle_kotlin/tree/basic_211#use-datasource-and-hibernate-as-seed-data-import) | with H2/path datasource/hibernate+spring method |  | with H2/path datasource/hibernate+spring method   |
+| 213 | [Hello Spring DataSource!](https://github.com/cnruby/gradle_kotlin/tree/basic_213) |  | with H2/default datasource/spring method | with H2/default datasource/spring method |
+| 214 | [Hello PostgreSQL with DataSource!](https://github.com/cnruby/gradle_kotlin/tree/basic_214) |  | with PostgreSQL/default datasource/spring method | with PostgreSQL/default datasource/spring method |
+| 215 | [Hello Database Platform!]() |  | with databas-platform | with databas-platform |
 
 
 
