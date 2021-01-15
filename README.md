@@ -53,7 +53,7 @@ Unit 215: Hello Database Platform!
   - [DO (run the web application for PostgreSQL)](#do-run-the-web-application-for-postgresql)
   - [DO (access the web application api)](#do-access-the-web-application-api-1)
   - [DO (stop the web server)](#do-stop-the-web-server-1)
-  - [DO (delete PostgreSQL database)](#do-delete-postgresql-database)
+  - [DO (delete PostgreSQL database, if need)](#do-delete-postgresql-database-if-need)
 - [References](#references)
 - [References for tools](#references-for-tools)
 
@@ -363,7 +363,7 @@ curl --no-progress-meter http://localhost:8080/api/books | json_pp
 # DO (Ctrl+C)
 ```
 
-### DO (delete PostgreSQL database)
+### DO (delete PostgreSQL database, if need)
 ```bash
 sudo -u postgres dropdb prodDB
 ```
