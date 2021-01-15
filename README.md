@@ -43,13 +43,13 @@ Unit 213: Hello Spring DataSource!
   - [DO (delete h2 database)](#do-delete-h2-database-1)
   - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle)
   - [DO (access the web application api)](#do-access-the-web-application-api)
-  - [DO (access the web application api)](#do-access-the-web-application-api-1)
-  - [DO (access the web application api)](#do-access-the-web-application-api-2)
+  - [DO (add a new record to the web application api)](#do-add-a-new-record-to-the-web-application-api)
+  - [DO (access the web application api again)](#do-access-the-web-application-api-again)
   - [DO (stop the web server)](#do-stop-the-web-server)
   - [DO (delete h2 database)](#do-delete-h2-database-2)
   - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle-1)
-  - [DO (access the web application api)](#do-access-the-web-application-api-3)
-  - [DO (View the h2 Console)](#do-view-the-h2-console)
+  - [DO (access the web application api)](#do-access-the-web-application-api-1)
+  - [DO (view the h2 Console)](#do-view-the-h2-console)
   - [DO (stop the web server)](#do-stop-the-web-server-1)
   - [DO (delete h2 database)](#do-delete-h2-database-3)
 - [Load The Standard SQL Files From The Standard Root Classpath Locations](#load-the-standard-sql-files-from-the-standard-root-classpath-locations)
@@ -59,7 +59,7 @@ Unit 213: Hello Spring DataSource!
   - [DO (check the project)](#do-check-the-project-2)
   - [DO (delete h2 database)](#do-delete-h2-database-4)
   - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle-2)
-  - [DO (access the web application api)](#do-access-the-web-application-api-4)
+  - [DO (access the web application api)](#do-access-the-web-application-api-2)
   - [DO (stop the web server)](#do-stop-the-web-server-2)
   - [DO (delete h2 database)](#do-delete-h2-database-5)
 - [References](#references)
@@ -214,7 +214,7 @@ curl --no-progress-meter http://localhost:8080/api/books | json_pp
     ]
 ```
 
-### DO (access the web application api)
+### DO (add a new record to the web application api)
 ```bash
 curl --no-progress-meter \
     -H "Content-Type: application/json" \
@@ -230,7 +230,7 @@ curl --no-progress-meter \
     }
 ```
 
-### DO (access the web application api)
+### DO (access the web application api again)
 ```bash
 curl --no-progress-meter http://localhost:8080/api/books | json_pp
 ```
@@ -296,7 +296,7 @@ curl --no-progress-meter http://localhost:8080/api/books | json_pp
     ]
 ```
 
-### DO (View the h2 Console)
+### DO (view the h2 Console)
 ```bash
 google-chrome http://localhost:8080/h2-console/
 ```
