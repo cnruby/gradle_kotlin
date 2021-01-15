@@ -43,11 +43,13 @@ Unit 216: Hello @ControllerAdvice!
   - [DO (access all book's records in the web application api)](#do-access-all-books-records-in-the-web-application-api)
   - [DO (access the first book's record in the web application api)](#do-access-the-first-books-record-in-the-web-application-api)
   - [DO (access the web app api if a record exists not)](#do-access-the-web-app-api-if-a-record-exists-not)
+  - [DO (stop the web server)](#do-stop-the-web-server)
 - [Add The ExceptionHandler @ControllerAdvice annotation](#add-the-exceptionhandler-controlleradvice-annotation)
   - [DO (make a new folder for exception handler)](#do-make-a-new-folder-for-exception-handler)
   - [DO (add a new book's exception file)](#do-add-a-new-books-exception-file)
   - [DO (add a new rest's exception handler file)](#do-add-a-new-rests-exception-handler-file)
   - [DO (edit the rest controller file)](#do-edit-the-rest-controller-file)
+  - [DO (run the web application with gradle again)](#do-run-the-web-application-with-gradle-again)
   - [DO (access in the web app api if a record exists not)](#do-access-in-the-web-app-api-if-a-record-exists-not)
 - [References](#references)
 - [References for tools](#references-for-tools)
@@ -108,8 +110,7 @@ CREATE TABLE books (
   created TIMESTAMP(9) DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO books(title, author) VALUES
-  ('Ruby', 'Leo');
+INSERT INTO books(title, author) VALUES ('Ruby', 'Leo');
 ```
 
 ### DO (edit a data file for spring datasource)
@@ -195,6 +196,14 @@ curl --no-progress-meter http://localhost:8080/api/books/3 | json_pp
     }
 ```
 
+### DO (stop the web server)
+```bash
+# DO (Ctrl+C)
+```
+
+
+
+
 ## Add The ExceptionHandler @ControllerAdvice annotation
 
 ### DO (make a new folder for exception handler)
@@ -269,6 +278,17 @@ import de.iotoi.exception.BookNotFoundException
             .orElseThrow { BookNotFoundException() }
     }
 ...
+```
+
+### DO (run the web application with gradle again)
+
+```bash
+./gradlew -q bootRun
+```
+```bash
+    # >> Result
+    <==========---> 83% EXECUTING [35s]
+    > :bootRun   
 ```
 
 ### DO (access in the web app api if a record exists not)
