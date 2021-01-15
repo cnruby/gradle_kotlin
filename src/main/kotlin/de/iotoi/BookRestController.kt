@@ -2,14 +2,11 @@ package de.iotoi
 
 import de.iotoi.model.Book
 import de.iotoi.model.BookRepository
-
 import org.springframework.beans.factory.annotation.Autowired
-
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-
 import java.util.function.Supplier
-
+import de.iotoi.exception.BookNotFoundException
 
 @RestController
 @RequestMapping("/api/books")
@@ -34,7 +31,7 @@ class BookRestController {
     @GetMapping("/{id}")
     fun findOne(@PathVariable id: Long?): Book? {
         return bookRepository!!.findById(id!!)
-            .orElseThrow(Supplier<RuntimeException> { RuntimeException() })
+            .orElseThrow { BookNotFoundException() }
     }
 
     // curl -H "Content-Type: application/json" -X POST -d '{"title":"Java","author":"Joe"}' localhost:8080/api/books | json_pp
