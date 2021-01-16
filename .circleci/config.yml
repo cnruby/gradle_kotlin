@@ -44,8 +44,13 @@ jobs:
       - run:
           name: "Run The Application with Gradle"
           command: |
-              ./gradlew -q check
+              ./gradlew -q check              
               screen -d -m -s "webapp_on_project" ./gradlew -q bootRun
+
+      - run:
+          name: "Testun The Application with Gradle"
+          command: |
+              ./gradlew test
 
   docker_build:
     machine: true
@@ -62,10 +67,15 @@ jobs:
             sudo apt install curl wget netcat -y
 
       - run:
+          name: "Testun The Application with Gradle"
+          command: |
+              ./gradlew test
+
+      - run:
           name: "start web server with web app"
           command: |
-              ./gradlew -q bootBuildImage --imageName=gradle_kotlin/basic_205
-              docker run -d --name=205_gradle_kotlin_container -p 80:8080 gradle_kotlin/basic_205
+              ./gradlew -q bootBuildImage --imageName=gradle_kotlin/basic_xxx
+              docker run -d --name=xxx_gradle_kotlin_container -p 80:8080 gradle_kotlin/basic_xxx
 
       - run:
           name: "browse the website"
@@ -76,7 +86,7 @@ jobs:
       - run:
           name: "stop web server on docker"
           command: |
-              docker stop 205_gradle_kotlin_container
+              docker stop xxx_gradle_kotlin_container
 
 workflows:
   build:

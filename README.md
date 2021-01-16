@@ -11,15 +11,20 @@
 [![kotlin lang)](https://img.shields.io/github/v/release/JetBrains/kotlin?label=kotlin&logo=kotlin)](https://github.com/JetBrains/kotlin)
 [![IntelliJ IDEA Community Edition](https://img.shields.io/badge/IntelliJ%20IDEA%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
 [![Docker-(2019.03.13)](https://img.shields.io/badge/Docker-%2019.03.13-brightgreen)](https://www.docker.com/)
-[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_205.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_205)
+[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_217.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_217)
 
 
 ---
 
-Unit 205: Hello @Service
-<h1>Unit 205: Hello @Service!</h1>
+Unit 217: Hello JUnit!
+<h1>Unit 217: Hello JUnit!</h1>
 
-- How to Understand the Annotation @Service
+- How to Understand the unit testing framework `JUnit`
+- JUnit is particularly suitable for automated unit tests of individual units (classes or methods)
+- Every test method must be annotated by the @Test annotation
+- Every test method has only two results: Either the test succeeds (then it is "green"(OK)) or it fails (then it is "red"(ERROR)).
+- JUnit is linked as a JAR at compile-time
+
 
 ---
 
@@ -30,28 +35,21 @@ Unit 205: Hello @Service
 - [Prerequisites](#prerequisites)
 - [Create A New Kotlin Web App](#create-a-new-kotlin-web-app)
   - [DO (create a new project)](#do-create-a-new-project)
-  - [DO (create and edit the spring property file)](#do-create-and-edit-the-spring-property-file)
+  - [DO (edit the gradle build file)](#do-edit-the-gradle-build-file)
   - [DO (check the project)](#do-check-the-project)
-- [Develop the Project](#develop-the-project)
-  - [DO (create and edit the spring rest controller file)](#do-create-and-edit-the-spring-rest-controller-file)
-  - [DO (create and edit the spring service file)](#do-create-and-edit-the-spring-service-file)
+- [Develop the Project for JUnit 5](#develop-the-project-for-junit-5)
+  - [DO (create and edit the spring test file)](#do-create-and-edit-the-spring-test-file)
   - [DO (check the project)](#do-check-the-project-1)
-- [Run The Web Application on the Project](#run-the-web-application-on-the-project)
-  - [DO (run The Web Application with Gradle)](#do-run-the-web-application-with-gradle)
-  - [DO (open a new terminal to browse the website)](#do-open-a-new-terminal-to-browse-the-website)
-- [Run The Web Application on Docker](#run-the-web-application-on-docker)
-  - [DO (build an OCI image of the application)](#do-build-an-oci-image-of-the-application)
-  - [DO (run the application on Docker)](#do-run-the-application-on-docker)
-  - [DO (browse the web application on Docker)](#do-browse-the-web-application-on-docker)
+- [Test The Web Application on the Project](#test-the-web-application-on-the-project)
 - [References](#references)
 - [References for tools](#references-for-tools)
 
 
 
 ## Keywords
-- `Spring Boot` Annotation `@Service`
+- JUnit `Spring Boot` Annotation `@Test` Testing Test
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE` CircleCI CI
-- tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM
+- tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM `@Service`
 
 
 
@@ -68,21 +66,12 @@ Unit 205: Hello @Service
 
 ### DO (create a new project)
 ```bash
-NEW_APP_ID=205 && \
-mkdir ${NEW_APP_ID}_gradle_kotlin && cd ${NEW_APP_ID}_gradle_kotlin && \
-curl https://start.spring.io/starter.zip -d language=kotlin \
-    -d dependencies=web,devtools \
-    -d packageName=de.iotoi \
-    -d groupId=de.iotoi \
-    -d artifactId=_gradle_kotlin \
-    -d name=kotlin -d type=gradle-project -o basic_${NEW_APP_ID}.zip && \
-unzip basic_${NEW_APP_ID}.zip
+EXISTING_APP_ID=205 && NEW_APP_ID=217 && \
+git clone -b basic_${EXISTING_APP_ID} https://github.com/cnruby/gradle_kotlin.git ${NEW_APP_ID}_gradle_kotlin && \
+cd ${NEW_APP_ID}_gradle_kotlin
 ```
 
-### DO (create and edit the spring property file)
-```bash
-touch ./src/main/resources/application.properties
-```
+### DO (edit the gradle build file)
 ```bash
 nano ./src/main/resources/application.properties
 ```
@@ -104,52 +93,39 @@ logging.level.root=WARN
 
 
 
-## Develop the Project
 
-### DO (create and edit the spring rest controller file)
+## Develop the Project for JUnit 5
+
+### DO (create and edit the spring test file)
 ```bash
-touch ./src/main/kotlin/de/iotoi/HelloRestController.kt
+touch ./src/test/kotlin/de/iotoi/HelloServiceTests.kt
 ```
 ```bash
-nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
+nano ./src/test/kotlin/de/iotoi/HelloServiceTests.kt
 ```
 ```bash
-# FILE (HelloRestController.kt)
+# FILE (HelloServiceTests.kt)
 package de.iotoi
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RestController
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.*
+import org.springframework.beans.factory.annotation.*
+import org.springframework.boot.test.context.SpringBootTest
 
-@RestController
-class HelloRestController(val helloService: HelloService) {
-    @GetMapping("/api")
-    fun helloKotlin(): String {
-        return helloService.getHello()
-    }
-}
-```
+@SpringBootTest
+class HelloServiceTests() {
+	@Autowired
+	var helloService: HelloService? = null
 
-### DO (create and edit the spring service file)
-```bash
-touch ./src/main/kotlin/de/iotoi/HelloService.kt
-```
-```bash
-nano ./src/main/kotlin/de/iotoi/HelloService.kt
-```
-```bash
-# FILE (HelloService.kt)
-package de.iotoi
+	@Value("\${web.app.name}")
+	val webAppName: String? = null
 
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.stereotype.Service
-
-@Service()
-class HelloService {
-    @Value("\${web.app.name}") val webAppName: String? = null
-
-    fun getHello(): String {
-        return "$webAppName!\n"
-    }
+	@DisplayName("Test Spring @Autowired Integration")
+	@Test
+	fun testAnnotationGetHello() {
+		assertEquals("${webAppName}!", "Hello JUnit 5!")
+		assertEquals("${webAppName}!\n", helloService?.getHello())
+	}
 }
 ```
 
@@ -162,83 +138,31 @@ class HelloService {
 ```
 
 
-## Run The Web Application on the Project
 
-### DO (run The Web Application with Gradle)
+
+## Test The Web Application on the Project
+
 ```bash
-./gradlew -q bootRun
+./gradlew -q test
 ```
 ```bash
-    # Result
-    <==========---> 83% EXECUTING [21s]
-    > :bootRun
+    # >> Result: nothing
 ```
 
-### DO (open a new terminal to browse the website)
-```bash
-curl http://localhost:8080/api
-```
-```bash
-    # >> Result
-    Hello @Service!
-```
-
-
-
-## Run The Web Application on Docker
-
-### DO (build an OCI image of the application)
-```bash
-./gradlew -q bootBuildImage --imageName=gradle_kotlin/basic_205
-```
-```bash
-    # >> Result
-    > Task :bootBuildImage
-    Building image 'docker.io/gradle_kotlin/basic_205:latest'
-
-     > Pulling builder image 'docker.io/paketobuildpacks/builder:base' ..................................................
-     ...
-     ...
-        [creator]           docker.io/gradle_kotlin/basic_205:latest
-
-    Successfully built image 'docker.io/gradle_kotlin/basic_205:latest'
-
-    BUILD SUCCESSFUL in 3m 3s
-    5 actionable tasks: 3 executed, 2 up-to-date     
-```
-
-### DO (run the application on Docker)
-```bash
-docker run -p 80:8080 gradle_kotlin/basic_205
-```
-```bash
-    # >> Result
-    Setting Active Processor Count to 4
-    Calculating JVM memory based on 1017684K available memory
-    Calculated JVM Memory Configuration: -XX:MaxDirectMemorySize=10M -Xmx418084K -XX:MaxMetaspaceSize=87599K -XX:ReservedCodeCacheSize=240M -Xss1M (Total Memory: 1017684K, Thread Count: 250, Loaded Class Count: 13052, Headroom: 0%)
-    Adding 138 container CA certificates to JVM truststore
-    Spring Cloud Bindings Enabled
-    Picked up JAVA_TOOL_OPTIONS: -Djava.security.properties=/layers/paketo-buildpacks_bellsoft-liberica/java-security-properties/java-security.properties -agentpath:/layers/paketo-buildpacks_bellsoft-liberica/jvmkill/jvmkill-1.16.0-RELEASE.so=printHeapHistogram=1 -XX:ActiveProcessorCount=4 -XX:MaxDirectMemorySize=10M -Xmx418084K -XX:MaxMetaspaceSize=87599K -XX:ReservedCodeCacheSize=240M -Xss1M -Dorg.springframework.cloud.bindings.boot.enable=true
-```
-
-### DO (browse the web application on Docker)
-```bash
-curl http://localhost:80/api
-```
-```bash
-    # >> Result
-    Hello @Service!
-```
 
 
 
 ## References
-- https://github.com/Baeldung/kotlin-tutorials/tree/master/spring-boot-kotlin/src/main/kotlin/com/baeldung/springbootkotlin
-- https://www.baeldung.com/spring-boot-kotlin
-- https://www.journaldev.com/21435/spring-service-annotation#spring-service-example
-
+- https://junit.org/junit5/docs/current/user-guide/
+- https://www.baeldung.com/junit-5
+- https://www.innoq.com/de/articles/2019/12/junit5-spring-boot-tests/
+- https://developer.okta.com/blog/2019/03/28/test-java-spring-boot-junit5
+- https://medium.com/@thankgodukachukwu/unit-and-integrated-testing-spring-boot-and-junit-5-99b9745b782a
+- https://mkyong.com/spring-boot/spring-boot-junit-5-mockito/
+- https://www.trion.de/news/2020/05/26/testcontainers-junit5.html
+- https://en.wikipedia.org/wiki/JUnit
+- https://de.wikipedia.org/wiki/JUnit
 
 
 ## References for tools
 - [Add a copy to clipboard button in a GitHub](https://github.com/zenorocha/codecopy#install)
-
