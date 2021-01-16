@@ -35,7 +35,7 @@ Unit 217: Hello JUnit 5!
 - [Prerequisites](#prerequisites)
 - [Create A New Kotlin Web App](#create-a-new-kotlin-web-app)
 	- [DO (create a new project)](#do-create-a-new-project)
-	- [DO (edit the gradle build file)](#do-edit-the-gradle-build-file)
+	- [DO (edit the spring application property file)](#do-edit-the-spring-application-property-file)
 	- [DO (check the gradle build file)](#do-check-the-gradle-build-file)
 	- [DO (check the project)](#do-check-the-project)
 - [Develop the Project for JUnit 5](#develop-the-project-for-junit-5)
@@ -72,7 +72,7 @@ git clone -b basic_${EXISTING_APP_ID} https://github.com/cnruby/gradle_kotlin.gi
 cd ${NEW_APP_ID}_gradle_kotlin
 ```
 
-### DO (edit the gradle build file)
+### DO (edit the spring application property file)
 ```bash
 nano ./src/main/resources/application.properties
 ```
