@@ -36,6 +36,7 @@ Unit 217: Hello JUnit 5!
 - [Create A New Kotlin Web App](#create-a-new-kotlin-web-app)
 	- [DO (create a new project)](#do-create-a-new-project)
 	- [DO (edit the gradle build file)](#do-edit-the-gradle-build-file)
+	- [DO (check the gradle build file)](#do-check-the-gradle-build-file)
 	- [DO (check the project)](#do-check-the-project)
 - [Develop the Project for JUnit 5](#develop-the-project-for-junit-5)
 	- [DO (create and edit the spring test file)](#do-create-and-edit-the-spring-test-file)
@@ -81,6 +82,25 @@ spring.main.banner-mode=off
 spring.main.log-startup-info=off
 web.app.name=Hello @Service
 logging.level.root=WARN
+```
+
+### DO (check the gradle build file)
+```bash
+nano ./build.gradle.kts
+```
+```bash
+# FILE (build.gradle.kts)
+...
+dependencies {
+	...
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+...
+
+tasks.withType<Test> {
+	useJUnitPlatform()
+}
 ```
 
 ### DO (check the project)
