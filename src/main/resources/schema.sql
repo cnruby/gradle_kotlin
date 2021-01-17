@@ -8,4 +8,5 @@ CREATE TABLE books (
 );
 
 INSERT INTO books(title, author) VALUES ('Ruby', 'Leo');
+INSERT INTO books(title, author) VALUES ('HTML', 'Jeo');
  
