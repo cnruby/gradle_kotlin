@@ -11,17 +11,15 @@
 [![kotlin lang)](https://img.shields.io/github/v/release/JetBrains/kotlin?label=kotlin&logo=kotlin)](https://github.com/JetBrains/kotlin)
 [![IntelliJ IDEA Community Edition](https://img.shields.io/badge/IntelliJ%20IDEA%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
 [![Docker-(2019.03.13)](https://img.shields.io/badge/Docker-%2019.03.13-brightgreen)](https://www.docker.com/)
-[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_218.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_218)
+[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_219.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_219)
 
 
 ---
 
-Unit 218: Hello REST Assured!
-<h1>Unit 218: Hello REST Assured!</h1>
+Unit 219: Hello @Order!
+<h1>Unit 219: Hello @Order!</h1>
 
-- How to Understand The REST Assured 
-- REST Assured is a Java DSL
-- REST Assured simplify testing of REST based services built on top of HTTP Builder
+- How to Understand The Annotation @Order!
 
 
 ---
@@ -35,16 +33,8 @@ Unit 218: Hello REST Assured!
 - [Create A New Kotlin Web App](#create-a-new-kotlin-web-app)
   - [DO (create a new project)](#do-create-a-new-project)
   - [DO (check the project)](#do-check-the-project)
-- [Develop the gradle build file](#develop-the-gradle-build-file)
-  - [DO (add the package `rest-assured` to the gradle build file)](#do-add-the-package-rest-assured-to-the-gradle-build-file)
-  - [DO (check the project to get the error)](#do-check-the-project-to-get-the-error)
-  - [DO (edit a gradle build file for spring boot)](#do-edit-a-gradle-build-file-for-spring-boot)
-  - [DO (check the project again to get many warnings)](#do-check-the-project-again-to-get-many-warnings)
-  - [DO (edit a gradle build file for spring boot again)](#do-edit-a-gradle-build-file-for-spring-boot-again)
-  - [DO (check the project noch again)](#do-check-the-project-noch-again)
-- [DO (Upgrade the gradle version to 6.8)](#do-upgrade-the-gradle-version-to-68)
-- [Develop REST Assured Testing for The Web App](#develop-rest-assured-testing-for-the-web-app)
-  - [DO (add a new book controller testing file)](#do-add-a-new-book-controller-testing-file)
+- [Develop REST Assured Testing about the Annotation @Order](#develop-rest-assured-testing-about-the-annotation-order)
+  - [DO (add a new book testing file with the annotation @Order)](#do-add-a-new-book-testing-file-with-the-annotation-order)
   - [DO (start the web app)](#do-start-the-web-app)
   - [DO (run the testing in the project with gradle)](#do-run-the-testing-in-the-project-with-gradle)
   - [DO (see the testing report)](#do-see-the-testing-report)
@@ -55,7 +45,7 @@ Unit 218: Hello REST Assured!
 
 
 ## Keywords
-- `Rest Assured` `Web Application` REST API Testing
+- Annotation `@Order` `Rest Assured` `Web Application` REST API Testing
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE` CircleCI CI
 - tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM
 - database h2 Console `Spring Boot` `Spring DataSource` JPA Hibernate Classpath h2
@@ -77,7 +67,7 @@ Unit 218: Hello REST Assured!
 
 ### DO (create a new project)
 ```bash
-EXISTING_APP_ID=216 && NEW_APP_ID=218 && \
+EXISTING_APP_ID=218 && NEW_APP_ID=219 && \
 git clone -b basic_${EXISTING_APP_ID} https://github.com/cnruby/gradle_kotlin.git ${NEW_APP_ID}_gradle_kotlin && \
 cd ${NEW_APP_ID}_gradle_kotlin
 ```
@@ -93,220 +83,70 @@ cd ${NEW_APP_ID}_gradle_kotlin
 
 
 
-## Develop the gradle build file
+## Develop REST Assured Testing about the Annotation @Order
 
-### DO (add the package `rest-assured` to the gradle build file)
+### DO (add a new book testing file with the annotation @Order)
 ```bash
-nano ./build.gradle.kts
-```
-```sql
--- FILE (build.gradle.kts)
-...
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("io.rest-assured:rest-assured")
-}
-```
-
-### DO (check the project to get the error)
-```bash
-./gradlew -q clean check
+touch ./src/test/kotlin/de/iotoi/RestAssuredOrderTests.kt
 ```
 ```bash
-    # >> Result
-    Errors occurred while build effective model from /home/gudao/.gradle/caches/modules-2/files-2.1/com.sun.xml.bind/jaxb-osgi/2.2.10/c926a537af564ec047ec6308df1d0d2a03364a86/jaxb-osgi-2.2.10.pom:
-    'dependencyManagement.dependencies.dependency.systemPath' for com.sun:tools:jar must specify an absolute path but is ${tools.jar} in com.sun.xml.bind:jaxb-osgi:2.2.10    
-```
-
-### DO (edit a gradle build file for spring boot)
-```bash
-nano ./build.gradle.kts
-```
-```sql
--- FILE (build.gradle.kts)
-...
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("io.rest-assured:rest-assured"){
-		exclude("com.sun.xml.bind", "jaxb-osgi")
-	}
-}
-...
-```
-
-### DO (check the project again to get many warnings)
-
-```bash
-./gradlew -q check
-```
-```bash
-    # >> Result
-    WARNING: An illegal reflective access operation has occurred
-    WARNING: Illegal reflective access by org.codehaus.groovy.reflection.CachedClass (file:/home/gudao/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy/2.5.14/f0a005fb21e7bd9b7ebf04cd2ecda0fc8f3be59d/groovy-2.5.14.jar) to method java.lang.Object.finalize()
-    WARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.reflection.CachedClass
-    WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
-    WARNING: All illegal access operations will be denied in a future release
-```
-
-### DO (edit a gradle build file for spring boot again)
-```bash
-nano ./build.gradle.kts
-```
-```sql
--- FILE (build.gradle.kts)
-...
-	useJUnitPlatform()
-	jvmArgs("--illegal-access=deny")
-...
-```
-
-### DO (check the project noch again)
-```bash
-./gradlew -q clean check
-```
-```bash
-    # >> Result: nothing
-```
-
-
-
-
-## DO (Upgrade the gradle version to 6.8)
-```bash
-./gradlew wrapper --gradle-version=6.8
-```
-```bash
-    # >> Result
-    Welcome to Gradle 6.8!
-    
-    Here are the highlights of this release:
-     - Faster Kotlin DSL script compilation
-     - Vendor selection for Java toolchains
-     - Convenient execution of tasks in composite builds
-     - Consistent dependency resolution
-    
-    For more details see https://docs.gradle.org/6.8/release-notes.html
-```
-
-
-
-
-## Develop REST Assured Testing for The Web App
-
-### DO (add a new book controller testing file)
-```bash
-touch ./src/test/kotlin/de/iotoi/RestAssuredBookControllerTests.kt
-```
-```bash
-nano ./src/test/kotlin/de/iotoi/RestAssuredBookControllerTests.kt
+nano ./src/test/kotlin/de/iotoi/RestAssuredOrderTests.kt
 ```
 ```kotlin
-# FILE (RestAssuredBookControllerTests.kt)
+// FILE (RestAssuredOrderTests)
 package de.iotoi
 
 import de.iotoi.model.Book
 import io.restassured.RestAssured
-import io.restassured.response.Response
 import org.apache.commons.lang3.RandomStringUtils
-import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
+import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestMethodOrder
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 
+@TestMethodOrder(OrderAnnotation::class)
+class RestAssuredOrderTests {
+  private fun createRandomBook(): Book {
+    val book = Book()
+    book.title = RandomStringUtils.randomAlphabetic(10)
+    book.author = RandomStringUtils.randomAlphabetic(15)
+    return book
+  }
 
-class RestAssuredBookControllerTests {
-    private fun createRandomBook(): Book {
-        val book = Book()
-        book.title = RandomStringUtils.randomAlphabetic(10)
-        book.author = RandomStringUtils.randomAlphabetic(15)
-        return book
-    }
+  @Test
+  @Order(1)
+  fun firstTest() {
+    val response = RestAssured.get(API_ROOT)
+    Assertions.assertThat(HttpStatus.OK.value()).isEqualTo(response.statusCode)
 
-    private fun createBookAsUri(book: Book): String {
-        val response: Response = RestAssured.given()
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .body(book)
-            .post(API_ROOT)
-        return API_ROOT + "/" + response.jsonPath().get("id")
-    }
+    output.append("get;")
+  }
 
-    /*******************************************
-     *
-     * test finding books using variant methods
-     *
-     */
-    @Test
-    fun whenGetAllBooks_thenOK() {
-        val response = RestAssured.get(API_ROOT)
-        assertThat(HttpStatus.OK.value()).isEqualTo(response.statusCode)
-    }
+  @Test
+  @Order(2)
+  fun secondTest() {
+    val book = createRandomBook()
+    val response = RestAssured.given()
+      .contentType(MediaType.APPLICATION_JSON_VALUE)
+      .body(book)
+      .post(API_ROOT)
+    Assertions.assertThat(HttpStatus.CREATED.value()).isEqualTo(response.statusCode)
 
-    @Test
-    fun whenGetBooksByTitle_thenOK() {
-        val book: Book = createRandomBook()
-        createBookAsUri(book)
-        val response = RestAssured.get(
-            API_ROOT + "/title/" + book.title
-        )
-        assertThat(HttpStatus.OK.value()).isEqualTo(response.statusCode)
-        assertThat(
-            response.`as`<List<*>>(MutableList::class.java).isNotEmpty()
-        ).isTrue
-    }
+    output.append("create;")
+  }
 
-    @Test
-    fun whenGetCreatedBookById_thenOK() {
-        val book: Book = createRandomBook()
-        val location = createBookAsUri(book)
-        val response = RestAssured.get(location)
-        assertThat(HttpStatus.OK.value()).isEqualTo(response.statusCode)
-        assertThat(book.title).isEqualTo(response.jsonPath()["title"])
+  companion object {
+    private const val API_ROOT = "http://localhost:8080/api/books"
+    private val output = StringBuilder("")
+    @AfterAll
+    fun assertOutput() {
+      Assertions.assertThat(output.toString()).isEqualTo("get;create;")
     }
-
-    @Test
-    fun whenGetNotExistBookById_thenNotFound() {
-        val response = RestAssured.get(API_ROOT + "/" + RandomStringUtils.randomNumeric(4))
-        println("response.statusCode = " + response.statusCode)
-        assertThat(HttpStatus.NOT_FOUND.value()).isEqualTo(response.statusCode)
-    }
-
-    /*************************************
-     *
-     * test creating a new book
-     *
-     */
-    @Test
-    fun whenCreateNewBook_thenCreated() {
-        val book: Book = createRandomBook()
-        val response: Response = RestAssured.given()
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .body(book)
-            .post(API_ROOT)
-        assertThat(HttpStatus.CREATED.value()).isEqualTo(response.statusCode)
-    }
-
-    /*************************************
-     *
-     * test updating an existing book
-     *
-     */
-    @Test
-    fun whenUpdateCreatedBook_thenUpdated() {
-        val book: Book = createRandomBook()
-        val location = createBookAsUri(book)
-        book.id = location.split("api/books/").toTypedArray()[1].toLong()
-        book.author = "newAuthor"
-        var response: Response = RestAssured.given()
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .body(book)
-            .put(location)
-        assertThat(HttpStatus.OK.value()).isEqualTo(response.statusCode)
-        response = RestAssured.get(location)
-        assertThat(HttpStatus.OK.value()).isEqualTo(response.statusCode)
-        assertThat("newAuthor").isEqualTo(response.jsonPath().get("author"))
-    }
-
-    companion object {
-        private const val API_ROOT = "http://localhost:8080/api/books"
-    }
+  }
 }
 ```
 
@@ -322,7 +162,7 @@ class RestAssuredBookControllerTests {
 
 ### DO (run the testing in the project with gradle)
 ```bash
-./gradlew -q clean test --tests de.iotoi.RestAssuredBookControllerTests
+./gradlew -q clean test --tests de.iotoi.RestAssuredOrderTests
 ```
 ```bash
     # >> Result: nothing
@@ -350,6 +190,7 @@ google-chrome ./build/reports/tests/test/index.html
 - https://www.xspdf.com/resolution/58300460.html
 - https://www.xspdf.com/resolution/52404548.html
 - https://docs.microsoft.com/en-us/azure/developer/java/fundamentals/transition-from-java-8-to-java-11
+
 
 
 
