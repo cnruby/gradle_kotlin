@@ -34,7 +34,11 @@ jobs:
       #     name: "run the testing"
       #     command: |
       #         ./gradlew clean test --tests de.iotoi.RestAssuredBookControllerTests
-              
+      # > Task :test FAILED
+      # Unrecognized option: --illegal-access=deny
+      # Error: Could not create the Java Virtual Machine.
+      # Error: A fatal exception has occurred. Program will exit.              
+
       - run:
           name: "insert/update/delete a record and browse the website"
           command: |
