@@ -39,11 +39,11 @@ class Book {
         return result
     }
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null) return false
-        if (javaClass != other.javaClass) return false
-        val other = other as Book
+    override fun equals(obj: Any?): Boolean {
+        if (this === obj) return true
+        if (obj == null) return false
+        if (javaClass != obj.javaClass) return false
+        val other = obj as Book
         if (author == null) {
             if (other.author != null) return false
         } else if (author != other.author) return false
