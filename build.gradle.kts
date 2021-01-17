@@ -42,9 +42,9 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
 	useJUnitPlatform()
 
-//	jvmArgs("--enable-preview")
-	jvmArgs("--illegal-access=deny")
-
+	// jvmArgs("--enable-preview")
+ 	jvmArgs("--illegal-access=deny")
+	
 	// Important!
 	// You need to run gradle test or build with added clean command.
 	// ./gradlew clean test

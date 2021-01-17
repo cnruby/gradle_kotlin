@@ -339,6 +339,7 @@ google-chrome ./build/reports/tests/test/index.html
 
 ## References
 - https://rest-assured.io/
+- https://github.com/rest-assured/rest-assured/wiki/GettingStarted
 - https://medium.com/@nieldw/exclude-a-transitive-dependency-with-gradles-kotlin-dsl-82fb41da67f
 - https://github.com/kucharzyk/spring-kotlin-angular4/blob/master/build.gradle.kts
 - https://docs.gradle.org/current/userguide/building_java_projects.html
@@ -346,7 +347,9 @@ google-chrome ./build/reports/tests/test/index.html
 - https://www.gitmemory.com/issue/spring-projects/spring-boot/22303/656792408
 - https://backstage.forgerock.com/knowledge/kb/article/a15048811
 - https://github.com/gradle/gradle/releases
- 
+- https://www.xspdf.com/resolution/58300460.html
+- https://www.xspdf.com/resolution/52404548.html
+- https://docs.microsoft.com/en-us/azure/developer/java/fundamentals/transition-from-java-8-to-java-11
 
 
 

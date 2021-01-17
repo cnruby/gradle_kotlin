@@ -30,10 +30,10 @@ jobs:
               sleep 10 && nc -vz localhost 80
               curl localhost:80/api/books
 
-      - run:
-          name: "browse the website"
-          command: |
-              ./gradlew clean test --tests de.iotoi.RestAssuredBookControllerTests
+      # - run:
+      #     name: "run the testing"
+      #     command: |
+      #         ./gradlew clean test --tests de.iotoi.RestAssuredBookControllerTests
               
       - run:
           name: "insert/update/delete a record and browse the website"
