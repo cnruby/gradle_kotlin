@@ -314,12 +314,13 @@ class RestAssuredBookControllerTests {
 ```bash
 ./gradlew -q bootRun
 ```
+```bash
+    # >> Result
+    <==========---> 83% EXECUTING [10s]
+    > :bootRun
+```
 
 ### DO (run the testing in the project with gradle)
-```bash
-./gradlew -q clean test
-```
-OR
 ```bash
 ./gradlew -q clean test --tests de.iotoi.RestAssuredBookControllerTests
 ```
