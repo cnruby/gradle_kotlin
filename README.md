@@ -33,10 +33,10 @@ Unit 220: Hello @Configuration and @PropertySource!
 - [Prerequisites](#prerequisites)
 - [Create A New Kotlin Web App](#create-a-new-kotlin-web-app)
   - [DO (create a new project)](#do-create-a-new-project)
-  - [DO (edit the application propertie file)](#do-edit-the-application-propertie-file)
+  - [DO (edit the application property file)](#do-edit-the-application-property-file)
   - [DO (check the project)](#do-check-the-project)
 - [Implement the Annotation `@Configuration` and `@PropertySource` in the Web App](#implement-the-annotation-configuration-and-propertysource-in-the-web-app)
-  - [DO (add a new propertie file)](#do-add-a-new-propertie-file)
+  - [DO (add a new property file)](#do-add-a-new-property-file)
   - [DO (add a new kotlin class property file)](#do-add-a-new-kotlin-class-property-file)
   - [DO (add a new kotlin class configuration file)](#do-add-a-new-kotlin-class-configuration-file)
   - [DO (check the project)](#do-check-the-project-1)
@@ -79,7 +79,7 @@ EXISTING_APP_ID=204 && NEW_APP_ID=220 \
 && cd ${NEW_APP_ID}_gradle_kotlin
 ```
 
-### DO (edit the application propertie file)
+### DO (edit the application property file)
 ```bash
 nano ./src/main/resources/application.properties
 ```
@@ -103,7 +103,7 @@ web.app.name=Hello @Configuration and @PropertySource
 
 ## Implement the Annotation `@Configuration` and `@PropertySource` in the Web App
 
-### DO (add a new propertie file)
+### DO (add a new property file)
 ```bash
 touch ./src/main/resources/hello.properties
 ```
