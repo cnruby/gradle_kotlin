@@ -20,9 +20,9 @@
 Unit 204: Hello @Value!
 <h1>Unit 204: Hello @Value!</h1>
 
-- Hot to Understand An Annotation @Value for function
-- Hot to Understand An Annotation @Value for class
-- Hot to Understand An Annotation @Value for project
+- How to Understand An Annotation @Value for function
+- How to Understand An Annotation @Value for class
+- How to Understand An Annotation @Value for project
 
 
 ---
