@@ -7,5 +7,4 @@ import org.springframework.context.annotation.PropertySource
 
 @Configuration
 @PropertySource("classpath:/hello.properties")
-class ApplicationConfiguration {
-}
+class HelloConfiguration {}

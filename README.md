@@ -133,13 +133,13 @@ object HelloPropertyValues {
 
 ### DO (add a new kotlin class configuration file)
 ```bash
-touch ./src/main/kotlin/de/iotoi/ApplicationConfiguration.kt
+touch ./src/main/kotlin/de/iotoi/HelloConfiguration.kt
 ```
 ```bash
-nano ./src/main/kotlin/de/iotoi/ApplicationConfiguration.kt
+nano ./src/main/kotlin/de/iotoi/HelloConfiguration.kt
 ```
 ```bash
-# FILE (ApplicationConfiguration.kt)
+# FILE (HelloConfiguration.kt)
 package de.iotoi
 
 import org.springframework.beans.factory.annotation.Value
@@ -149,7 +149,7 @@ import org.springframework.context.annotation.PropertySource
 
 @Configuration
 @PropertySource("classpath:/hello.properties")
-class ApplicationConfiguration {}
+class HelloConfiguration {}
 ```
 
 ### DO (check the project)
