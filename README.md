@@ -268,7 +268,10 @@ curl http://localhost:8080/
 
 ## References
 - https://agilecoach2016.wordpress.com/2017/12/31/kotlin-spring-5-dependency-injection-part-3-qualifer/
-
+- https://zetcode.com/springboot/applicationcontext/
+- https://www.baeldung.com/spring-application-context
+- https://blog.frankel.ch/flavors-spring-application-context-configuration/
+- 
 
 
 
