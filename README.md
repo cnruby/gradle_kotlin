@@ -11,18 +11,17 @@
 [![kotlin lang)](https://img.shields.io/github/v/release/JetBrains/kotlin?label=kotlin&logo=kotlin)](https://github.com/JetBrains/kotlin)
 [![IntelliJ IDEA Community Edition](https://img.shields.io/badge/IntelliJ%20IDEA%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
 [![Docker-(2019.03.13)](https://img.shields.io/badge/Docker-%2019.03.13-brightgreen)](https://www.docker.com/)
-[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_204.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_204)
+[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_220.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_220)
 
 
 ---
 
 
-Unit 204: Hello @Value!
-<h1>Unit 204: Hello @Value!</h1>
+Unit 220: Hello @Configuration and @PropertySource!
+<h1>Unit 220: Hello @Configuration and @PropertySource!</h1>
 
-- Hot to Understand An Annotation @Value for function
-- Hot to Understand An Annotation @Value for class
-- Hot to Understand An Annotation @Value for project
+- How to Understand An Annotation @Configuration and @PropertySource
+- How to Add A New Custom Property File
 
 
 ---
@@ -34,28 +33,30 @@ Unit 204: Hello @Value!
 - [Prerequisites](#prerequisites)
 - [Create A New Kotlin Web App](#create-a-new-kotlin-web-app)
   - [DO (create a new project)](#do-create-a-new-project)
-  - [DO (edit the spring property file)](#do-edit-the-spring-property-file)
+  - [DO (edit the application propertie file)](#do-edit-the-application-propertie-file)
   - [DO (check the project)](#do-check-the-project)
-- [`@Value` for function](#value-for-function)
-  - [DO (edit the kotlin file)](#do-edit-the-kotlin-file)
+- [Implement the Annotation `@Configuration` and `@PropertySource` in the Web App](#implement-the-annotation-configuration-and-propertysource-in-the-web-app)
+  - [DO (add a new propertie file)](#do-add-a-new-propertie-file)
+  - [DO (add a new kotlin class property file)](#do-add-a-new-kotlin-class-property-file)
+  - [DO (add a new kotlin class configuration file)](#do-add-a-new-kotlin-class-configuration-file)
   - [DO (check the project)](#do-check-the-project-1)
+- [Apply the Annotation `@Configuration` and `@PropertySource` in the Web App](#apply-the-annotation-configuration-and-propertysource-in-the-web-app)
+  - [DO (edit the kotlin class controller file)](#do-edit-the-kotlin-class-controller-file)
+  - [DO (check the project)](#do-check-the-project-2)
+- [View The Result for the web app](#view-the-result-for-the-web-app)
   - [DO (run The Application with Gradle)](#do-run-the-application-with-gradle)
-- [`@Value` for class](#value-for-class)
-  - [DO (edit the kotlin file)](#do-edit-the-kotlin-file-1)
-  - [DO (run The Application with Gradle)](#do-run-the-application-with-gradle-1)
-- [`@Value` for project](#value-for-project)
-  - [DO (create the spring property file)](#do-create-the-spring-property-file)
-  - [DO (edit the spring property file)](#do-edit-the-spring-property-file-1)
-  - [DO (edit the spring rest controller file)](#do-edit-the-spring-rest-controller-file)
+  - [DO (access the web rest api)](#do-access-the-web-rest-api)
 - [References](#references)
 - [References for tools](#references-for-tools)
 
 
 
+
 ## Keywords
-- Annotation `@Value`
+- Annotation `@Configuration` `@PropertySource` `Property File`
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE` CircleCI CI
-- tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM
+- tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM `@Value`
+
 
 
 
@@ -68,61 +69,24 @@ Unit 204: Hello @Value!
 
 
 
+
 ## Create A New Kotlin Web App
 
 ### DO (create a new project)
 ```bash
-EXISTING_APP_ID=203 && NEW_APP_ID=204 \
+EXISTING_APP_ID=204 && NEW_APP_ID=220 \
 && git clone -b basic_${EXISTING_APP_ID} https://github.com/cnruby/gradle_kotlin.git ${NEW_APP_ID}_gradle_kotlin \
-&& cd ${NEW_APP_ID}_gradle_kotlin \
-&& git checkout -b basic_${NEW_APP_ID}
+&& cd ${NEW_APP_ID}_gradle_kotlin
 ```
 
-### DO (edit the spring property file)
-```bash
-touch ./src/main/resources/application.properties
-```
+### DO (edit the application propertie file)
 ```bash
 nano ./src/main/resources/application.properties
 ```
 ```bash
-# FILE (application.properties)
-spring.main.banner-mode=off
-spring.main.log-startup-info=off
-web.app.name=Hello @Value
-logging.level.root=WARN
-```
-
-### DO (check the project)
-```bash
-./gradlew -q check
-```
-```bash
-    # >> Result: nothing
-```
-
-
-
-## `@Value` for function
-
-### DO (edit the kotlin file)
-```bash
-nano ./src/main/kotlin/de/iotoi/KotlinApplication.kt
-```
-```bash
-# FILE (KotlinApplication.kt)
+# FILE (hello.properties)
 ...
-import org.springframework.boot.CommandLineRunner
-import org.springframework.context.annotation.Bean
-import org.springframework.beans.factory.annotation.Value
-
-@SpringBootApplication
-class KotlinApplication {
-	@Bean
-	fun init(@Value("\${web.app.name}") appName: String) = CommandLineRunner {
-		println("$appName from init()!")
-	}
-}
+web.app.name=Hello @Configuration and @PropertySource
 ...
 ```
 
@@ -134,115 +98,119 @@ class KotlinApplication {
     # >> Result: nothing
 ```
 
-### DO (run The Application with Gradle)
+
+
+
+## Implement the Annotation `@Configuration` and `@PropertySource` in the Web App
+
+### DO (add a new propertie file)
 ```bash
-./gradlew -q bootRun
+touch ./src/main/resources/hello.properties
 ```
 ```bash
-    # >> Result
-    Hello @Value from init()!
-    <==========---> 83% EXECUTING [13s]
-    > :bootRun
-```
-
-
-
-## `@Value` for class
-
-### DO (edit the kotlin file)
-```bash
-nano ./src/main/kotlin/de/iotoi/KotlinApplication.kt
+nano ./src/main/resources/hello.properties
 ```
 ```bash
-# FILE (KotlinApplication.kt)
-...
-import org.springframework.boot.CommandLineRunner
-import org.springframework.context.annotation.Bean
-import org.springframework.beans.factory.annotation.Value
-
-@SpringBootApplication
-class KotlinApplication {
-	@Value("\${web.app.name}") val webAppName: String? = null
-
-	@Bean
-	fun init(@Value("\${web.app.name}") appName: String) = CommandLineRunner {
-		println("$appName from init()!")
-		println("$webAppName from init()!!")
-	}
-}
-...
+# FILE (hello.properties)
+hello.api = /api
 ```
 
-### DO (run The Application with Gradle)
+### DO (add a new kotlin class property file)
 ```bash
-./gradlew -q bootRun
-    # >> Result
-    Hello @Value from init()!
-    Hello @Value from init()!!
-    <==========---> 83% EXECUTING [8s]
-    > :bootRun
-```
-
-
-
-## `@Value` for project
-
-### DO (create the spring property file)
-```bash
-touch ./src/main/kotlin/de/iotoi/PropertyValues.kt
-```
-
-### DO (edit the spring property file)
-```bash
-nano ./src/main/kotlin/de/iotoi/PropertyValues.kt
+touch ./src/main/kotlin/de/iotoi/HelloPropertyValues.kt
 ```
 ```bash
-# FILE (PropertyValues.kt)
+nano ./src/main/kotlin/de/iotoi/HelloPropertyValues.kt
+```
+```bash
+# FILE (HelloPropertyValues.kt)
 package de.iotoi
 
-object PropertyValues {
-    const val WEB_APP_NAME = "\${web.app.name}"
+object HelloPropertyValues {
+    const val HELLO_API = "\${hello.api}"
 }
 ```
 
-### DO (edit the spring rest controller file)
+### DO (add a new kotlin class configuration file)
+```bash
+touch ./src/main/kotlin/de/iotoi/ApplicationConfiguration.kt
+```
+```bash
+nano ./src/main/kotlin/de/iotoi/ApplicationConfiguration.kt
+```
+```bash
+# FILE (ApplicationConfiguration.kt)
+package de.iotoi
+
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.PropertySource
+
+
+@Configuration
+@PropertySource("classpath:/hello.properties")
+class ApplicationConfiguration {}
+```
+
+### DO (check the project)
+```bash
+./gradlew -q check
+```
+```bash
+    # >> Result: nothing
+```
+
+
+
+
+## Apply the Annotation `@Configuration` and `@PropertySource` in the Web App
+
+### DO (edit the kotlin class controller file)
 ```bash
 nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
 ```
 ```bash
 # FILE (HelloRestController.kt)
 ...
-import org.springframework.beans.factory.annotation.Value
-
-@RestController
-class HelloRestController {
-    @Value(PropertyValues.WEB_APP_NAME)
-    private val webAppName: String? = null
-
-    @GetMapping("/api")
+    @GetMapping(HelloPropertyValues.HELLO_API)
     fun helloKotlin(): String {
-        return "$webAppName!!!\n"
 ...
 ```
 
+### DO (check the project)
+```bash
+./gradlew -q check
+```
+```bash
+    # >> Result: nothing
+```
+
+
+
+
+## View The Result for the web app
+
+### DO (run The Application with Gradle)
 ```bash
 ./gradlew -q bootRun
 ```
 ```bash
     # >> Result
-    Hello @Value from init()!
-    Hello @Value from init()!!
-    <==========---> 83% EXECUTING [39s]
+    Hello @Configuration and @PropertySource from init()!
+    Hello @Configuration and @PropertySource from init()!!
+    <==========---> 83% EXECUTING [13s]
     > :bootRun
 ```
 
+### DO (access the web rest api)
 ```bash
 curl http://localhost:8080/api
 ```
 ```bash
     # >> Result
-    Hello @Value!!!
+    Hello @Configuration and @PropertySource!
 ```
+
 
 
 

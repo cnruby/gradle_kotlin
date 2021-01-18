@@ -9,8 +9,9 @@ class HelloRestController {
     @Value(PropertyValues.WEB_APP_NAME)
     private val webAppName: String? = null
 
-    @GetMapping("/api")
+    // An annotation argument must be a compile-time constant
+    @GetMapping(HelloPropertyValues.HELLO_API)
     fun helloKotlin(): String {
-        return "$webAppName!!!\n"
+        return "$webAppName!\n"
     }
 }
