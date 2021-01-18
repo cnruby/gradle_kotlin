@@ -19,8 +19,8 @@
 Unit 203: Hello devtools!
 <h1>Unit 203: Hello devtools!</h1>
 
-- Hot to HotSwap code without IDE in a Spring-Boot project
-- Hot to HotSwap code in Intellij in a Spring-Boot project
+- How to HotSwap code without IDE in a Spring-Boot project
+- How to HotSwap code in Intellij in a Spring-Boot project
 
 ---
 
