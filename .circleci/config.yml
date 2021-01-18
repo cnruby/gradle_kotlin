@@ -59,7 +59,7 @@ jobs:
       - run:
           name: "browse the website"
           command: |
-              sleep 5 && nc -vz localhost 80
+              sleep 10 && nc -vz localhost 80
               curl http://localhost:80/api
 
       - run:
