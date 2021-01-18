@@ -11,17 +11,17 @@
 [![kotlin lang)](https://img.shields.io/github/v/release/JetBrains/kotlin?label=kotlin&logo=kotlin)](https://github.com/JetBrains/kotlin)
 [![IntelliJ IDEA Community Edition](https://img.shields.io/badge/IntelliJ%20IDEA%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
 [![Docker-(2019.03.13)](https://img.shields.io/badge/Docker-%2019.03.13-brightgreen)](https://www.docker.com/)
-[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_220.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_220)
+[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_221.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_221)
 
 
 ---
 
 
-Unit 220: Hello @Configuration and @PropertySource!
-<h1>Unit 220: Hello @Configuration and @PropertySource!</h1>
+Unit 221: Hello @Configuration and @Bean!
+<h1>Unit 221: Hello @Configuration and @Bean!</h1>
 
-- How to Understand An Annotation @Configuration and @PropertySource
-- How to Add A New Custom Property File
+- How to Understand An Annotation @Configuration and @PropertySouBeanrce
+- How to Add A New Service
 
 
 ---
@@ -33,19 +33,22 @@ Unit 220: Hello @Configuration and @PropertySource!
 - [Prerequisites](#prerequisites)
 - [Create A New Kotlin Web App](#create-a-new-kotlin-web-app)
   - [DO (create a new project)](#do-create-a-new-project)
-  - [DO (edit the application propertie file)](#do-edit-the-application-propertie-file)
+  - [DO (edit the application property file)](#do-edit-the-application-property-file)
+  - [DO (edit the hello property file)](#do-edit-the-hello-property-file)
+  - [DO (edit the hello property class file)](#do-edit-the-hello-property-class-file)
   - [DO (check the project)](#do-check-the-project)
-- [Implement the Annotation `@Configuration` and `@PropertySource` in the Web App](#implement-the-annotation-configuration-and-propertysource-in-the-web-app)
-  - [DO (add a new propertie file)](#do-add-a-new-propertie-file)
-  - [DO (add a new kotlin class property file)](#do-add-a-new-kotlin-class-property-file)
+- [Implement the Annotation `@Configuration` and `@Bean` in the Web App](#implement-the-annotation-configuration-and-bean-in-the-web-app)
+  - [DO (add a new kotlin interface file)](#do-add-a-new-kotlin-interface-file)
+  - [DO (add a new kotlin implementation file)](#do-add-a-new-kotlin-implementation-file)
   - [DO (add a new kotlin class configuration file)](#do-add-a-new-kotlin-class-configuration-file)
   - [DO (check the project)](#do-check-the-project-1)
-- [Apply the Annotation `@Configuration` and `@PropertySource` in the Web App](#apply-the-annotation-configuration-and-propertysource-in-the-web-app)
-  - [DO (edit the kotlin class controller file)](#do-edit-the-kotlin-class-controller-file)
+- [Apply the Annotation `@Configuration` and `@Bean` in the Web App](#apply-the-annotation-configuration-and-bean-in-the-web-app)
+  - [DO (edit the kotlin class rest controller file)](#do-edit-the-kotlin-class-rest-controller-file)
   - [DO (check the project)](#do-check-the-project-2)
 - [View The Result for the web app](#view-the-result-for-the-web-app)
   - [DO (run The Application with Gradle)](#do-run-the-application-with-gradle)
-  - [DO (access the web rest api)](#do-access-the-web-rest-api)
+  - [DO (access the web rest api with url `/api`)](#do-access-the-web-rest-api-with-url-api)
+  - [DO (access the web rest api with url `/`)](#do-access-the-web-rest-api-with-url-)
 - [References](#references)
 - [References for tools](#references-for-tools)
 
@@ -53,9 +56,9 @@ Unit 220: Hello @Configuration and @PropertySource!
 
 
 ## Keywords
-- Annotation `@Configuration` `@PropertySource` `Property File`
+- Annotation `@Configuration` `@Bean` `Spring Service`
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE` CircleCI CI
-- tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM `@Value`
+- tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM `@Value` `Property File`
 
 
 
@@ -74,82 +77,42 @@ Unit 220: Hello @Configuration and @PropertySource!
 
 ### DO (create a new project)
 ```bash
-EXISTING_APP_ID=204 && NEW_APP_ID=220 \
+EXISTING_APP_ID=220 && NEW_APP_ID=221 \
 && git clone -b basic_${EXISTING_APP_ID} https://github.com/cnruby/gradle_kotlin.git ${NEW_APP_ID}_gradle_kotlin \
 && cd ${NEW_APP_ID}_gradle_kotlin
 ```
 
-### DO (edit the application propertie file)
+### DO (edit the application property file)
 ```bash
 nano ./src/main/resources/application.properties
 ```
 ```bash
 # FILE (hello.properties)
 ...
-web.app.name=Hello @Configuration and @PropertySource
+web.app.name=Hello @Configuration and @Bean in the file application.properties
 ...
 ```
 
-### DO (check the project)
-```bash
-./gradlew -q check
-```
-```bash
-    # >> Result: nothing
-```
-
-
-
-
-## Implement the Annotation `@Configuration` and `@PropertySource` in the Web App
-
-### DO (add a new propertie file)
-```bash
-touch ./src/main/resources/hello.properties
-```
+### DO (edit the hello property file)
 ```bash
 nano ./src/main/resources/hello.properties
 ```
 ```bash
 # FILE (hello.properties)
-hello.api = /api
+...
+web.app.name = Hello @Configuration and @Bean in the file hello.properties
+...
 ```
 
-### DO (add a new kotlin class property file)
-```bash
-touch ./src/main/kotlin/de/iotoi/HelloPropertyValues.kt
-```
+### DO (edit the hello property class file)
 ```bash
 nano ./src/main/kotlin/de/iotoi/HelloPropertyValues.kt
 ```
 ```bash
 # FILE (HelloPropertyValues.kt)
-package de.iotoi
-
-object HelloPropertyValues {
-    const val HELLO_API = "\${hello.api}"
+...
+    const val WEB_APP_NAME = "\${web.app.name}"
 }
-```
-
-### DO (add a new kotlin class configuration file)
-```bash
-touch ./src/main/kotlin/de/iotoi/HelloConfiguration.kt
-```
-```bash
-nano ./src/main/kotlin/de/iotoi/HelloConfiguration.kt
-```
-```bash
-# FILE (HelloConfiguration.kt)
-package de.iotoi
-
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.PropertySource
-
-
-@Configuration
-@PropertySource("classpath:/hello.properties")
-class HelloConfiguration {}
 ```
 
 ### DO (check the project)
@@ -163,18 +126,98 @@ class HelloConfiguration {}
 
 
 
-## Apply the Annotation `@Configuration` and `@PropertySource` in the Web App
+## Implement the Annotation `@Configuration` and `@Bean` in the Web App
 
-### DO (edit the kotlin class controller file)
+### DO (add a new kotlin interface file)
+```bash
+mkdir -p ./src/main/kotlin/de/iotoi/impl
+```
+```bash
+touch ./src/main/kotlin/de/iotoi/impl/HelloServiceable.kt
+```
+```bash
+nano ./src/main/kotlin/de/iotoi/impl/HelloServiceable.kt
+```
+```kotlin
+# FILE (HelloServiceable.kt)
+package de.iotoi.impl
+
+interface HelloServiceable {
+    val hello: String?
+}
+```
+
+### DO (add a new kotlin implementation file)
+```bash
+touch ./src/main/kotlin/de/iotoi/impl/HelloService.kt
+```
+```bash
+nano ./src/main/kotlin/de/iotoi/impl/HelloService.kt
+```
+```kotlin
+# FILE (HelloService.kt)
+package de.iotoi.impl
+
+import de.iotoi.HelloPropertyValues
+import de.iotoi.PropertyValues
+import org.springframework.beans.factory.annotation.Value
+
+class HelloService : HelloServiceable {
+    @Value(HelloPropertyValues.WEB_APP_NAME)
+    private val webAppName: String? = null
+
+    override val hello: String
+        get() = "$webAppName!\n"
+}
+```
+
+### DO (add a new kotlin class configuration file)
+```bash
+nano ./src/main/kotlin/de/iotoi/HelloConfiguration.kt
+```
+```kotlin
+# FILE (HelloConfiguration.kt)
+import de.iotoi.impl.HelloService
+import org.springframework.context.annotation.Bean
+...
+    @Bean()
+    fun getHelloServiceObject(): HelloService? {
+        return HelloService()
+    }
+}
+```
+
+### DO (check the project)
+```bash
+./gradlew -q check
+```
+```bash
+    # >> Result: nothing
+```
+
+
+
+
+## Apply the Annotation `@Configuration` and `@Bean` in the Web App
+
+### DO (edit the kotlin class rest controller file)
 ```bash
 nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
 ```
-```bash
+```kotlin
 # FILE (HelloRestController.kt)
+import de.iotoi.impl.HelloServiceable
+import org.springframework.context.ApplicationContext
+import org.springframework.context.annotation.AnnotationConfigApplicationContext
 ...
-    @GetMapping(HelloPropertyValues.HELLO_API)
-    fun helloKotlin(): String {
-...
+    @GetMapping("/")
+    fun helloServiceKotlin(): String? {
+        val context: ApplicationContext = AnnotationConfigApplicationContext(HelloConfiguration::class.java)
+        val objHelloManager = context.getBean(HelloServiceable::class.java)
+        return objHelloManager.hello
+    }
+
+}
 ```
 
 ### DO (check the project)
@@ -196,33 +239,36 @@ nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
 ```
 ```bash
     # >> Result
-    Hello @Configuration and @PropertySource from init()!
-    Hello @Configuration and @PropertySource from init()!!
+    Hello @Configuration and @Bean in the file application.properties from init()!
+    Hello @Configuration and @Bean in the file application.properties from init()!!
     <==========---> 83% EXECUTING [13s]
     > :bootRun
 ```
 
-### DO (access the web rest api)
+### DO (access the web rest api with url `/api`)
 ```bash
 curl http://localhost:8080/api
 ```
 ```bash
     # >> Result
-    Hello @Configuration and @PropertySource!
+    Hello @Configuration and @Bean in the file application.properties!
+```
+
+### DO (access the web rest api with url `/`)
+```bash
+curl http://localhost:8080/
+```
+```bash
+    # >> Result
+    Hello @Configuration and @Bean in the file hello.properties!
 ```
 
 
 
 
 ## References
-- https://stackoverflow.com/questions/54937518/visual-studio-code-spring-boot-reload-static-content/55370810
-- https://mkyong.com/spring-boot/intellij-idea-spring-boot-template-reload-is-not-working/
-- https://gist.github.com/IMRFeng/eed589de6a6362ef23bc189fb135fdea
-- https://www.vojtechruzicka.com/spring-boot-devtools/
-- https://stackoverflow.com/questions/33349456/how-to-make-auto-reload-with-spring-boot-on-idea-intellij
-- https://stackoverflow.com/questions/54556072/hot-to-hotswap-code-in-intellij-in-a-spring-boot-project
-- https://www.nexsoftsys.com/articles/hot-swapping-in-spring-boot-applications.html
-- https://stackoverflow.com/questions/57408522/spring-boot-maven-not-printing-logs-on-console
+- https://agilecoach2016.wordpress.com/2017/12/31/kotlin-spring-5-dependency-injection-part-3-qualifer/
+
 
 
 

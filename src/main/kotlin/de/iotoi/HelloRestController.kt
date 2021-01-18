@@ -1,8 +1,13 @@
 package de.iotoi
 
+import de.iotoi.impl.HelloServiceable
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.ApplicationContext
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext
+
 
 @RestController
 class HelloRestController {
@@ -14,4 +19,12 @@ class HelloRestController {
     fun helloKotlin(): String {
         return "$webAppName!\n"
     }
+
+    @GetMapping("/")
+    fun helloServiceKotlin(): String? {
+        val context: ApplicationContext = AnnotationConfigApplicationContext(HelloConfiguration::class.java)
+        val objHelloManager = context.getBean(HelloServiceable::class.java)
+        return objHelloManager.hello
+    }
+
 }

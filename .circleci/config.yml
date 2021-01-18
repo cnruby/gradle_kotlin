@@ -61,6 +61,7 @@ jobs:
           command: |
               sleep 10 && nc -vz localhost 80
               curl http://localhost:80/api
+              curl http://localhost:80/
 
       - run:
           name: "stop web server on docker"
