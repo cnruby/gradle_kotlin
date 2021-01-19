@@ -17,7 +17,7 @@ class HelloRestController(val helloService: HelloService) {
 
     @GetMapping(path= ["/api/resp"], produces= [MediaType.APPLICATION_JSON_VALUE])
     fun helloResponseEntity(): ResponseEntity<String> {
-        val jsonResp = helloService.getResponseEntityHello()
+        val jsonResp: JSONObject = helloService.getJSONObjectHello()
         return ResponseEntity(jsonResp.toString(), HttpStatus.OK)
     }
 
