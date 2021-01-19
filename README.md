@@ -125,13 +125,13 @@ import java.nio.charset.StandardCharsets
 
 ### DO (add a new upload file)
 ```bash
-mkdir ./upload
+mkdir ./local_upload
 ```
 ```bash
-touch ./upload/hello.txt
+touch ./local_upload/hello.txt
 ```
 ```bash
-nano ./upload/hello.txt
+nano ./local_upload/hello.txt
 ```
 ```bash
 # FILE (hello.txt)
@@ -152,7 +152,7 @@ Hello @PostMapping and @RequestPart!
 ```bash
 curl --no-progress-meter -H "Content-Type: multipart/form-data" -H "accept: application/json" \
     -X POST \
-    -F "uploadX=@./upload/hello.txt;type=text/plain" \
+    -F "uploadX=@./local_upload/hello.txt;type=text/plain" \
     http://localhost:8080/api/upload | json_pp
 ```
 ```json5
