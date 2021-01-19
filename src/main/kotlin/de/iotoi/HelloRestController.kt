@@ -6,7 +6,9 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 import org.json.JSONObject
-import java.util.HashMap
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.PostMapping
+
 
 @RestController
 class HelloRestController(val helloService: HelloService) {
@@ -27,7 +29,7 @@ class HelloRestController(val helloService: HelloService) {
 
         val map: MutableMap<String, String> = helloService.getMapHello()
         map.entries.stream().forEach {
-            (key, value) -> jsonMap.put( "$key", "$value" )
+            (key, value) -> jsonMap.put(key, value)
         }
 
 //        map.forEach {
@@ -35,5 +37,19 @@ class HelloRestController(val helloService: HelloService) {
 //        }
 
         return ResponseEntity(jsonMap.toString(), HttpStatus.OK)
+    }
+
+    @PostMapping(
+        consumes = [MediaType.APPLICATION_JSON_VALUE],
+        produces = [MediaType.APPLICATION_JSON_VALUE],
+        path = ["/api/cmd", "/"]
+    )
+    fun helloCommand(
+        @RequestBody strJSON: String?
+    ): String? {
+        val jsonObj = JSONObject(strJSON)
+        val value: String = jsonObj["cmd"].toString() + ": we have received this value"
+        jsonObj.put("cmd", value)
+        return jsonObj.toString()
     }
 }
