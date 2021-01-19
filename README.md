@@ -11,15 +11,15 @@
 [![kotlin lang)](https://img.shields.io/github/v/release/JetBrains/kotlin?label=kotlin&logo=kotlin)](https://github.com/JetBrains/kotlin)
 [![IntelliJ IDEA Community Edition](https://img.shields.io/badge/IntelliJ%20IDEA%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
 [![Docker-(2019.03.13)](https://img.shields.io/badge/Docker-%2019.03.13-brightgreen)](https://www.docker.com/)
-[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_205.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_205)
+[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_222.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_222)
 
 
 ---
 
-Unit 205: Hello @Service
-<h1>Unit 205: Hello @Service!</h1>
+Unit 222: Hello JSONObject!
+<h1>Unit 222: Hello JSONObject!</h1>
 
-- How to Understand the Annotation @Service
+- How to Understand the Library JSONObject
 
 ---
 
@@ -30,28 +30,39 @@ Unit 205: Hello @Service
 - [Prerequisites](#prerequisites)
 - [Create A New Kotlin Web App](#create-a-new-kotlin-web-app)
   - [DO (create a new project)](#do-create-a-new-project)
-  - [DO (create and edit the spring property file)](#do-create-and-edit-the-spring-property-file)
+  - [DO (edit the spring property file)](#do-edit-the-spring-property-file)
   - [DO (check the project)](#do-check-the-project)
-- [Develop the Project](#develop-the-project)
-  - [DO (create and edit the spring rest controller file)](#do-create-and-edit-the-spring-rest-controller-file)
-  - [DO (create and edit the spring service file)](#do-create-and-edit-the-spring-service-file)
+- [Add A Library JSONObject to the Project](#add-a-library-jsonobject-to-the-project)
+  - [DO (edit the gradle build file)](#do-edit-the-gradle-build-file)
   - [DO (check the project)](#do-check-the-project-1)
-- [Run The Web Application on the Project](#run-the-web-application-on-the-project)
-  - [DO (run The Web Application with Gradle)](#do-run-the-web-application-with-gradle)
-  - [DO (open a new terminal to browse the website)](#do-open-a-new-terminal-to-browse-the-website)
-- [Run The Web Application on Docker](#run-the-web-application-on-docker)
-  - [DO (build an OCI image of the application)](#do-build-an-oci-image-of-the-application)
-  - [DO (run the application on Docker)](#do-run-the-application-on-docker)
-  - [DO (browse the web application on Docker)](#do-browse-the-web-application-on-docker)
+- [Develop the Project for class `String`](#develop-the-project-for-class-string)
+  - [DO (edit the spring service file)](#do-edit-the-spring-service-file)
+  - [DO (edit the spring rest controller file)](#do-edit-the-spring-rest-controller-file)
+  - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle)
+  - [DO (access the web api `/api/str`)](#do-access-the-web-api-apistr)
+  - [DO (stop the web application with gradle)](#do-stop-the-web-application-with-gradle)
+- [Develop the Project for class `ResponseEntity`](#develop-the-project-for-class-responseentity)
+  - [DO (edit the spring service file)](#do-edit-the-spring-service-file-1)
+  - [DO (edit the spring rest controller file)](#do-edit-the-spring-rest-controller-file-1)
+  - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle-1)
+  - [DO (access the web api `/api/resp`)](#do-access-the-web-api-apiresp)
+  - [DO (stop the web application with gradle)](#do-stop-the-web-application-with-gradle-1)
+- [Develop the Project for class `Map`](#develop-the-project-for-class-map)
+  - [DO (edit the spring service file)](#do-edit-the-spring-service-file-2)
+  - [DO (edit the spring rest controller file)](#do-edit-the-spring-rest-controller-file-2)
+  - [DO (access the web api `/api/map`)](#do-access-the-web-api-apimap)
+  - [DO (stop the web application with gradle)](#do-stop-the-web-application-with-gradle-2)
 - [References](#references)
 - [References for tools](#references-for-tools)
 
 
 
+
 ## Keywords
-- `Spring Boot` Annotation `@Service`
+- Liberary JSONObject json
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE` CircleCI CI
-- tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM
+- tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM `Spring Boot` 
+
 
 
 
@@ -64,34 +75,25 @@ Unit 205: Hello @Service
 
 
 
+
 ## Create A New Kotlin Web App
 
 ### DO (create a new project)
 ```bash
-NEW_APP_ID=205 && \
-mkdir ${NEW_APP_ID}_gradle_kotlin && cd ${NEW_APP_ID}_gradle_kotlin && \
-curl https://start.spring.io/starter.zip -d language=kotlin \
-    -d dependencies=web,devtools \
-    -d packageName=de.iotoi \
-    -d groupId=de.iotoi \
-    -d artifactId=_gradle_kotlin \
-    -d name=kotlin -d type=gradle-project -o basic_${NEW_APP_ID}.zip && \
-unzip basic_${NEW_APP_ID}.zip
+EXISTING_APP_ID=205 && NEW_APP_ID=222 && \
+git clone -b basic_${EXISTING_APP_ID} https://github.com/cnruby/gradle_kotlin.git ${NEW_APP_ID}_gradle_kotlin && \
+cd ${NEW_APP_ID}_gradle_kotlin
 ```
 
-### DO (create and edit the spring property file)
-```bash
-touch ./src/main/resources/application.properties
-```
+### DO (edit the spring property file)
 ```bash
 nano ./src/main/resources/application.properties
 ```
 ```bash
 # FILE (application.properties)
-spring.main.banner-mode=off
-spring.main.log-startup-info=off
-web.app.name=Hello @Service
-logging.level.root=WARN
+...
+web.app.name=Hello JSONObject
+...
 ```
 
 ### DO (check the project)
@@ -104,67 +106,65 @@ logging.level.root=WARN
 
 
 
-## Develop the Project
 
-### DO (create and edit the spring rest controller file)
+## Add A Library JSONObject to the Project
+
+### DO (edit the gradle build file)
 ```bash
-touch ./src/main/kotlin/de/iotoi/HelloRestController.kt
+nano ./build.gradle.kts
 ```
 ```bash
-nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
+# FILE (build.gradle.kts)
+dependencies {
+	implementation("org.json:json:20201115")
+...
+```
+
+### DO (check the project)
+```bash
+./gradlew -q check
 ```
 ```bash
-# FILE (HelloRestController.kt)
-package de.iotoi
-
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RestController
-
-@RestController
-class HelloRestController(val helloService: HelloService) {
-    @GetMapping("/api")
-    fun helloKotlin(): String {
-        return helloService.getHello()
-    }
-}
+    # >> Result: nothing
 ```
 
-### DO (create and edit the spring service file)
-```bash
-touch ./src/main/kotlin/de/iotoi/HelloService.kt
-```
+
+
+
+## Develop the Project for class `String`
+
+### DO (edit the spring service file)
 ```bash
 nano ./src/main/kotlin/de/iotoi/HelloService.kt
 ```
 ```bash
 # FILE (HelloService.kt)
-package de.iotoi
-
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.stereotype.Service
-
-@Service()
-class HelloService {
-    @Value("\${web.app.name}") val webAppName: String? = null
-
-    fun getHello(): String {
-        return "$webAppName!\n"
+...
+import org.json.JSONObject
+...
+    fun getStringHello(): String {
+        val jsonObj = JSONObject()
+        jsonObj.put("String", "$webAppName")
+        return jsonObj.toString()
     }
 }
 ```
 
-### DO (check the project)
+### DO (edit the spring rest controller file)
 ```bash
-./gradlew -q check
+nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
 ```
 ```bash
-    # >> Result: nothing
+# FILE (HelloRestController.kt)
+...
+    @GetMapping("/api/str")
+    fun helloString(): String {
+        return helloService.getStringHello()
+    }
+}
 ```
 
-
-## Run The Web Application on the Project
-
-### DO (run The Web Application with Gradle)
+### DO (run the web application with gradle)
 ```bash
 ./gradlew -q bootRun
 ```
@@ -174,61 +174,159 @@ class HelloService {
     > :bootRun
 ```
 
-### DO (open a new terminal to browse the website)
+### DO (access the web api `/api/str`)
 ```bash
-curl http://localhost:8080/api
+curl --no-progress-meter http://localhost:8080/api/str | json_pp
 ```
-```bash
+```json5
     # >> Result
-    Hello @Service!
+    {
+        "String" : "Hello JSONObject"
+    }
+```
+
+### DO (stop the web application with gradle)
+```bash
+# !!! Ctrl+C
 ```
 
 
 
-## Run The Web Application on Docker
 
-### DO (build an OCI image of the application)
+## Develop the Project for class `ResponseEntity`
+
+### DO (edit the spring service file)
 ```bash
-./gradlew -q bootBuildImage --imageName=gradle_kotlin/basic_205
+nano ./src/main/kotlin/de/iotoi/HelloService.kt
 ```
 ```bash
+# FILE (HelloService.kt)
+...
+    fun getJSONObjectHello(): JSONObject {
+        val jsonEntity = JSONObject()
+        jsonEntity.put("ResponseEntity", "$webAppName")
+        return jsonEntity
+    }
+}
+```
+
+### DO (edit the spring rest controller file)
+```bash
+nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
+```
+```bash
+# FILE (HelloRestController.kt)
+...
+import org.json.JSONObject
+import org.springframework.http.MediaType
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+...
+    @GetMapping(path= ["/api/resp"], produces= [MediaType.APPLICATION_JSON_VALUE])
+    fun helloResponseEntity(): ResponseEntity<String> {
+        val jsonResp = helloService.getResponseEntityHello()
+        return ResponseEntity(jsonResp.toString(), HttpStatus.OK)
+    }
+}
+```
+
+### DO (run the web application with gradle)
+```bash
+./gradlew -q bootRun
+```
+```bash
+    # Result
+    <==========---> 83% EXECUTING [21s]
+    > :bootRun
+```
+
+### DO (access the web api `/api/resp`)
+```bash
+curl --no-progress-meter http://localhost:8080/api/resp | json_pp
+```
+```json5
     # >> Result
-    > Task :bootBuildImage
-    Building image 'docker.io/gradle_kotlin/basic_205:latest'
-
-     > Pulling builder image 'docker.io/paketobuildpacks/builder:base' ..................................................
-     ...
-     ...
-        [creator]           docker.io/gradle_kotlin/basic_205:latest
-
-    Successfully built image 'docker.io/gradle_kotlin/basic_205:latest'
-
-    BUILD SUCCESSFUL in 3m 3s
-    5 actionable tasks: 3 executed, 2 up-to-date     
+    {
+        "ResponseEntity" : "Hello JSONObject"
+    }
 ```
 
-### DO (run the application on Docker)
+### DO (stop the web application with gradle)
 ```bash
-docker run -p 80:8080 gradle_kotlin/basic_205
+# !!! Ctrl+C
+```
+
+
+
+
+## Develop the Project for class `Map`
+
+### DO (edit the spring service file)
+```bash
+nano ./src/main/kotlin/de/iotoi/HelloService.kt
 ```
 ```bash
+# FILE (HelloService.kt)
+...
+import java.util.HashMap
+...
+    fun getMapHello(): MutableMap<String, String> {
+        val map: MutableMap<String, String> = HashMap()
+        map["Map"] = "$webAppName"
+        return map
+    }
+}
+}
+```
+
+### DO (edit the spring rest controller file)
+```bash
+nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
+```
+```bash
+# FILE (HelloRestController.kt)
+...
+import java.util.HashMap
+...
+    @GetMapping("/api/map")
+    fun helloMap(): ResponseEntity<String> {
+        val jsonMap = JSONObject()
+
+        val map: MutableMap<String, String> = helloService.getMapHello()
+        map.entries.stream().forEach {
+            (key, value) -> jsonMap.put( "$key", "$value" )
+        }
+
+        return ResponseEntity(jsonMap.toString(), HttpStatus.OK)
+    }
+}```
+
+### DO (run the web application with gradle)
+```bash
+./gradlew -q bootRun
+```
+```bash
+    # Result
+    <==========---> 83% EXECUTING [21s]
+    > :bootRun
+```
+
+### DO (access the web api `/api/map`)
+```bash
+curl --no-progress-meter http://localhost:8080/api/map| json_pp
+```
+```json5
     # >> Result
-    Setting Active Processor Count to 4
-    Calculating JVM memory based on 1017684K available memory
-    Calculated JVM Memory Configuration: -XX:MaxDirectMemorySize=10M -Xmx418084K -XX:MaxMetaspaceSize=87599K -XX:ReservedCodeCacheSize=240M -Xss1M (Total Memory: 1017684K, Thread Count: 250, Loaded Class Count: 13052, Headroom: 0%)
-    Adding 138 container CA certificates to JVM truststore
-    Spring Cloud Bindings Enabled
-    Picked up JAVA_TOOL_OPTIONS: -Djava.security.properties=/layers/paketo-buildpacks_bellsoft-liberica/java-security-properties/java-security.properties -agentpath:/layers/paketo-buildpacks_bellsoft-liberica/jvmkill/jvmkill-1.16.0-RELEASE.so=printHeapHistogram=1 -XX:ActiveProcessorCount=4 -XX:MaxDirectMemorySize=10M -Xmx418084K -XX:MaxMetaspaceSize=87599K -XX:ReservedCodeCacheSize=240M -Xss1M -Dorg.springframework.cloud.bindings.boot.enable=true
+    {
+        "Map" : "Hello JSONObject"
+    }
 ```
 
-### DO (browse the web application on Docker)
+### DO (stop the web application with gradle)
 ```bash
-curl http://localhost:80/api
+# !!! Ctrl+C
 ```
-```bash
-    # >> Result
-    Hello @Service!
-```
+
 
 
 
@@ -236,6 +334,8 @@ curl http://localhost:80/api
 - https://github.com/Baeldung/kotlin-tutorials/tree/master/spring-boot-kotlin/src/main/kotlin/com/baeldung/springbootkotlin
 - https://www.baeldung.com/spring-boot-kotlin
 - https://www.journaldev.com/21435/spring-service-annotation#spring-service-example
+- https://stackoverflow.com/questions/47204146/how-to-iterate-over-hashmap-in-kotlin
+
 
 
 
