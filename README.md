@@ -107,7 +107,13 @@ Hello "gradle_kotlin"!
 | 214 |  |  | [Hello PostgreSQL with DataSource!](https://github.com/cnruby/gradle_kotlin/tree/basic_214) |  |
 | 215 |  | [Hello Database Platform!](https://github.com/cnruby/gradle_kotlin/tree/basic_215) |  |  |
 | 216 |  |  | [Hello @ControllerAdvice!](https://github.com/cnruby/gradle_kotlin/tree/basic_216) |  |
-| 217 |  |  |  |  |
+| 217 |  | [Hello JUnit 5!](https://github.com/cnruby/gradle_kotlin/tree/basic_217) |  |  |
+| 218 |  |  | [Hello REST Assured!](https://github.com/cnruby/gradle_kotlin/tree/basic_218) |  |
+| 219 |  |  | [Hello @Order!](https://github.com/cnruby/gradle_kotlin/tree/basic_219) |  |
+| 220 |  |  | [Hello @Configuration and @PropertySource!](https://github.com/cnruby/gradle_kotlin/tree/basic_220) |  |
+| 221 |  |  | [Hello @Configuration and @Bean!](https://github.com/cnruby/gradle_kotlin/tree/basic_221) |  |
+| 222 |  | [Hello JSONObject!](https://github.com/cnruby/gradle_kotlin/tree/basic_222) |  |  |
+| 223 |  |  |  |  |
 | 301 | [Hello Console App!](https://github.com/cnruby/gradle_kotlin/tree/basic_301) |  |  |  |
 | 302 |  |  |  |  |
 
