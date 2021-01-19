@@ -74,9 +74,9 @@ jobs:
               curl http://localhost:80/api/str
               curl http://localhost:80/api/resp
               curl http://localhost:80/api/map
-              curl -H "Content-Type: application/json" -X POST -d '{"cmd":"ls"}' localhost:8080/api/cmd
-              curl -H "Content-Type: application/json" -X POST -d '{"cmd":"ls"}' localhost:8080/
-              curl -H "Content-Type: multipart/form-data" -H "accept: application/json" -X POST -F "uploadX=@./upload/hello.txt;type=text/plain" http://localhost:8080/api/upload
+              curl -H "Content-Type: application/json" -X POST -d '{"cmd":"ls"}' localhost:80/api/cmd
+              curl -H "Content-Type: application/json" -X POST -d '{"cmd":"ls"}' localhost:80/
+              curl -H "Content-Type: multipart/form-data" -H "accept: application/json" -X POST -F "uploadX=@./upload/hello.txt;type=text/plain" http://localhost:80/api/upload
 
       - run:
           name: "stop web server on docker"
