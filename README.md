@@ -294,7 +294,7 @@ import java.util.HashMap
 
         val map: MutableMap<String, String> = helloService.getMapHello()
         map.entries.stream().forEach {
-            (key, value) -> jsonMap.put( "$key", "$value" )
+            (key, value) -> jsonMap.put( key, value )
         }
 
         return ResponseEntity(jsonMap.toString(), HttpStatus.OK)

@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 import org.json.JSONObject
-import java.util.HashMap
 
 @RestController
 class HelloRestController(val helloService: HelloService) {
@@ -27,7 +26,7 @@ class HelloRestController(val helloService: HelloService) {
 
         val map: MutableMap<String, String> = helloService.getMapHello()
         map.entries.stream().forEach {
-            (key, value) -> jsonMap.put( "$key", "$value" )
+            (key, value) -> jsonMap.put( key, value )
         }
 
 //        map.forEach {

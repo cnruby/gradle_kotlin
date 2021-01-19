@@ -6,7 +6,7 @@ import org.json.JSONObject
 import java.util.HashMap
 
 //@Service("ms")
-@Service()
+@Service
 class HelloService {
     @Value("\${web.app.name}") val webAppName: String? = null
 
