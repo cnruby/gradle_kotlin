@@ -36,7 +36,7 @@ Unit 224: Hello @PostMapping and @RequestPart!
   - [DO (edit the spring rest controller file)](#do-edit-the-spring-rest-controller-file)
   - [DO (add a new upload file)](#do-add-a-new-upload-file)
   - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle)
-  - [DO (access the web api with url `/api/str` or `/`)](#do-access-the-web-api-with-url-apistr-or-)
+  - [DO (access the web api with url `/api/upload`)](#do-access-the-web-api-with-url-apiupload)
   - [DO (stop the web application with gradle)](#do-stop-the-web-application-with-gradle)
 - [References](#references)
 - [References for tools](#references-for-tools)
@@ -148,7 +148,7 @@ Hello @PostMapping and @RequestPart!
     > :bootRun
 ```
 
-### DO (access the web api with url `/api/str` or `/`)
+### DO (access the web api with url `/api/upload`)
 ```bash
 curl --no-progress-meter -H "Content-Type: multipart/form-data" -H "accept: application/json" -X POST -F "uploadX=@./upload/hello.txt;type=text/plain" http://localhost:8080/api/upload | json_pp
 ```
