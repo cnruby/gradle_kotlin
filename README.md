@@ -150,7 +150,10 @@ Hello @PostMapping and @RequestPart!
 
 ### DO (access the web api with url `/api/upload`)
 ```bash
-curl --no-progress-meter -H "Content-Type: multipart/form-data" -H "accept: application/json" -X POST -F "uploadX=@./upload/hello.txt;type=text/plain" http://localhost:8080/api/upload | json_pp
+curl --no-progress-meter -H "Content-Type: multipart/form-data" -H "accept: application/json" \
+    -X POST \
+    -F "uploadX=@./upload/hello.txt;type=text/plain" \
+    http://localhost:8080/api/upload | json_pp
 ```
 ```json5
     // >> Result
