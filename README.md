@@ -11,15 +11,15 @@
 [![kotlin lang)](https://img.shields.io/github/v/release/JetBrains/kotlin?label=kotlin&logo=kotlin)](https://github.com/JetBrains/kotlin)
 [![IntelliJ IDEA Community Edition](https://img.shields.io/badge/IntelliJ%20IDEA%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
 [![Docker-(2019.03.13)](https://img.shields.io/badge/Docker-%2019.03.13-brightgreen)](https://www.docker.com/)
-[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_223.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_223)
+[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_224.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_224)
 
 
 ---
 
-Unit 223: Hello @PostMapping and @RequestBody!
-<h1>Unit 223: Hello @PostMapping and @RequestBody!</h1>
+Unit 224: Hello @PostMapping and @RequestPart!
+<h1>Unit 224: Hello @PostMapping and @RequestPart!</h1>
 
-- How to Understand the Annotation @PostMapping and @RequestBody!
+- How to Understand the Annotation @PostMapping and @RequestPart!
 
 ---
 
@@ -34,6 +34,7 @@ Unit 223: Hello @PostMapping and @RequestBody!
   - [DO (check the project)](#do-check-the-project)
 - [Develop the Project](#develop-the-project)
   - [DO (edit the spring rest controller file)](#do-edit-the-spring-rest-controller-file)
+  - [DO (add a new upload file)](#do-add-a-new-upload-file)
   - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle)
   - [DO (access the web api with url `/api/str` or `/`)](#do-access-the-web-api-with-url-apistr-or-)
   - [DO (stop the web application with gradle)](#do-stop-the-web-application-with-gradle)
@@ -65,7 +66,7 @@ Unit 223: Hello @PostMapping and @RequestBody!
 
 ### DO (create a new project)
 ```bash
-EXISTING_APP_ID=222 && NEW_APP_ID=223 && \
+EXISTING_APP_ID=223 && NEW_APP_ID=224 && \
 git clone -b basic_${EXISTING_APP_ID} https://github.com/cnruby/gradle_kotlin.git ${NEW_APP_ID}_gradle_kotlin && \
 cd ${NEW_APP_ID}_gradle_kotlin
 ```
@@ -77,7 +78,7 @@ nano ./src/main/resources/application.properties
 ```bash
 # FILE (application.properties)
 ...
-web.app.name=Hello @PostMapping and @RequestBody
+web.app.name=Hello @PostMapping and @RequestPart
 ...
 ```
 
@@ -101,23 +102,40 @@ nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
 ```bash
 # FILE (HelloRestController.kt)
 ...
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.multipart.MultipartFile
+import org.springframework.web.bind.annotation.RequestPart
+import java.nio.charset.StandardCharsets
 ...
     @PostMapping(
-        consumes = [MediaType.APPLICATION_JSON_VALUE],
+        consumes = [MediaType.MULTIPART_FORM_DATA_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE],
-        path = ["/api/cmd", "/"]
+        path = ["/api/upload"]
     )
-    fun helloCommand(
-        @RequestBody strJSON: String?
+    fun parseUploadFile(
+        @RequestPart(value = "uploadX", required = true) multipartFile: MultipartFile?
     ): String? {
-        val jsonObj = JSONObject(strJSON)
-        val value: String = jsonObj["cmd"].toString() + ": we have received this value"
-        jsonObj.put("cmd", value)
+        val jsonObj = JSONObject()
+        jsonObj.put("fileName", multipartFile?.originalFilename)
+        jsonObj.put("fileContent", String(multipartFile!!.bytes, StandardCharsets.UTF_8))
+        jsonObj.put("fileSize", multipartFile.size.toString())
         return jsonObj.toString()
     }
 }
+```
+
+### DO (add a new upload file)
+```bash
+mkdir ./upload
+```
+```bash
+touch ./upload/hello.txt
+```
+```bash
+nano ./upload/hello.txt
+```
+```bash
+# FILE (hello.txt)
+Hello @PostMapping and @RequestPart!
 ```
 
 ### DO (run the web application with gradle)
@@ -132,16 +150,14 @@ import org.springframework.web.bind.annotation.PostMapping
 
 ### DO (access the web api with url `/api/str` or `/`)
 ```bash
-curl --no-progress-meter -H "Content-Type: application/json" -X POST -d '{"cmd":"ls"}' localhost:8080/api/cmd | json_pp
-```
-OR
-```bash
-curl --no-progress-meter -H "Content-Type: application/json" -X POST -d '{"cmd":"ls"}' localhost:8080/ | json_pp
+curl --no-progress-meter -H "accept: application/json" -H "Content-Type: multipart/form-data" -X POST -F "uploadX=@./upload/hello.txt;type=text/plain" http://localhost:8080/api/upload | json_pp
 ```
 ```json5
-    # >> Result
+    // >> Result
     {
-      "cmd" : "ls: we have received this value"
+      "fileContent" : "Hello @PostMapping and @RequestPart!",
+      "fileName" : "hello.txt",
+      "fileSize" : "36"
     }
 ```
 
@@ -156,7 +172,7 @@ curl --no-progress-meter -H "Content-Type: application/json" -X POST -d '{"cmd":
 ## References
 - https://www.codeflow.site/de/article/java-org-json
 - https://www.baeldung.com/java-org-json
-
+- https://mkyong.com/java/how-do-convert-byte-array-to-string-in-java/
 
 
 
