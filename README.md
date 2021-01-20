@@ -116,7 +116,7 @@ Hello "gradle_kotlin"!
 | 223 |  |  | [Hello @PostMapping and @RequestBody!](https://github.com/cnruby/gradle_kotlin/tree/basic_223) |  |
 | 224 |  |  | [Hello @PostMapping and @RequestPart!](https://github.com/cnruby/gradle_kotlin/tree/basic_224) |  |
 | 225 |  |  | [Hello @RequestMapping and @RequestParam!](https://github.com/cnruby/gradle_kotlin/tree/basic_225) |  |
-| 226 |  | [Unit 226: Hello OpenAPI!](https://github.com/cnruby/gradle_kotlin/tree/basic_226) |  |  |
+| 226 |  | [Hello OpenAPI!](https://github.com/cnruby/gradle_kotlin/tree/basic_226) |  |  |
 | 301 | [Hello Console App!](https://github.com/cnruby/gradle_kotlin/tree/basic_301) |  |  |  |
 | 302 |  |  |  |  |
 
