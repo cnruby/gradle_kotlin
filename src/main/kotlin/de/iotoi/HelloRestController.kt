@@ -13,6 +13,17 @@ import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.bind.annotation.RequestPart
 import java.nio.charset.StandardCharsets
 
+import org.springframework.core.io.ByteArrayResource
+import org.springframework.core.io.Resource
+import org.springframework.http.HttpHeaders
+import java.io.IOException
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RequestMapping
+import java.io.File
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
 
 @RestController
 class HelloRestController(val helloService: HelloService) {
@@ -71,4 +82,34 @@ class HelloRestController(val helloService: HelloService) {
         jsonObj.put("fileSize", multipartFile.size.toString())
         return jsonObj.toString()
     }
+
+    @RequestMapping(path = ["/api/test_download"], method = [RequestMethod.GET])
+    @Throws(IOException::class)
+    fun testDownload(@RequestParam("imageX") imageName: String): String? {
+        val strPath: String = "./server_download" + File.separator.toString() + imageName
+        val file = File(strPath)
+        val jsonObj = JSONObject()
+        jsonObj.put("path", strPath)
+        jsonObj.put("fileSize", file.length())
+        return jsonObj.toString()
+    }
+    
+    @RequestMapping(path = ["/api/download"], method = [RequestMethod.GET])
+    @Throws(IOException::class)
+    fun parseDownloadFile(@RequestParam("imageX") imageName: String): ResponseEntity<Resource?>? {
+        val file = File("./server_download" + File.separator.toString() + imageName )
+        val header = HttpHeaders()
+        // header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=local_kotlin.png")
+        header.add("Cache-Control", "no-cache, no-store, must-revalidate")
+        header.add("Pragma", "no-cache")
+        header.add("Expires", "0")
+        val path: Path = Paths.get(file.absolutePath)
+        val resource = ByteArrayResource(Files.readAllBytes(path))
+        return ResponseEntity.ok()
+            .headers(header)
+            .contentLength(file.length())
+            .contentType(MediaType.parseMediaType("application/octet-stream"))
+            .body(resource)
+    }
+
 }

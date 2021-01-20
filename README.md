@@ -11,15 +11,15 @@
 [![kotlin lang)](https://img.shields.io/github/v/release/JetBrains/kotlin?label=kotlin&logo=kotlin)](https://github.com/JetBrains/kotlin)
 [![IntelliJ IDEA Community Edition](https://img.shields.io/badge/IntelliJ%20IDEA%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
 [![Docker-(2019.03.13)](https://img.shields.io/badge/Docker-%2019.03.13-brightgreen)](https://www.docker.com/)
-[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_224.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_224)
+[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_225.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_225)
 
 
 ---
 
-Unit 224: Hello @PostMapping and @RequestPart!
-<h1>Unit 224: Hello @PostMapping and @RequestPart!</h1>
+Unit 225: Hello @RequestMapping and @RequestParam!
+<h1>Unit 225: Hello @RequestMapping and @RequestParam!</h1>
 
-- How to Understand the Annotation @PostMapping and @RequestPart!
+- How to Understand the Annotation @RequestMapping and @RequestParam!
 
 ---
 
@@ -32,12 +32,18 @@ Unit 224: Hello @PostMapping and @RequestPart!
   - [DO (create a new project)](#do-create-a-new-project)
   - [DO (edit the spring property file)](#do-edit-the-spring-property-file)
   - [DO (check the project)](#do-check-the-project)
-- [Develop the Project](#develop-the-project)
+- [Develop the Project for url `/api/test_download`](#develop-the-project-for-url-apitest_download)
+  - [DO (add a new download file for server folder)](#do-add-a-new-download-file-for-server-folder)
   - [DO (edit the spring rest controller file)](#do-edit-the-spring-rest-controller-file)
-  - [DO (add a new upload file)](#do-add-a-new-upload-file)
   - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle)
-  - [DO (access the web api with url `/api/upload`)](#do-access-the-web-api-with-url-apiupload)
+  - [DO (access the web api with url `/api/test_download`)](#do-access-the-web-api-with-url-apitest_download)
   - [DO (stop the web application with gradle)](#do-stop-the-web-application-with-gradle)
+- [Develop the Project for url `/api/download`](#develop-the-project-for-url-apidownload)
+  - [DO (edit the spring rest controller file)](#do-edit-the-spring-rest-controller-file-1)
+  - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle-1)
+  - [DO (access the web api with url `/api/download`)](#do-access-the-web-api-with-url-apidownload)
+  - [DO (view the downloaded file)](#do-view-the-downloaded-file)
+  - [DO (stop the web application with gradle)](#do-stop-the-web-application-with-gradle-1)
 - [References](#references)
 - [References for tools](#references-for-tools)
 
@@ -45,7 +51,7 @@ Unit 224: Hello @PostMapping and @RequestPart!
 
 
 ## Keywords
-- Annotation `@PosMapping` `@RequestBody` `Spring Boot` POST
+- Annotation `@RequestMapping` `@RequestParam` `Spring Boot` GET download file `Spring Boot`
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE` CircleCI CI
 - tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM 
 
@@ -66,7 +72,7 @@ Unit 224: Hello @PostMapping and @RequestPart!
 
 ### DO (create a new project)
 ```bash
-EXISTING_APP_ID=223 && NEW_APP_ID=224 && \
+EXISTING_APP_ID=224 && NEW_APP_ID=225 && \
 git clone -b basic_${EXISTING_APP_ID} https://github.com/cnruby/gradle_kotlin.git ${NEW_APP_ID}_gradle_kotlin && \
 cd ${NEW_APP_ID}_gradle_kotlin
 ```
@@ -78,7 +84,7 @@ nano ./src/main/resources/application.properties
 ```bash
 # FILE (application.properties)
 ...
-web.app.name=Hello @PostMapping and @RequestPart
+web.app.name=Hello @RequestMapping and @RequestParam
 ...
 ```
 
@@ -93,49 +99,39 @@ web.app.name=Hello @PostMapping and @RequestPart
 
 
 
-## Develop the Project
+## Develop the Project for url `/api/test_download`
+
+### DO (add a new download file for server folder)
+```bash
+mkdir ./server_download
+```
+```bash
+wget  -O ./server_download/server_kotlin.png
+```
 
 ### DO (edit the spring rest controller file)
 ```bash
 nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
 ```
-```bash
-# FILE (HelloRestController.kt)
+```kotlin
+// FILE (HelloRestController.kt)
 ...
-import org.springframework.web.multipart.MultipartFile
-import org.springframework.web.bind.annotation.RequestPart
-import java.nio.charset.StandardCharsets
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RequestMapping
+import java.io.IOException
 ...
-    @PostMapping(
-        consumes = [MediaType.MULTIPART_FORM_DATA_VALUE],
-        produces = [MediaType.APPLICATION_JSON_VALUE],
-        path = ["/api/upload"]
-    )
-    fun parseUploadFile(
-        @RequestPart(value = "uploadX", required = true) multipartFile: MultipartFile?
-    ): String? {
+    @RequestMapping(path = ["/api/test_download"], method = [RequestMethod.GET])
+    @Throws(IOException::class)
+    fun testDownload(@RequestParam("imageX") imageName: String): String? {
+        val strPath: String = "./server_download" + File.separator.toString() + imageName
+        val file = File(strPath)
         val jsonObj = JSONObject()
-        jsonObj.put("fileName", multipartFile?.originalFilename)
-        jsonObj.put("fileContent", String(multipartFile!!.bytes, StandardCharsets.UTF_8))
-        jsonObj.put("fileSize", multipartFile.size.toString())
+        jsonObj.put("path", strPath
+        jsonObj.put("fileSize", file.length())
         return jsonObj.toString()
     }
 }
-```
-
-### DO (add a new upload file)
-```bash
-mkdir ./upload
-```
-```bash
-touch ./upload/hello.txt
-```
-```bash
-nano ./upload/hello.txt
-```
-```bash
-# FILE (hello.txt)
-Hello @PostMapping and @RequestPart!
 ```
 
 ### DO (run the web application with gradle)
@@ -148,19 +144,15 @@ Hello @PostMapping and @RequestPart!
     > :bootRun
 ```
 
-### DO (access the web api with url `/api/upload`)
+### DO (access the web api with url `/api/test_download`)
 ```bash
-curl --no-progress-meter -H "Content-Type: multipart/form-data" -H "accept: application/json" \
-    -X POST \
-    -F "uploadX=@./upload/hello.txt;type=text/plain" \
-    http://localhost:8080/api/upload | json_pp
+curl --no-progress-meter http://localhost:8080/api/test_download?imageX=server_kotlin.png | json_pp
 ```
 ```json5
     // >> Result
     {
-      "fileContent" : "Hello @PostMapping and @RequestPart!",
-      "fileName" : "hello.txt",
-      "fileSize" : "36"
+      "fileSize" : 21493,
+      "path" : "./server_download/server_kotlin.png"
     }
 ```
 
@@ -172,11 +164,87 @@ curl --no-progress-meter -H "Content-Type: multipart/form-data" -H "accept: appl
 
 
 
-## References
-- https://www.codeflow.site/de/article/java-org-json
-- https://www.baeldung.com/java-org-json
-- https://mkyong.com/java/how-do-convert-byte-array-to-string-in-java/
+## Develop the Project for url `/api/download`
 
+### DO (edit the spring rest controller file)
+```bash
+nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
+```
+```kotlin
+// FILE (HelloRestController.kt)
+...
+import org.springframework.core.io.ByteArrayResource
+import org.springframework.core.io.Resource
+import org.springframework.http.HttpHeaders
+import java.io.File
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
+...
+    @RequestMapping(path = ["/api/download"], method = [RequestMethod.GET])
+    @Throws(IOException::class)
+    fun parseDownloadFile(@RequestParam("image") imageName: String): ResponseEntity<Resource?>? {
+        val file = File("./server_download" + File.separator.toString() + imageName )
+        val header = HttpHeaders()
+        // header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=server_kotlin.svg")
+        header.add("Cache-Control", "no-cache, no-store, must-revalidate")
+        header.add("Pragma", "no-cache")
+        header.add("Expires", "0")
+        val path: Path = Paths.get(file.absolutePath)
+        val resource = ByteArrayResource(Files.readAllBytes(path))
+        return ResponseEntity.ok()
+            .headers(header)
+            .contentLength(file.length())
+            .contentType(MediaType.parseMediaType("application/octet-stream"))
+            .body(resource)
+    }
+}
+```
+
+### DO (run the web application with gradle)
+```bash
+./gradlew -q bootRun
+```
+```bash
+    # Result
+    <==========---> 83% EXECUTING [21s]
+    > :bootRun
+```
+
+### DO (access the web api with url `/api/download`)
+```bash
+curl http://localhost:8080/api/download?imageX=server_kotlin.png --output local_kotlin.png
+```bash
+    # >> Result
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                    Dload  Upload   Total   Spent    Left  Speed
+    100 21493  100 21493    0     0  97695      0 --:--:-- --:--:-- --:--:-- 97253    
+```
+
+### DO (view the downloaded file)
+```bash
+ls -al local_kotlin.png
+```
+```bash
+    # >> Result:
+    -rw-rw-r-- 1 gudao gudao 21493 Jan 20 04:48 local_kotlin.png
+```
+
+### DO (stop the web application with gradle)
+```bash
+# !!! Ctrl+C
+```
+
+
+
+
+## References
+- https://stackoverflow.com/questions/35680932/download-a-file-from-spring-boot-rest-service
+- https://www.baeldung.com/curl-rest
+- http://www.mastertheboss.com/jboss-frameworks/resteasy/using-rest-services-to-manage-download-and-upload-of-files
+- https://dzone.com/articles/java-springboot-rest-api-to-uploaddownload-file-on
+- https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/
+- 
 
 
 ## References for tools
