@@ -11,16 +11,15 @@
 [![kotlin lang)](https://img.shields.io/github/v/release/JetBrains/kotlin?label=kotlin&logo=kotlin)](https://github.com/JetBrains/kotlin)
 [![IntelliJ IDEA Community Edition](https://img.shields.io/badge/IntelliJ%20IDEA%20Community%20Edition-blue?style=flat)](https://www.jetbrains.com/idea/download/#section=linux)
 [![Docker-(2019.03.13)](https://img.shields.io/badge/Docker-%2019.03.13-brightgreen)](https://www.docker.com/)
-[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_225.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_225)
+[![CircleCI](https://circleci.com/gh/cnruby/gradle_kotlin/tree/basic_226.svg?style=svg)](https://app.circleci.com/pipelines/github/cnruby/gradle_kotlin?branch=basic_226)
 
 
 ---
 
-Unit 225: Hello @RequestMapping and @RequestParam!
-<h1>Unit 225: Hello @RequestMapping and @RequestParam!</h1>
+Unit 226: Hello OpenAPI!
+<h1>Unit 226: Hello OpenAPI!</h1>
 
-- How to Understand the Annotation @RequestMapping and @RequestParam!
-- How to Download the Image File from Server to Local System
+- How to Understand the Java Document `OpenAPI`
 
 ---
 
@@ -33,18 +32,30 @@ Unit 225: Hello @RequestMapping and @RequestParam!
   - [DO (create a new project)](#do-create-a-new-project)
   - [DO (edit the spring property file)](#do-edit-the-spring-property-file)
   - [DO (check the project)](#do-check-the-project)
-- [Develop the Project for url `/api/test_download`](#develop-the-project-for-url-apitest_download)
-  - [DO (add a new download file for server folder)](#do-add-a-new-download-file-for-server-folder)
-  - [DO (edit the spring rest controller file)](#do-edit-the-spring-rest-controller-file)
+- [Configure the Project for `OpenAPI`](#configure-the-project-for-openapi)
+  - [DO (add the `OpenAPI` to gradle build file)](#do-add-the-openapi-to-gradle-build-file)
+  - [DO (add a new kotlin class file for `OpenAPI`)](#do-add-a-new-kotlin-class-file-for-openapi)
+  - [DO (check the project)](#do-check-the-project-1)
+- [Use the `OpenAPI` for the Project](#use-the-openapi-for-the-project)
   - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle)
-  - [DO (access the web api with url `/api/test_download`)](#do-access-the-web-api-with-url-apitest_download)
+  - [DO (access the web openapi)](#do-access-the-web-openapi)
+  - [DO (view the result)](#do-view-the-result)
+  - [DO (view the video for url `/api/str`)](#do-view-the-video-for-url-apistr)
   - [DO (stop the web application with gradle)](#do-stop-the-web-application-with-gradle)
-- [Develop the Project for url `/api/download`](#develop-the-project-for-url-apidownload)
-  - [DO (edit the spring rest controller file)](#do-edit-the-spring-rest-controller-file-1)
+- [Add the OpenAPI's Annotation @Operation for the Project](#add-the-openapis-annotation-operation-for-the-project)
+  - [DO (edit the kotlin rest controller file)](#do-edit-the-kotlin-rest-controller-file)
   - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle-1)
-  - [DO (access the web api with url `/api/download`)](#do-access-the-web-api-with-url-apidownload)
-  - [DO (view the downloaded file)](#do-view-the-downloaded-file)
+  - [DO (access the web openapi)](#do-access-the-web-openapi-1)
+  - [DO (view the result for @Operation)](#do-view-the-result-for-operation)
+  - [DO (view the video for url `/api/download`)](#do-view-the-video-for-url-apidownload)
   - [DO (stop the web application with gradle)](#do-stop-the-web-application-with-gradle-1)
+- [Add the OpenAPI's Annotation @Schema for the Project](#add-the-openapis-annotation-schema-for-the-project)
+  - [DO (before add the annotation @Schema)](#do-before-add-the-annotation-schema)
+  - [DO (edit the kotlin rest controller file)](#do-edit-the-kotlin-rest-controller-file-1)
+  - [DO (access the web openapi)](#do-access-the-web-openapi-2)
+  - [DO (after add the annotation @Schema)](#do-after-add-the-annotation-schema)
+  - [DO (view the video for url `/api/cmd`)](#do-view-the-video-for-url-apicmd)
+  - [DO (stop the web application with gradle)](#do-stop-the-web-application-with-gradle-2)
 - [References](#references)
 - [References for tools](#references-for-tools)
 
@@ -52,9 +63,10 @@ Unit 225: Hello @RequestMapping and @RequestParam!
 
 
 ## Keywords
-- Annotation `@RequestMapping` `@RequestParam` `Spring Boot` GET download file `Spring Boot`
+- OpenAPI Annotation `@Operation` `@Schema` Document API 
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE` CircleCI CI
 - tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM 
+- `Spring Boot`
 
 
 
@@ -73,7 +85,7 @@ Unit 225: Hello @RequestMapping and @RequestParam!
 
 ### DO (create a new project)
 ```bash
-EXISTING_APP_ID=224 && NEW_APP_ID=225 && \
+EXISTING_APP_ID=225 && NEW_APP_ID=226 && \
 git clone -b basic_${EXISTING_APP_ID} https://github.com/cnruby/gradle_kotlin.git ${NEW_APP_ID}_gradle_kotlin && \
 cd ${NEW_APP_ID}_gradle_kotlin
 ```
@@ -85,7 +97,7 @@ nano ./src/main/resources/application.properties
 ```bash
 # FILE (application.properties)
 ...
-web.app.name=Hello @RequestMapping and @RequestParam
+web.app.name=Hello OpenAPI
 ...
 ```
 
@@ -100,40 +112,60 @@ web.app.name=Hello @RequestMapping and @RequestParam
 
 
 
-## Develop the Project for url `/api/test_download`
+## Configure the Project for `OpenAPI`
 
-### DO (add a new download file for server folder)
+### DO (add the `OpenAPI` to gradle build file)
 ```bash
-mkdir ./server_download
+nano ./build.gradle.kts
 ```
 ```bash
-wget https://github.com/cnruby/gradle_kotlin/raw/basic_225/server_download/server_kotlin.png -O ./server_download/server_kotlin.png
+# FILE (build.gradle.kts)
+...
+dependencies {
+    implementation("org.springdoc:springdoc-openapi-ui:1.5.2")
+    implementation("io.springfox:springfox-swagger2:3.0.0")
+    implementation("io.springfox:springfox-swagger-ui:3.0.0")
 ```
 
-### DO (edit the spring rest controller file)
+### DO (add a new kotlin class file for `OpenAPI`)
 ```bash
-nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
+touch ./src/main/kotlin/de/iotoi/OpenApiConfig.kt
+```
+```bash
+nano ./src/main/kotlin/de/iotoi/OpenApiConfig.kt
 ```
 ```kotlin
-// FILE (HelloRestController.kt)
-...
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RequestMapping
-import java.io.IOException
-...
-    @RequestMapping(path = ["/api/test_download"], method = [RequestMethod.GET])
-    @Throws(IOException::class)
-    fun testDownload(@RequestParam("imageX") imageName: String): String? {
-        val strPath: String = "./server_download" + File.separator.toString() + imageName
-        val file = File(strPath)
-        val jsonObj = JSONObject()
-        jsonObj.put("path", strPath
-        jsonObj.put("fileSize", file.length())
-        return jsonObj.toString()
-    }
-}
+// FILE (OpenApiConfig.kt)
+package de.iotoi
+
+import io.swagger.v3.oas.annotations.OpenAPIDefinition
+import io.swagger.v3.oas.annotations.info.Contact
+import io.swagger.v3.oas.annotations.info.Info
+
+
+@OpenAPIDefinition(
+  info = Info(
+    title = "Kotlin Spring Boot REST API",
+    version = "v1.0.0",
+    description = "This app provides REST APIs for get and post information",
+    contact = Contact(name = "Gudao LUO", email = "gudao.luo@gmail.de", url = "http://iotoi.de")
+  )
+)
+class OpenApiConfig
 ```
+
+### DO (check the project)
+```bash
+./gradlew -q check
+```
+```bash
+    # >> Result: nothing
+```
+
+
+
+
+## Use the `OpenAPI` for the Project
 
 ### DO (run the web application with gradle)
 ```bash
@@ -145,17 +177,16 @@ import java.io.IOException
     > :bootRun
 ```
 
-### DO (access the web api with url `/api/test_download`)
+### DO (access the web openapi)
 ```bash
-curl --no-progress-meter http://localhost:8080/api/test_download?imageX=server_kotlin.png | json_pp
+google-chrome http://localhost:8080/swagger-ui.html
 ```
-```json5
-    // >> Result
-    {
-      "fileSize" : 21493,
-      "path" : "./server_download/server_kotlin.png"
-    }
-```
+
+### DO (view the result)
+![openapi_null](doc/image/openapi_null.png)
+
+### DO (view the video for url `/api/str`)
+![openapi_api_str](doc/video/openapi_api_str.gif)
 
 ### DO (stop the web application with gradle)
 ```bash
@@ -165,41 +196,25 @@ curl --no-progress-meter http://localhost:8080/api/test_download?imageX=server_k
 
 
 
-## Develop the Project for url `/api/download`
+## Add the OpenAPI's Annotation @Operation for the Project
 
-### DO (edit the spring rest controller file)
+### DO (edit the kotlin rest controller file)
 ```bash
 nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
 ```
 ```kotlin
 // FILE (HelloRestController.kt)
 ...
-import org.springframework.core.io.ByteArrayResource
-import org.springframework.core.io.Resource
-import org.springframework.http.HttpHeaders
-import java.io.File
-import java.nio.file.Files
-import java.nio.file.Path
-import java.nio.file.Paths
+import io.swagger.v3.oas.annotations.Operation
 ...
-    @RequestMapping(path = ["/api/download"], method = [RequestMethod.GET])
-    @Throws(IOException::class)
-    fun parseDownloadFile(@RequestParam("image") imageName: String): ResponseEntity<Resource?>? {
-        val file = File("./server_download" + File.separator.toString() + imageName )
-        val header = HttpHeaders()
-        // header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=server_kotlin.svg")
-        header.add("Cache-Control", "no-cache, no-store, must-revalidate")
-        header.add("Pragma", "no-cache")
-        header.add("Expires", "0")
-        val path: Path = Paths.get(file.absolutePath)
-        val resource = ByteArrayResource(Files.readAllBytes(path))
-        return ResponseEntity.ok()
-            .headers(header)
-            .contentLength(file.length())
-            .contentType(MediaType.parseMediaType("application/octet-stream"))
-            .body(resource)
-    }
-}
+@Operation(summary = "Unit 224: Hello @PostMapping and @RequestPart!")
+@PostMapping(
+  consumes = [MediaType.MULTIPART_FORM_DATA_VALUE],
+  produces = [MediaType.APPLICATION_JSON_VALUE],
+  path = ["/api/upload"]
+)
+fun parseUploadFile(
+...
 ```
 
 ### DO (run the web application with gradle)
@@ -212,24 +227,69 @@ import java.nio.file.Paths
     > :bootRun
 ```
 
-### DO (access the web api with url `/api/download`)
+### DO (access the web openapi)
 ```bash
-curl http://localhost:8080/api/download?imageX=server_kotlin.png --output local_kotlin.png
-```bash
-    # >> Result
-      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                    Dload  Upload   Total   Spent    Left  Speed
-    100 21493  100 21493    0     0  97695      0 --:--:-- --:--:-- --:--:-- 97253    
+google-chrome http://localhost:8080/swagger-ui.html
 ```
 
-### DO (view the downloaded file)
+### DO (view the result for @Operation)
+![openapi_operation](doc/image/openapi_operation.png)
+
+### DO (view the video for url `/api/download`)
+![openapi_api_download](doc/video/openapi_api_download.gif)
+
+### DO (stop the web application with gradle)
 ```bash
-ls -al local_kotlin.png
+# !!! Ctrl+C
+```
+
+
+
+
+## Add the OpenAPI's Annotation @Schema for the Project
+
+### DO (before add the annotation @Schema)
+![openapi_before_schema](doc/image/openapi_before_schema.png)
+
+### DO (edit the kotlin rest controller file)
+```bash
+nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
+```
+```kotlin
+// FILE (HelloRestController.kt)
+...
+import io.swagger.v3.oas.annotations.media.Schema
+...
+fun helloCommand(
+  @Schema(
+    example = "{\"cmd\":\"ls\"}",
+    format = "json",
+    description = "Get a information by the json format.",
+    required = true
+  )
+  @RequestBody strJSON: String?
+...
+```
+
+```bash
+./gradlew -q bootRun
 ```
 ```bash
-    # >> Result:
-    -rw-rw-r-- 1 gudao gudao 21493 Jan 20 04:48 local_kotlin.png
+    # Result
+    <==========---> 83% EXECUTING [21s]
+    > :bootRun
 ```
+
+### DO (access the web openapi)
+```bash
+google-chrome http://localhost:8080/swagger-ui.html
+```
+
+### DO (after add the annotation @Schema)
+![openapi_after_schema](doc/image/openapi_after_schema.png)
+
+### DO (view the video for url `/api/cmd`)
+![openapi_api_cmd](doc/video/openapi_api_cmd.gif)
 
 ### DO (stop the web application with gradle)
 ```bash
@@ -240,12 +300,9 @@ ls -al local_kotlin.png
 
 
 ## References
-- https://stackoverflow.com/questions/35680932/download-a-file-from-spring-boot-rest-service
-- https://www.baeldung.com/curl-rest
-- http://www.mastertheboss.com/jboss-frameworks/resteasy/using-rest-services-to-manage-download-and-upload-of-files
-- https://dzone.com/articles/java-springboot-rest-api-to-uploaddownload-file-on
-- https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/
-- 
+- https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api
+
+
 
 
 ## References for tools

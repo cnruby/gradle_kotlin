@@ -1,5 +1,7 @@
 package de.iotoi
 
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.Schema
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -27,17 +29,20 @@ import java.nio.file.Paths
 
 @RestController
 class HelloRestController(val helloService: HelloService) {
+    @Operation(summary = "Unit 222: Hello JSONObject for class `String`")
     @GetMapping("/api/str")
     fun helloString(): String {
         return helloService.getStringHello()
     }
 
+    @Operation(summary = "Unit 222: Hello JSONObject for class `ResponseEntity`")
     @GetMapping(path= ["/api/resp"], produces= [MediaType.APPLICATION_JSON_VALUE])
     fun helloResponseEntity(): ResponseEntity<String> {
         val jsonResp: JSONObject = helloService.getJSONObjectHello()
         return ResponseEntity(jsonResp.toString(), HttpStatus.OK)
     }
 
+    @Operation(summary = "Unit 222: Hello JSONObject for class `Map`")
     @GetMapping("/api/map")
     fun helloMap(): ResponseEntity<String> {
         val jsonMap = JSONObject()
@@ -54,12 +59,19 @@ class HelloRestController(val helloService: HelloService) {
         return ResponseEntity(jsonMap.toString(), HttpStatus.OK)
     }
 
+    @Operation(summary = "Unit 223: Hello @PostMapping and @RequestBody!")
     @PostMapping(
         consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE],
         path = ["/api/cmd", "/"]
     )
     fun helloCommand(
+        @Schema(
+            example = "{\"cmd\":\"ls\"}",
+            format = "json",
+            description = "Get a information by the json format.",
+            required = true
+        )
         @RequestBody strJSON: String?
     ): String? {
         val jsonObj = JSONObject(strJSON)
@@ -68,6 +80,7 @@ class HelloRestController(val helloService: HelloService) {
         return jsonObj.toString()
     }
 
+    @Operation(summary = "Unit 224: Hello @PostMapping and @RequestPart!")
     @PostMapping(
         consumes = [MediaType.MULTIPART_FORM_DATA_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE],
@@ -83,6 +96,7 @@ class HelloRestController(val helloService: HelloService) {
         return jsonObj.toString()
     }
 
+    @Operation(summary = "Unit 225: Hello @RequestMapping and @RequestParam for url `test_download`")
     @RequestMapping(path = ["/api/test_download"], method = [RequestMethod.GET])
     @Throws(IOException::class)
     fun testDownload(@RequestParam("imageX") imageName: String): String? {
@@ -93,7 +107,8 @@ class HelloRestController(val helloService: HelloService) {
         jsonObj.put("fileSize", file.length())
         return jsonObj.toString()
     }
-    
+
+    @Operation(summary = "Unit 225: Hello @RequestMapping and @RequestParam for url `download`")
     @RequestMapping(path = ["/api/download"], method = [RequestMethod.GET])
     @Throws(IOException::class)
     fun parseDownloadFile(@RequestParam("imageX") imageName: String): ResponseEntity<Resource?>? {
