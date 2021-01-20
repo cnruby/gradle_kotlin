@@ -44,6 +44,11 @@ jobs:
       - checkout
 
       - run: 
+          name: "check java version"
+          command: |
+            java -version
+
+      - run: 
           name: "install tools"
           command: |
             cat /etc/*-release
