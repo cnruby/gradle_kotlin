@@ -20,6 +20,7 @@ Unit 224: Hello @PostMapping and @RequestPart!
 <h1>Unit 224: Hello @PostMapping and @RequestPart!</h1>
 
 - How to Understand the Annotation @PostMapping and @RequestPart!
+- How to Upload the Text File from Local to Server
 
 ---
 
