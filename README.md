@@ -20,6 +20,7 @@ Unit 225: Hello @RequestMapping and @RequestParam!
 <h1>Unit 225: Hello @RequestMapping and @RequestParam!</h1>
 
 - How to Understand the Annotation @RequestMapping and @RequestParam!
+- How to Download the Image File from Server to Local System
 
 ---
 
@@ -106,7 +107,7 @@ web.app.name=Hello @RequestMapping and @RequestParam
 mkdir ./server_download
 ```
 ```bash
-wget  -O ./server_download/server_kotlin.png
+wget https://github.com/cnruby/gradle_kotlin/raw/basic_225/server_download/server_kotlin.png -O ./server_download/server_kotlin.png
 ```
 
 ### DO (edit the spring rest controller file)
