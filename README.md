@@ -16,8 +16,8 @@
 
 ---
 
-Unit 001: Hello Database postgreSQL!
-<h1>Unit 001: Hello Database postgreSQL!</h1>
+Unit 001: Hello Database PostgreSQL!
+<h1>Unit 001: Hello Database PostgreSQL!</h1>
 
 - How to Install/Configure/Use the Database postgreSQL
 
@@ -213,6 +213,7 @@ sudo -u postgres dropdb testdb
 - https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart-de
 - https://phoenixnap.com/kb/check-postgresql-version
 - https://stackoverflow.com/questions/13733719/which-version-of-postgresql-am-i-running
+- https://www.postgresqltutorial.com/postgresql-show-tables/
 
 
 
