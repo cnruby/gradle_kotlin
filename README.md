@@ -93,7 +93,7 @@ nano ./src/main/resources/application.properties
 # FILE (application.properties)
 spring.main.banner-mode=off
 spring.main.log-startup-info=off
-web.app.name=Hello @Service
+web.app.name=Hello @Controller
 logging.level.root=WARN
 ```
 
