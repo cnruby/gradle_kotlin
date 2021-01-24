@@ -245,12 +245,15 @@ curl --no-progress-meter http://localhost:8080/api/books | json_pp
 ```
 ```bash
     # Result
-    {
-        "author" : "Joe",
-        "id" : 1,
-        "title" : "Java"
-    }
+    [
+        {
+            "author" : "Joe",
+            "id" : 1,
+            "title" : "Java"
+        }
+    ]
 ```
+
 
 
 
