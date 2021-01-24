@@ -98,7 +98,7 @@ logging.level.root=WARN
 ./gradlew -q check
 ```
 ```bash
-    # >> Result: nothing
+    # >> Result
     2021-01-10 19:01:10.303  INFO 13534 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
     2021-01-10 19:01:10.304  INFO 13534 --- [extShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
     2021-01-10 19:01:10.305  INFO 13534 --- [extShutdownHook] .SchemaDropperImpl$DelayedDropActionImpl : HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
