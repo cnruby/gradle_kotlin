@@ -230,7 +230,7 @@ class BookRestController {
     @GetMapping("/{id}")
     fun findOne(@PathVariable id: Long?): Book? {
         return bookRepository!!.findById(id!!)
-            .orElseThrow(Supplier<RuntimeException> { BookNotFoundException() })
+            .orElseThrow(Supplier<RuntimeException> { RuntimeException() })
     }
 
     @PostMapping
@@ -242,20 +242,21 @@ class BookRestController {
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Long?) {
         bookRepository!!.findById(id!!)
-            .orElseThrow(Supplier<RuntimeException> { BookNotFoundException() })
+            .orElseThrow(Supplier<RuntimeException> { RuntimeException() })
         bookRepository.deleteById(id)
     }
 
     @PutMapping("/{id}")
     fun updateBook(@RequestBody requestBook: Book, @PathVariable id: Long?): Book? {
         val book: Book = bookRepository!!.findById(id!!)
-            .orElseThrow(Supplier<RuntimeException> { BookNotFoundException() }) as Book
+            .orElseThrow(Supplier<RuntimeException> { RuntimeException() }) as Book
         book.title = requestBook.title
         book.author = requestBook.author
         return bookRepository.save(book)
     }
 }
 ```
+
 
 
 
