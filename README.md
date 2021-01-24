@@ -46,12 +46,14 @@ Unit 211: Hello Seed Data!
   - [DO (check the project)](#do-check-the-project-2)
   - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle-1)
   - [DO (access the web application api)](#do-access-the-web-application-api-1)
+  - [DO (stop the web server)](#do-stop-the-web-server)
   - [DO (delete h2 database)](#do-delete-h2-database-1)
 - [Use DataSource and Hibernate as Seed Data Import](#use-datasource-and-hibernate-as-seed-data-import)
   - [DO (edit the spring property file)](#do-edit-the-spring-property-file-2)
   - [DO (check the project)](#do-check-the-project-3)
   - [DO (run the web application with gradle)](#do-run-the-web-application-with-gradle-2)
   - [DO (access the web application api)](#do-access-the-web-application-api-2)
+  - [DO (stop the web server)](#do-stop-the-web-server-1)
   - [DO (delete h2 database)](#do-delete-h2-database-2)
 - [References](#references)
 - [References for tools](#references-for-tools)
@@ -249,6 +251,11 @@ curl --no-progress-meter http://localhost:8080/api/books | json_pp
     ]
 ```
 
+### DO (stop the web server)
+```bash
+# !!! (Ctrl+C)
+```
+
 ### DO (delete h2 database)
 ```bash
 rm database/development.*
@@ -327,10 +334,16 @@ curl --no-progress-meter http://localhost:8080/api/books | json_pp
     ]
 ```
 
+### DO (stop the web server)
+```bash
+# !!! (Ctrl+C)
+```
+
 ### DO (delete h2 database)
 ```bash
 rm database/development.*
 ```
+
 
 
 
