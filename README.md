@@ -93,7 +93,7 @@ touch ./src/test/kotlin/de/iotoi/RestAssuredOrderTests.kt
 nano ./src/test/kotlin/de/iotoi/RestAssuredOrderTests.kt
 ```
 ```kotlin
-// FILE (RestAssuredOrderTests)
+// FILE (RestAssuredOrderTests.kt)
 package de.iotoi
 
 import de.iotoi.model.Book
