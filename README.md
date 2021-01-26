@@ -117,9 +117,10 @@ nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
 ```kotlin
 // FILE (HelloRestController.kt)
 ...
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RequestMapping
+import java.io.File
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
 import java.io.IOException
 ...
     @RequestMapping(path = ["/api/test_download"], method = [RequestMethod.GET])
@@ -177,10 +178,6 @@ nano ./src/main/kotlin/de/iotoi/HelloRestController.kt
 import org.springframework.core.io.ByteArrayResource
 import org.springframework.core.io.Resource
 import org.springframework.http.HttpHeaders
-import java.io.File
-import java.nio.file.Files
-import java.nio.file.Path
-import java.nio.file.Paths
 ...
     @RequestMapping(path = ["/api/download"], method = [RequestMethod.GET])
     @Throws(IOException::class)
