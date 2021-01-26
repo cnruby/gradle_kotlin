@@ -213,8 +213,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
     @GetMapping("/")
     fun helloServiceKotlin(): String? {
         val context: ApplicationContext = AnnotationConfigApplicationContext(HelloConfiguration::class.java)
-        val objHelloManager = context.getBean(HelloServiceable::class.java)
-        return objHelloManager.hello
+        val objHelloService = context.getBean(HelloServiceable::class.java)
+        return objHelloService.hello
     }
 
 }
