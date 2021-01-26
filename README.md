@@ -128,7 +128,7 @@ import java.io.IOException
         val strPath: String = "./server_download" + File.separator.toString() + imageName
         val file = File(strPath)
         val jsonObj = JSONObject()
-        jsonObj.put("path", strPath
+        jsonObj.put("path", strPath)
         jsonObj.put("fileSize", file.length())
         return jsonObj.toString()
     }
