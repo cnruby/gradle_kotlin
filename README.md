@@ -46,7 +46,7 @@ Unit 224: Hello @PostMapping and @RequestPart!
 
 
 ## Keywords
-- Annotation `@PosMapping` `@RequestBody` `Spring Boot` POST upload file `Spring Boot`
+- Annotation `@PosMapping` `@RequestPart` `@RequestBody` `Spring Boot` POST upload file `Spring Boot`
 - `Java JDK` `Command Line Kotlin Compiler` `IntelliJ CE` CircleCI CI
 - tutorial example Kotlin REPL Ubuntu Gradle jabba JDK Java JVM 
 
